@@ -1,0 +1,17 @@
+# http://www.ducea.com/2008/03/06/howto-recompile-debian-packages/
+apt-get source paket-adi
+apt-get build-dep <package> # derleme bagimliliklarini alip geliyor
+
+# degisikliklerini yaprsin.
+# "debian/rules" dposyasinda derleme secenekleri var
+
+cd <package-ver>
+# burada istedigin degisiklikleri yap
+# debug v.s. icin cevre degiskenleri ile oynamak yeterliymis => export DEB_BUILD_OPTIONS=nostrip,noopt
+# debuild -us -uc # eskiden buymus sanirim
+dpkg-buildpackage -rfakeroot -b -nc -us -uc # bu da yenisi olsa gere
+cd ..
+dpkg -i <package_file.deb>
+
+
+

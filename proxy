@@ -1,0 +1,9 @@
+# run this file with .(dot) as ". proxy bdgn.net 1328"
+
+http_proxy=http://$1:$2/
+ftp_proxy=http://$1:$2
+use_proxy=on
+
+echo User:;read user
+echo Pass:;read pass
+WGETFLAGS="--continue --proxy-user=$user --proxy-passwd=$pass"

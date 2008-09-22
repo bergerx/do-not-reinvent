@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Ignore these files:
+# - version control system files
+# - backup files
+# - patches
+# - auto generated tags files
+# - test files
+# - changelog and system related files
+grep -r \
+    --exclude-dir=CVS \
+    --exclude-dir=.svn \
+    --exclude-dir=.git \
+    --exclude-dir=RCS \
+    --exclude=*,v \
+    --exclude-dir=_darcs \
+    --exclude-dir=.hg \
+    --exclude=*~ \
+    --exclude=#* \
+    --exclude=*.orig \
+    --exclude=*.rej \
+    --exclude=*old \
+    --exclude=*bak \
+    --exclude=*- \
+    --exclude=*patch \
+    --exclude=*diff \
+    --exclude=TAGS \
+    --exclude=tags \
+    --exclude-dir=test \
+    --exclude-dir=tests \
+    --exclude=*test* \
+    --exclude=*ChangeLog* \
+    --exclude=*changelog* \
+    --exclude=semantic.cache \
+    $@

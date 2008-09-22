@@ -1,0 +1,6 @@
+#!/bin/bash
+# find . | cpio --quiet -H newc -o | gzip -9 -n > /boot/imagefile.img
+mkdir /tmp/initrd
+cd /tmp/initrd
+gzip -cd /boot/initrd.img-2.6.25bekir | cpio -imd --quiet
+sudo chroot . /bin/sh

@@ -1,0 +1,4 @@
+# apt-get install module-assistant gcc nvidia-kernel-common
+# m-a update
+# m-a prepare
+# m-a auto-install nvidia

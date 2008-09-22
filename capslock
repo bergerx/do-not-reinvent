@@ -1,0 +1,70 @@
+konsol icin
+===========
+# cp /usr/share/keymaps/i386/qwerty/us.kmap.gz /etc/console/boottime.kmap.gz
+# vi /etc/console/boottime.kmap.gz
+
+sonra sunu yapiyoruz
+> keycode  58 = Control
+
+# /etc/init.d/keymap.sh start
+
+
+x icin
+======
+xmodmap -e "clear lock"
+xmodmap -e "add control = Caps_Lock"
+
+
+
+# bunlar da eskiden kalma
+
+control ve capslock yerini degistirme
+=====================================
+http://c2.com/cgi/wiki?RemapCapsLock
+
+X11 conf dosyasinda Sunlarin yazdigi alana
+Section "InputDevice"
+    Identifier  "Keyboard0"
+    Driver      "keyboard"
+    Option  "XkbModel"      "pc104"
+EndSection
+
+sunlari ekle
+
+    Option  "XkbOptions"    "ctrl:swapcaps"
+    Option  "XkbOptions"    "ctrl:nocaps"
+
+
+ya da xmodmap ile yapmak icin de su varmis:
+ !
+ ! Swap Caps_Lock and Control_L
+ !
+ remove Lock = Caps_Lock
+ remove Control = Control_L
+ keysym Control_L = Caps_Lock
+ keysym Caps_Lock = Control_L
+ add Lock = Caps_Lock
+ add Control = Control_L       
+
+ya da capslock istemiyorsan sadece sunlar yetiyor:
+ clear Lock
+ keycode 0x7e = Control_R
+ add Control = Control_R  
+
+
+ya da su da olurmus:
+/etc/X11/Xmodmap icine sunlari yazip:
+ clear lock
+ add control = Caps_Lock
+
+sonra da 
+ xmodmap /etc/X11/Xmodmap
+
+
+consol'da bu ikisini degistirmek icinde su ise yariyor galiba
+/etc/console/boottime.kmap.gz bu doisyanin icinde:
+ keycode 58 = Caps_Lock
+satiri yerine
+ keycode 58 = Control
+
+

@@ -1,0 +1,1 @@
+sshfs 192.168.199.70:/home/bekir/gokada /home/bekir/test/gokada/  -o workaround=all -o nonempty -o uid=$UID -o gid=$UID

@@ -1,0 +1,8 @@
+bekir@hede:/usr/src/linux$ bzcat ../kernel-patches/all/2.6.25/debian/features/all/vserver/vs2.3.0.34.11.patch.bz2 | sudo patch -p1 |less
+
+bekir@hede:/usr/src/linux$ export CONCURRENCY_LEVEL=2
+bekir@hede:/usr/src/linux$ sudo make-kpkg --append-to-version bekir --initrd --verbose kernel_image
+
+su dosyaya bak -> nvidia-kurulum
+
+

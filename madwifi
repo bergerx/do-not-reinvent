@@ -1,0 +1,15 @@
+# Unstable
+deb ftp://ftp.de.debian.org/debian unstable main contrib non-free
+deb-src ftp://ftp.de.debian.org/debian unstable main contrib non-free
+
+
+# apt-get update
+# apt-get install madwifi-source 
+# apt-get install madwifi-tools
+# m-a prepare
+# m-a a-i madwifi
+
+
+# modprobe ath_pci
+
+# echo ath_pci >> /etc/modules

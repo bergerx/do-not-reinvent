@@ -1,0 +1,2 @@
+sudo modprobe visor
+pilot-xfer --port=/dev/pilot --backup=/heom/bekir/palm

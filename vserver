@@ -1,0 +1,17 @@
+vserver vs1 build -m debootstrap -n vs1 --pkgbase /var/cache/apt/archives/ --hostname vs1 -- -d lenny
+
+
+mkdir /vservers/template/
+dump 0f - /usr | (cd /vservers/template/ && restore rf -)
+#/sbin/vserver <VSERVER_NAME> build -m <BUILD_METHOD> --hostname <VSERVER_HOSTNAME> --interface <VSERVER_NAME>=<NET_DEVICE>:<IP>/<CIDR>
+/sbin/vserver calvin build -m skeleton --hostname calvin --interface calvin=eth0:192.168.0.10/24
+cp -a /vservers/template/. /vservers/calvin/
+vi /vservers/calvin/etc/hosts
+/etc/init.d/vprocunhide start
+/sbin/vserver calvin start
+/sbin/vserver calvin enter
+
+
+/sbin/vserver <VSERVER_NAME> [ start | stop | restart | enter ]
+/sbin/vserver-stat
+

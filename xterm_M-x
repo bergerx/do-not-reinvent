@@ -1,0 +1,18 @@
+XTerm icin sunlar:
+
+    ~/.inputrc
+    set meta-flag on
+    set convert-meta off
+    set output-meta on
+
+
+    ~/.Xdefaults
+    XTerm*metaSendsEscape: true
+    XTerm*eightBitInput: false
+
+
+UXTerm icin de /etc/X11/app-defaults/UXTerm dosyasina sunlari eklemek gerek:
+
+    *metaSendsEscape: true
+    *eightBitInput: false
+

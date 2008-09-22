@@ -1,0 +1,12 @@
+create a swap space
+# mkswap
+
+enable/disable it
+# swapon/swapoff
+
+enable/disable all swap spaces
+# swapon -a/swapoff -a
+
+display swap usage
+# swapon -s
+

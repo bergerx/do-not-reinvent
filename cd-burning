@@ -1,0 +1,57 @@
+Cdrecord does nearly everything you need, but it is not entirely intuitive. 
+Mkisofs turns a directory structure on your filesystem into the ISO9660 filesystem for CDs
+
+mkisofs  -r   -o cd_image   private_collection/
+              `---------'   `-----------------'
+                   |               |
+          write output to   take directory as input
+'-r' sets the permissions of all files to be public readable on the CD
+
+mount -t iso9660 -o ro,loop=/dev/loop0 cd_image /cdrom
+
+--------------------------------------------------------------------------------
+device'i ogrenelim:
+bekir@hede:~$ cdrecord -scanbus
+scsibus1000:
+        1000,0,0 100000) 'HL-DT-ST' 'RW/DVD GCC-4247N' '1.02' Removable CD-ROM
+        1000,1,0 100001) *
+        1000,2,0 100002) *
+        1000,3,0 100003) *
+        1000,4,0 100004) *
+        1000,5,0 100005) *
+        1000,6,0 100006) *
+        1000,7,0 100007) *
+bekir@hede:~$ 
+
+sunlardan birisi ile diske yaziyoruz:
+--------------------------------------------------------------------------------
+cdrecord -v dev=0,4,0 Suse-9.0*iso
+--------------------------------------------------------------------------------
+shell> cdrecord -v speed=2 dev=0,6,0  -data  cd_image
+--------------------------------------------------------------------------------
+shell> SCSI_BUS=0   # taken from listing 1 "scsibus0:"
+shell> SCSI_ID=6    # taken from listing 1 "TOSHIBA XM-3401"
+shell> SCSI_LUN=0
+shell> cdrecord -v speed=2 dev=$SCSI_BUS,$SCSI_ID,$SCSI_LUN \
+                   -data  cd_image
+--------------------------------------------------------------------------------
+
+
+============== dizini cd'ye yazdirmak icin ==============
+mkisofs /files | cdrecord dev=0,6,0
+
+
+
+==================== AUDIO CD =================
+shell> cdrecord -v speed=2 dev=0,6,0  -audio  track1.cdr track2.cdr...
+shell> cdrecord -v speed=2 dev=0,6,0  -audio  track1.wav track2.wav...
+shell> cdrecord -v speed=2 dev=0,6,0  -audio  track1.au  track2.au...
+---- ya da ---
+for I in *.mp3
+do
+    mpg123 --cdr - "$I" | cdrecord -audio -pad -nofix -
+done
+cdrecord -fix
+
+
+

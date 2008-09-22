@@ -1,0 +1,23 @@
+#!/bin/bash
+rm TAGS
+DIR=$1
+shift;
+DIR=${DIR:=.}
+find $DIR $@ ! -wholename "*CVS*" \
+	! -wholename "*.svn*" \
+	! -wholename "*.git*" \
+	! -wholename "*RCS*" \
+	! -wholename "*_darcs*" \
+	! -wholename "*.hg*" \
+	! -type d \
+	! -type l \
+	! -name "*.orig" \
+	! -name "*.rej" \
+	! -name "\#*" \
+	! -name "*~"  \
+	! -iname "*.gif" \
+	! -iname "*.jpg" |
+		etags \
+			--regex='/^[ \t]*\([^ \t]+\)[ \t]*[=:][ \t]*function/\1/' \
+			--regex='/.*function[ \t]+&?\([^ \t]+\)[ \t]*(.*$/\1/' \
+			--regex='/.*function[ \t]+\([^ \t]+\)[ \t]*(.*$/\1/' -
