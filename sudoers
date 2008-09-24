@@ -1,0 +1,4 @@
+bekir   ALL=(ALL) ALL
+
+Defaults mail_always
+Defaults mailto="bekirdo@gmail.com"
