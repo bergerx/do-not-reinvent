@@ -1,0 +1,12 @@
+
+# http://www.debian-administration.org/articles/52
+
+xbindkeys -mk
+================================================================================
+"NoCommand"
+    m:0x8 + c:110
+    Alt + Pause
+================================================================================
+put this output lines into .xbindkeysrc
+
+put this line "xbindkeys" into .xinitrc
