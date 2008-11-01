@@ -1,0 +1,17 @@
+http://www.pixelbeat.org/cmdline.html#sets
+
+    sort file1 file2 | uniq             Union of unsorted files
+    sort file1 file2 | uniq -d          Intersection of unsorted files
+    sort file1 file1 file2 | uniq -u    Difference of unsorted files
+    sort file1 file2 | uniq -u          Symmetric Difference of unsorted files
+    join -a1 -a2 file1 file2            Union of sorted files
+    join file1 file2                    Intersection of sorted files
+    join -v2 file1 file2                Difference of sorted files
+    join -v1 -v2 file1 file2            Symmetric Difference of sorted files
+
+
+bash
+comm    compare two sorted files line by line
+join    join lines of two files on a common field
+sort
+uniq

@@ -1,0 +1,50 @@
+#-*- mode: shell-script;-*-
+# Inputs:
+#   $1 -- name of the command whose arguments are being completed
+#   $2 -- word being completed
+#   $3 -- word preceding the word being completed
+#   $COMP_LINE  -- current command line
+#   $COMP_PONT  -- cursor position
+#   $COMP_WORDS -- array containing individual words in the current
+#                  command line
+#   $COMP_CWORD -- index into ${COMP_WORDS} of the word containing the
+#                  current cursor position
+# Output:
+#   COMPREPLY array variable contains possible completions
+
+#have xmms2 &&
+_xmms2 () {
+    local cur prev list_commands list
+
+    COMPREPLY=()
+    cur=${COMP_WORDS[COMP_CWORD]}
+    prev=${COMP_WORDS[COMP_CWORD-1]}
+    list_commands="config|volume"
+    subs="mlib|playlist|coll"
+    types=(list queue pshuffle)
+    #commands=$(echo $(xmms2 | awk '{print $1}' | grep -v Available))
+    #commands=${commands// /|}
+
+    case "$prev" in
+        xmms2)
+            list=$(xmms2 | awk '{print $1}' | grep -v Available)
+            ;;
+        @($subs))
+            list=$(xmms2 $prev | awk '{print $1}' | grep -v Available)
+            ;;
+        @($list_commands))
+            list=$(xmms2 ${prev}_list | awk '{print $1}')
+            ;;
+        *)
+            return 0
+            ;;
+    esac
+
+    COMPREPLY=( $( compgen -W "${list}" -- $cur ) )
+
+    return 0
+
+}
+#[ $have ] && complete -F _xmms2 $filenames xmms2
+complete -F _xmms2 $filenames xmms2
+
