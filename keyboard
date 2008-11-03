@@ -1,0 +1,7 @@
+setxkbmap tr
+setxkbmap us
+
+shortcuts:
+./xbindkeys
+./capslock
+./xterm_M-x

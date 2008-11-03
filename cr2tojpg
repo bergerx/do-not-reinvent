@@ -1,2 +1,0 @@
-for i in *CR2; do echo $i; file=${i/.CR2/}; echo $file; dcraw -T $file.CR2; tifftopnm $file.tiff | cjpeg > $file.JPG; done
-

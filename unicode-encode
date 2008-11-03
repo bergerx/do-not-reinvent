@@ -1,0 +1,15 @@
+%0C%0A sms encode wappush gsm alphabet
+
+#python
+import binascii as b
+HEDE = ""
+c = re.compile('[^.a-zA-Z0-9_&=-]')
+for char in SMIL:
+    if c.match(char):
+        char = "%"+b.hexlify(char)
+    HEDE += char
+
+
+#perl
+use URI::Escape;
+uri_escape($pMsisdn, "\0-\377");
