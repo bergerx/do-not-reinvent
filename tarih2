@@ -1,0 +1,637 @@
+1949 unix: The Antitrust Department of the Department of Justice of the US Government sues Western Electric and AT&T for restraint of trade. Western Electric was a wholly owned subsidiary of AT&T and that Bell Telephone Laboratories (BTL or Bell Labs) was jointly owned by Western Electric and AT&T (51% each). The consent decree required that AT&T license use of all its patents at nominal fees, which laid the groundwork for subsequent licensing of UNIX to universities. 
+1956 unix: AT&T enters into "consent decree" with US government and agrees to restrict its business to furnishing "common carrier communications services", which keeps it out of the computer business. 
+1957 unix: Bill Norris starts Control Data Corporation (CDC). 
+1965 unix: AT&T, GE, IBM and Project MAC at MIT join together to develop the time-sharing system MULTICS (Multiplexed Information and Computing Service). 
+1966 unix: Ken Thompson finishes studies at University of California at Berkeley (UCB) and joins technical staff at AT&T Bell Telephone Laboratories to work on MULTICS. 
+1968 unix: Dennis Ritchie completes work on his doctorate at Harvard and joins Bell Labs to work on MULTICS project. 
+1969 unix: AT&T Bell Labs drops out of MULTICS project. A system which was supposed to support 1000 on line users can barely handle three. Out of the ashes grows the most influential operating system in history. 
+1969 unix: Thompson develops the interpretive language B based upon BCPL. Ritchie improved on "B" and called it "C" 
+1969 unix: Thompson gets an idea for a new type of file system and hashes out his ideas with Ritchie and Rudd Canaday. 
+1969 unix: Thompson writes first version of UNICS for PDP-7 in one month while wife is on vacation. He allocates one week each to the operating system functions: the kernel, the shell, the editor, and the assembler. He does this on a machine with 4K of 18 bit words. UNICS is pun on MULTICS and stands for Uniplexed Information and Computing Services. Name is changed to UNIX which is not an acronym. This version is in assembly language. 
+1970 unix: Bell Labs gets a PDP-11 to do text processing for the legal department. System is developed and implemented in UNIX. The standard DEC OS is never installed. 
+1970 unix: DEC begins shipping PDP-11 and revolutionizes the computer industry by selling 250,000 systems. 
+1971 unix: The First Edition of UNIX manual is written. 
+1972 unix: UNIX OS is rewritten in C which opened the door for porting. 
+1973 unix: First UNIX development support group is formed in Bell Labs. 
+1973 unix: Pipes are invented with the Third Edition of UNIX and the UNIX philosophy begins to emerge: Write programs that do one thing and do it well.  Write programs that work together Write programs that handle text streams, because that is the universal interface. 
+1973 unix: Thompson delivers first UNIX paper at the ACM Symposium on Operating Systems at the Thomas J. Watson Research Center in Yorktown Heights, NY. Within six months, the number of UNIX sites triples from 16 to 48. 
+1974 unix: Berkeley begins making major enhancements to UNIX and sets the stage for becoming a major distribution center for their version of UNIX. 
+1974 unix: Keith Standiford converts UNIX to PDP 11/45. 
+1974 unix: The Elements of Programming Style by Kernighan and Plauger is published. 
+1974 unix: The UNIX Time-Sharing System is published in CACM by Ken Thompson and Dennis Ritchie. It is a revision of the 1973 paper. 
+1974 unix: University of California at Berkeley (UCB) gets Version 4 of UNIX. 
+1975 unix: AT&T officially begins licensing UNIX to universities. 
+1975 unix: Thompson begins one year sabbatical at Berkeley. 
+1976 unix: Boggs and Metcalfe invent Ethernet at Xerox in Palo Alto. 
+1978 unix: Bill Joy produces first Berkeley Software Distribution (BSD) of UNIX. 
+1978 unix: Doug and Larry Michels start Santa Cruz Operations, Inc. (SCO) to sell UNIX on a PC. By 1992, they grow to $175 million in revenues. 
+1978 unix: Ritchie and Steve Johnson complete first port of UNIX to an Interdata 8/32, the first non-DEC computer to run UNIX. Note that this is nearly ten years after running only on DEC equipment. 
+1978 unix: The C Programming Language by Kernighan and Ritchie is published. 
+1978 unix: UNIX is ported to a DEC VAX, but not by Thompson and Ritchie, since they had become disenchanted by DEC and its unwillingness to support UNIX. DEC's refusal to support UNIX must be one of the all time great blunders of the computer industry. 
+1979 unix: Microsoft licenses UNIX from AT&T and announces XENIX, which is soon overshadowed by MS-DOS. 
+1979 unix: Seventh Edition UNIX PROGRAMMERS MANUAL (UNIX Version 7) is published. It is the first edition without Thompson's or Ritchie's names. It is titled "UNIX (with a TM sign) Time-Sharing System." Bell Labs starts to protect its assets. 
+1980 unix: Berkeley lands large DARPA contract and forms Computer Systems Research Group (CSRG). 
+1980 unix: BSD UNIX finds its way back into Bell Labs as a new improved version. 
+1980 unix: SCO becomes a distributor for Microsoft XENIX and licenses the name XENIX because they sold their trade name DYNIX to Sequent. 
+1981 unix: The IBM PC is released running Microsoft DOS; XENIX is pushed into the background. 
+1982 unix: AT&T announces official support for UNIX and makes its first commercial release: UNIX System III. 
+1982 unix: Bill Joy, the inspiration behind BSD, leaves CSRG at Berkeley to co-found Sun Microsystems. 
+1982 unix: DEC releases ULTRIX. 
+1982 unix: HP announces support for UNIX on its 9000 workstations. 
+1982 unix: IBM releases CPIX. 
+1982 unix: Sun gets its name from the Stanford University Network (SUN) board. The workstation is based on the Motorola 68000 chip running SunOS based on 4.2BSD. It includes an optional local area network based on Ethernet. The commercial UNIX industry is in full gear. 
+1983 unix: Richard Stallman, creator of EMACS and the Lisp Machine, starts GNU at MIT. First GPL. 
+1983 unix: Thompson and Ritchie receive ACM Turing award for their work on UNIX. 
+1984 unix: Andrew Tanenbaum writes the first version of Minix, a Unix intended for educational purposes. 
+1984 unix: Apple releases the Macintosh. 
+1984 unix: AT&T agrees to divest itself of the Bell Operating Companies and obtains the right to enter the computer business. 
+1984 unix: Fortune runs an article saying that 750 universities around the world, about 80% of those offering computer science degrees, have UNIX licenses. 
+1984 unix: X/Open is formed, by five European computer manufacturers: Bull, ICL, Siemens, Olivetti, and Nixdorf. The press refers to them as BISON. 
+1985 unix: AT&T publishes the System V Interface Definition (SVID) in an attempt to standardize the UNIX interfaces, which was strongly influenced by the 1984 /usr/group standard. 
+1985 unix: The ISO introduced the POSIX standard. 
+1986 unix: IBM releases AIX. 
+1988 unix: AT&T BUYS 20% OF SUN MICROSYSTEMS, and the battle lines are formed. 
+1988 unix: David Cutler leaves DEC and joins Microsoft (October 31) to develop Windows NT. 
+1988 unix: HP releases HP/UX. 
+1988 unix: IBM, DEC, HP, and others form Open Software Foundation (OSF) to compete with the AT&T/Sun alliance. They decide to use the AIX Kernel. 
+1988 unix: Microsoft begins evaluating the Mach Kernel. 
+1988 unix: NeXT computer selects Mach Kernel for its NeXTStep OS. 
+1988 unix: UNIX International (UI) is formed in response to OSF as an international consortium of System V UNIX users to work closely with AT&T to promote open systems and influence future development. 
+1989 unix: HP becomes the second largest supplier of UNIX based workstations by acquiring Apollo. 
+1989 unix: SCO is short of cash, and Microsoft, along with other investors, puts $25 million into SCO in exchange for 16% of the stock. 
+1989 unix: The C programming language is standardized by ANSI as X3.159.1989 which became an international standard ISO/IEC 9899:1990. 
+1990 unix: Motif is released by OSF. 
+1990 unix: OSF designates the Mach 3.0 Kernel from Carnegie-Mellon University as their choice for their version of UNIX, OSF/1. 
+1990 unix: UNIX International releases SVR4 which is a unification of System V, BSD, and XENIX. 
+1990 unix: X/Open releases XPG3. 
+1991 unix: A finnish student at the University of Helsinki, Linus Torvalds, learns of Minix, and writes a kernel based on it. Linux 0.01 goes on the net under GPL. Instantly, he started receiving patches and enhancements. 
+1991 unix: AT&T incorporates UNIX System Laboratories (USL) with Novell, Amdahl, Fujitsu, Sun, Motorola, ICL, Olivetti, NEC, OKI Electric, III of Taiwan, and Toshiba. 
+1991 unix: GNU begins work on HURD, based on Mach 3. 
+1991 unix: Sun creates the SunSoft subsidiary and announces Solaris. 
+1992 unix: AT&T sells its ownership interest in Sun. 
+1992 unix: BSDI (Berkeley Software Design, Inc.) is formed and releases BSD/386, a PC version of UNIX, including source, for the low price of $995. 
+1992 unix: BSDI is sued by USL. 
+1992 unix: DEC introduces Alpha AXP, its 64 bit RISC processor. 
+1992 unix: Peter McDonald compiles the first Linux distribution, the SLS (Soft Landing Software). 
+1993 unix: 4.4BSD is released. 
+1993 unix: FreeBSD and NetBSD are released, under the BSD licence. 
+1993 unix: In April, Patrick Volkerding compiles the Slackware distribution, based on SLS. 
+1993 unix: Linux is ported to non-Intel platforms (MIPS, Alpha,...). 
+1993 unix: Microsoft releases Windows NT. 
+1993 unix: Novell buys USL from AT&T in June. 
+1993 unix: Novell gives the UNIX brand and trademark to X/Open in October. 
+1993 unix: The Common Desktop Environment (CDE) is demonstrated. 
+1993 unix: The Common Open Software Environment (COSE) is created at UniForum. 
+1993 unix: UNIX International (UI) terminates business. 
+1994 unix: A settlement is reached between USL and BSDI. 4.4BSD-Lite is released at Berkeley. It differs from the previous version for just three files among 18,000. 
+1994 unix: First Beowulf cluster at NASA. 
+1994 unix: Linux 1.0 is released. 
+1994 unix: RedHat is founded. 
+1994 unix: SunSoft, AT&T GIS, Novell, and Fujitsu pay $1 million to join OSF. This is primarily in recognition of the threat from Microsoft and the need to further standardize. 
+1995 unix: 4.4BSD-Lite Release 2 is released and CSRG is disbanded at Berkeley (June 1995). Now both Berkeley and AT&T are out of the UNIX development business. 
+1995 unix: Explosion of the World Wide Web. 
+1995 unix: X/Open releases the UNIX95 brand. A UNIX95 products must conform in four areas: - X/Open portability guide (XPG) - Specification 1170 (System APIs) - International terminal interfaces - Network APIs including Berkeley sockets and XTI 
+1996 unix: Linux 2.0 is released. 
+1996 unix: MkLinux, Linux on Mach microkernel, is released. 
+1996 unix: X/OPEN and OSF merge, founding the Open Group. 
+1997 unix: Linux becomes the operating system of choice of ISP. 
+1997 unix: The Single Unix Specification, V2, is released. 
+1997 unix: Windows NT share in industry is arising, at the expense of UNIX. 
+1998 unix: Compaq buys DEC. 
+1998 unix: Netscape goes open source with the name Mozilla. 
+1998 unix: Oracle, Informix, IBM, Compaq and others announce support for Linux. 
+1998 unix: The Open Source movement get momentum. The press discovers Linux and the Open Source movement. Torvalds appears on Forbes. 
+1998 unix: The UNIX98 brand is released. It comprises three categories of UNIX: base, workstation, server. 
+1999 unix: Apple releases Mac OS X, based on Mach, and begins the Darwin project. 
+1999 unix: Industry is getting interested in Linux. Renewed interested in UNIX products. 
+1999 unix: Major commercial software developers begin to release versions for Linux. SAP announces SAP/R3 for Linux. 
+1999 unix: Microsoft is ruled of monopoly in the market for personal computers. 
+1999 unix: SCO, IBM, Sequent and Intel join in the Monterey Project, whose goal "is to deliver a single UNIX system product line consisting of UnixWare 7 (on the Intel IA-32 architecture), AIX (on the IBM Power architecture), and Monterey/64 (on the Intel IA-64 architecture)." 
+1999 unix: Sun incorporates StarDivision, and start to distribute part of Solaris sources under the Sun Community Licence. 
+2000 unix: Apple distributes MacOS X client, based on FreeBSD and Mach microkernel. 
+2000 unix: Caldera acquires UnixWare, the Server Software Division and the Professional Services Division from SCO. SCO will retain its Tarantella Division. Linux will be available on UnixWare as the Linux Kernel Personality. 
+2000 unix: HP releases HP-UX 11i, a full 64 bit Unix which will be compatible with Linux. 
+2000 unix: IBM and RedHat will develop versions of Linux native for all IBM platforms (AS/400, RS/6000, S390 and Netfinity). The IBM Application Developer Kit will be ported to Linux. 
+2000 unix: IBM announces AIX 5L, one of the few results of the Monterey project. 
+2000 unix: IBM invests more than $200 million in a series of Linux initiatives in Europe over the next four years. 
+2000 unix: Linux is ported to the IBM S/390. 
+2000 unix: Lockheed Martin Corp. is using Linux NetworX's cluster technology to analyze U.S. Navy aircraft. 
+2000 unix: Major commercial hardware vendors (Compaq, IBM, Dell, SGI, Fujitsu) begin to sell desktop and laptop computers with Linux pre-installed. 
+2000 unix: Many firms of the new economy are in financial troubles. 
+2000 unix: Microsoft is condemned to be split in two companies. 
+2000 unix: SAP releases the famous ERP SAP/R3 as Open Source.
+2000 unix: Sun acquires Cobalt Networks, which builds Linux-based servers. 
+2000 unix: Sun announces that it will join the GNOME project, and to adopt the GNOME environment on its workstations in place of CDE. 
+2000 unix: Sun announces that it will release the source code for its Star Office suite 
+2000 unix: Sun releases Solaris 8 sources under the Foundation Source code license. 
+2000 unix: Sun starts to distribute the UltraSPARC III. 
+2001 unix: Fujitsu, Hitachi, IBM, and NEC announce a partnership "to refine features needed to drive Linux further into the enterprise", working together with the Linux community to develop various open source projects. 
+2001 unix: HP adopts Debian as the selected development platform for Linux work at HP. 
+2001 unix: IBM announces a new supercluster running Linux, installed at the National Center for Supercomputing Applications (NCSA). Capable of 1 trillion calculations per second, the cluster of 160 new IBM Itanium-based systems will be the most powerful Linux supercluster in academia. 
+2001 unix: IBM presents AIX 5L, as a result of the Project Monterey. It is compatible with Linux. 
+2001 unix: IDC forecasts in the U.S. Multiuser System Market by 2004: OS   1999    2004    difference ----- Unix    $11.4 billion   $14.9 billion   +30%  ----- Windows NT  $4.7 billion    $12.8 billion   +172%  -----  Linux   $367 million    $4.1 billion    +1017%
+2001 unix: Linux 2.4 is released. 
+2001 unix: Microsoft attacks the GNU Public Licence, claiming that it cannot protect the intellectual property of private and public software houses. But even the Software & Information Industry Association (SIIA) criticizes Microsoft on this, saying that "Microsoft is once again publicly making the case that innovation in the software industry should happen only at the discretion and direction of Microsoft, [...] Microsoft is employing public relations tactics to incite fear among businesses that are considering migrating to the Open Source model." 
+2001 unix: Microsoft releases Office X, the porting of the Office suite to MacOS X - which is, ultimately, a Unix variant.
+2001 unix: Nokia adopts Linux to develop applications for its Media Terminal home entertainment system. 
+2001 unix: Sony announces a porting of Linux to the PlayStation 2. 
+2001 unix: Sun launches the JXTA project, an open source protocol allowing peer-to-peer communication and distributed computing between any peers that are recognized on the network. 
+2002 unix: After the acquisition of Cobalt, Sun embraces aggressively the Linux operating system with a multipart program that will significantly broaden the offerings of Linux on low-end Sun servers and workstations and commit new resources to the ongoing development of the Open Source operating system. 
+2002 unix: IBM adopts Red Hat Linux Advanced Server for all servers and mainframes.
+2002 unix: The Free Standards Group released LSB 1.1 (including a full set of common APIs and a development package), and Li18nux (an internationalization guide), two tools intended to ensure that all Linux applications can run on any Linux Standard Base-compliant version. 
+
+1973 dos: Gary Kildall writes a simple operating system for Intel 8080-based computers which he calls CP/M
+1980 dos: Microsoft pays less than US$100,000 for the right to sell SCP's DOS to an unnamed client (IBM), then Microsoft buys non-exclusive rights to market QDOS, which has been renamed to 86-DOS.
+1980 dos: QDOS 0.10 (Quick and Dirty Operating System) is shipped by Seattle Computer Products.
+1981 dos: IBM announces the IBM 5150 PC Personal Computer, featuring a 4.77-MHz Intel 8088 CPU, 64 KB (64 KiB) RAM, 40 KB ROM, one 5.25-inch floppy drive, and PC-DOS 1.0
+1981 dos: Microsoft buys all rights to 86-DOS from Seattle Computer Products, and the name MS-DOS is adopted.
+1982 dos: Microsoft releases MS-DOS 1.1
+1983 dos: IBM PC-DOS 2.1 is released
+1983 dos: Microsoft PC-DOS 2.1 is released
+1984 dos: Microsoft releases MS-DOS 3.0. It adds support for 1.2 MB floppy disks and hard disks larger than 10MB.
+1988 dos: Digital Research rewrites DOS Plus as DR-DOS, releases DR-DOS 3.31, supporting hard disk partitions up to 512 MB.
+1988 dos: IBM ships PC-DOS 4.0. It adds a shell menu interface and support for hard disk partitions over 32 MB.
+1988 dos: Microsoft releases MS-DOS 4.0, including a graphical/mouse interface.
+1991 dos: Microsoft releases MS-DOS 5.0. The full-screen MS-DOS Editor is added to succeed Edlin. It adds undelete and unformat utilities, and task swapping. GW-BASIC is replaced with QBasic.
+1991 dos: PC-DOS 5 is released. It featured the moving of command.com into HMA.
+1993 dos: IBM releases PC-DOS 6.1. It is separate from MS-DOS 6.1, and IBM and Microsoft begin developing separately.
+1993 dos: Microsoft introduces MS-DOS 6.0, including DoubleSpace disk compression.
+1993 dos: Novell releases Novell DOS 7.
+1994 dos: Microsoft releases MS-DOS 6.21, removing DoubleSpace disk compression, then releases MS-DOS 6.22, bringing back disk compression under the name DriveSpace.
+1995 dos: Windows 95 is released. It comes with an MS-DOS like bootloader reporting DOS version 7.0.
+1996 dos: Windows 95 OEM Service Release 2.0 (OSR2.0) is released. It comes with MS-DOS 7.1, which adds support for the FAT32 file system.
+2000 dos: Microsoft Windows Me is released, identifying itself as DOS 8. It was the last MS-DOS, as future versions of Windows were based on the NT kernel.
+2005 dos: GNU/DOS is released
+2006 dos: FreeDOS 1.0 is released
+
+1941 electronics: Konrad Zuse constructs first fully operational binary computer for the German Experimental Dynamics Institute (GEDI), the Z3. His first two prototypes are electromechanical with stored- program capability. Magnetic recording tape developed soon after.
+1943 electronics: British Department of Communications and the Foreign Office construct Colossus, with the help of Alan Turing to decipher the German ENIGMA electromechanical encoders which were Allies main hope at shortening World War II. Turing had published in 1936, at age 24, a paper entitled "On Computable Numbers" which had established some of the foundations Digital Stored Program computing. Development of ENIAC begins, for use in calculating missle trajectory projections. 
+1944 electronics: Harvard Mark I (a.k.a. the IBM Sequenced Controlled Calculator) unveiled by Howard Aiken. Aiken, in '36, had been writing his dissertation on the physics of vacuum tubes, when he read Turing's paper on the possibilities offered by a Turing machine. Colossus also under development. 
+1945 electronics: The first modern stored memory computer is designed by Johann von Neumann, John Presper Eckert, and John Maucly. Maucly is later targeted during the Communist trials led by Senator John McCarthy, and he ends up on the blacklist. 
+1946 electronics: Scientists at the University of Pennsylvania complete ENIAC, a room-sized computer consisting of 10,000 high-speed vacuum tubes. 
+1947 electronics: The transistor is invented at Bell Telephone Laboratories. 
+1948 electronics: Dennis Gabor, a Hungarian-born scientist, invents holography; in 1971 he receives the Nobel Prize for his invention. Claude Shannon publishes his "A mathematical theory of communication", seen as the founding work of information theory, which establishes models for noise, distortion and error correction in information technology. 
+1949 electronics: In the U.S., there are 1,000,000 television receivers in use. The 10,000,000 mark is passed in 1951, and the 50,000,000 mark eight years later. Other developed nations reach these levels of penetration soon after. 
+1951 electronics: UNIVAC constructed by Remington- Rand, 46 of the machines are sold. 
+1952 electronics: The first numerical control machine tool is demonstrated at MIT. 
+1952 electronics: The Semi-Automatic Ground Environment (SAGE) system for U.S. air defense is developed at MIT. It is the first computer network. That same year, Grace Murray Hopper, working with John Presper Eckert and John Maucly on the UNIVAC project, writes the first complier software. Thomas Watson Jr. becomes president of IBM and launches all-out push into computer markets. UNIVAC is used to predict the results of the presidential election on a live CBS news special; the prediction is correct. 
+1954 electronics: Color television broadcasting in the United States, several years after the first experimental broadcasts; the technology is adopted in Japan in 1960. The microprocessor is developed. 
+1957 electronics: First fully automated guidance system used on missiles. USSR launch Sputnik (with Laika the dog). Seymour Cray establish Control Data Corporation to build a supercomputer for scientific use. 
+1958 electronics: Bell develops the first modem for data transmission. The US launches Explorer, and so the Space Race has begun. Texas Instruments begins developing the integrated circuit. 
+1960 electronics: Libraries begin to use on-line public access catalogs (OPAC), which begin to replace card catalogues. 
+1960 electronics: The Haloid Xerox Company introduces the plain-paper copier, based on a process invented by Chester F. Carlson. The photocopier rapidly revolutionizes office practices and makes carbon paper outdated. Laser technology develops. 
+1961 electronics: The publication of Merriam-Webster's Third International Dictionary creates a furor in the United States when the dictionary is charged with abandoning prescriptive judgments of correctness in favor of neutral linguistic description. The first programmable industrial robot installed, for unloading of parts at die-casting operation. 
+1962 electronics: The first communication satellite, Telstar, is put into orbit for use by American companies. The first trans-Atlantic television broadcast is made in this year. 
+1962 electronics: Western Union introduces the telex to the United States. The first modem introduced in the United States marketed by the American Telephone & Telegraph Company (AT&T). Theoretical foundation for packet switching laid down by Rand Corporation researcher Paul Baran in his paper "On Distributed Communications Networks." 
+1963 electronics: ATT offers push-button dialing to its consumers. ZIP code standards instituted to facilitate local sorting and delivery of post in United States. On November 24, accused presidential assassin Lee Harvey Oswald is being transferred to a jail cell when he is fatally shot by Jack Ruby. The assassination is witnessed by millions of people on live television. MIT develops time sharing of computer resources. 
+1964 electronics: Marshall McLuhan publishes Understanding Media. IBM develops first word processor, the TapeSelectric. 
+1965 electronics: The basis of virtual reality technology emerges in simulators that teach pilots how to fly planes by using head-mounted displays with tracking systems. Ted Nelson develops hypertext idea for linking documents. 
+1966 electronics: ASCII (the American Standard Code for Information Exchange) is established as a standard data-transmission code that converts characters into seven-digit binary numbers. 
+1968 electronics: Douglas Engelbart demonstrates first computer mouse, hypertext, and WYSIWYG ("What you see is what you get") display of text. The British Library and Library of Congress collaborate on a new system of cataloging library collections, Machine-Readable Cataloging Project, known since its revision in 1968 as MARC II. Garmish International Software Conference in Germany addresses what is termed the Software Crisis, following the failure of IBM OS/360 - software engineering and structured design methodology are established. 
+1969 electronics: The Department of Defense establishes the Arpanet, predecessor of the Internet with four host machines. Sony Corporation introduces the videocasette recorder. Telnet program written. First 1 Kb RAM chip. 
+1970 electronics: American banks introduce electronic teller machines. UNIX developed at Bell, by 1985 it runs on 300,000 machines worldwide. The phrase 'information superhighway' is coined in The Nation magazine, though at the time they were referring to cable TV infrastructure. 
+1971 electronics: Introduction of the laser printer, which makes possible high quality computer graphics and desktop publishing. ARPANET now consists of 15 nodes. 
+1971 electronics: The Intel corporation introduces the world's first microprocessor, which combines the electrical functions once performed as many as 500,000 transistors on a single chip. Ray Tomlinson writes early email programs SNDMSG and CRYNET. 
+1972 electronics: Introduction of C, the first widely adopted general-purpose high-level programming language. Xerox introduces the Alto, the first computer with a bit-mapped screen, windows, and a mouse, which becomes the model for Apple Macintosh and other personal computers. The first electronic mail system introduced. 40 nodes now on ARPANET, Intel develops 16 KB chip. Atari releases Pong- which is sweet. 
+1973 electronics: The grocery industry adopts Universal Product Code, making possible the use of bar codes for pricing and inventory. control. Robert Metcalfe outlines LAN and Ethernet architecture in his doctoral thesis at Harvard; he founds 3Com Inc. in 1979. 
+1976 electronics: Steve Jobs and Steve Wozniak found Apple Computer Inc., the first company devoted to selling personal computers. The spacecraft Viking 1 orbits Mars and relays photographs of the Martian landscape to Earth. BASIC released by Microsoft. 
+1977 electronics: Apple and Radio Shack introduce the first widely successful pre-assembled personal computers, Apple II and Tandy TRS-80. Commodore PET also released, which sells for $600 US. (1st 'puter I played with). IBM follows with its PC in 1981. RSA encryption proposed by Ron Rivest, Adi Shamir and Leonard Adleman, the first public key scheme, based on the work of Whitfield Diffie and Martin Hellman in 1975. First computer BBS is being tested in Chicago. 
+1979 electronics: The Xerox Corporation introduces Ethernet software, which becomes the standard computer intercommunications network. First MUD is established by two computer students at Essex University. Laserdisc players first hit market. MicroNet goes on-line, which will later morph into CompuServe. Compact disc players developed and cellular phones first marketed. 
+1982 electronics: RSA Data Security Inc. established. The Gannet company begins publishing USA Today, the United States' first national, general-interest newspaper. Introduction of the spreadsheet program Lotus 1-2-3, the "killer application" that ensures wide popularity of personal computers. TCP/IP developed at the technical standard for remote network connectivity. Hayes Microcomputers sells the Smartmodem 300, IBM sells a 64K RAM machine for $3000. Disney releases TRON. AT&T broken up by US court order. 
+1984 electronics: Apple Macintosh and GUI interface are unleashed upon the world. William Gibson coins 'cyberspace' in Neuromancer. 2400 baud modem costs $850. 1000 nodes now on ARPANET. 
+1985 electronics: The IRS initiates computerized auditing of tax returns. Lucasfilm's Habitat for the Commodore 64 becomes the first graphical online game environment. The WELL on-line community is established and has 5000 members by 1991, when it switches to the Internet. 
+1989 electronics: Tim Berners-Lee and his colleagues at CERN create the first Web browser, based on the HyperText Transfer Protocol (HTTP), which standardizes communication between server and client. Robert T. Morris, from Cornell University spreads the first Internet worm program which disables 6,000 host computers, 10% of the entire network at the time. The same year, Kevin Mitnick is convicted of computer fraud after hacking into DEC and copying software. 
+1990 electronics: Start of the project of mapping the location of all genes on every chromosome in human beings, the Human Genome Project. Developement of the WWW begins at CERN in Geneva, Switzerland using URL, HTTP and HTML. 
+1991 electronics: The Cable News Network (CNN) is created in by Ted Turner. The network gains worldwide attention for its around-the-clock coverage, much of it broadcast from Iraq, of the Persian Gulf War. Phil Zimmerman distributes PGP fearing a US Senate Bill which may ban the software in the US. Linus Torvalds from Helsinki begins work on Linux. Gopher browser software put in use. 
+1993 electronics: Marc Andreessen and others at the University of Illinois release Mosaic, a graphical Web browser that becomes widely popular and is the model for browsers from Netscape and Microsoft. Domain name registration established. Bill Clinton introduces Clipper Chip and key-escrow proposals. The next year, Matt Blaze busts the Clipper Chips encryption, forcing the government to abandon it. 
+1995 electronics: First major domain name lawsuit after Sprint registers MCI.com. Open-source Apache server software becomes the most popular in the world. Release of Disney's Toy Story, the first full-length computer-generated feature film. Yahoo now well-established. Kevin Mitnick, after three years on the run for computer crime, is arrested and sentenced to three years in prison. 
+1996 electronics: Microsoft co-founder Bill Gates becomes the world's richest person. In the U. S., the Telecommunications Act of 1996 authorizes subsidies for information technology to libraries and schools, but also accompanies the Communications Decency Law, which the Supreme Court soon rejects as unconsitutional. Digital Copyright Treaty is signed by members of the World Intellectual Property Organization The provision of universal access the Internet becomes a policy goal a number of nations. 
+1997 electronics: The IBM computer Deep Thought defeats world champion Gary Kasparov in a chess match. The World Wide Web site for the Mars Pathfinder space probe receives 220 million hits when it publishes pictures of the mission, a total that far exceeds NASA's expectations. Major new libraries are opened in London, Paris, and New York containing extensive computational facilities. 
+1998 electronics: XML proposed as HTML sucessor. Starr Report into the Lewinsky Scandal is released on-line. Linux goes all the rage. The on-line bookseller Amazon.com becomes the world's largest book retailer as measured by market capitalization. The Internet craze sends the stocks in other Internet-related businesses to unprecedented highs.
+
+
+
+
+
+unix: http://snap.nlc.dcccd.edu/learn/unix-history.html
+dos: http://en.wikipedia.org/wiki/Timeline_of_x86_DOS_operating_systems
+electronics: http://everything2.com/e2node/Chronology%2520of%2520Communication%2520after%2520electronics%2520to%25201998
+
+
+
+
+
+
+
+
+
+
+
+
+1969 unix.org: The Beginning   The history of UNIX starts back in 1969, when Ken Thompson, Dennis Ritchie and others started working on the "little-used PDP-7 in a corner" at Bell Labs and what was to become UNIX. http://www.unix.org/what_is_unix/history_timeline.html
+1969 Unix started as a file system. Ken Thompson, who designed it with Dennis Ritchie and Rudd Canaday http://www.princeton.edu/~mike/unixhistory
+1970 desktop: The Xerox PARC team with Merzouga Wilberts, codified the WIMP (windows, icons, menus and pointers) paradigm, first pioneered on the Xerox Alto experimental computer, but which eventually appeared commercially in the Xerox 8010 ('Star') system in 1981. http://en.wikipedia.org/wiki/Desktop_environment
+1971 unix.org: First Edition   It had a assembler for a PDP-11/20, file system, fork(), roff and ed. It was used for text processing of patent documents.
+1972 bbs: A notable precursor to the public Bulletin Board System was Community Memory, started in 1972 in Berkeley, California, using hardwired terminals located in neighborhoods.
+1973 dos: Gary Kildall writes a simple operating system for Intel 8080-based computers which he calls CP/M http://en.wikipedia.org/wiki/Timeline_of_x86_DOS_operating_systems
+1973 unix.org: Fourth Edition  It was rewritten in C. This made it portable and changed the history of OS's.
+1975 unix.org: Sixth Edition   UNIX leaves home. Also widely known as Version 6, this is the first to be widely available out side of Bell Labs. The first BSD version (1.x) was derived from V6.
+1976 billgates: Bill Gates signaled the change of the times in 1976 when he wrote his now-famous Open Letter to Hobbyists, sending out the message that what hackers called "sharing" was, in his words, "stealing".
+1976 emacs: The original EMACS was a set of Editor MACroS for the TECO editor. It was written in 1976 by Richard Stallman, initially together with Guy L. Steele, Jr.
+1978 bbs: CBBS went online on February 16, 1978 in Chicago, Illinois.
+1978 shell: csh
+1979 modem: modems with 110 and 300 baud
+1979 unix.org: Seventh Edition It was a "improvement over all preceding and following Unices" [Bourne]. It had C, UUCP and the Bourne shell. It was ported to the VAX and the kernel was more than 40 Kilobytes (K).
+1979 usenet: Newsgroup experiments first occurred in 1979. http://en.wikipedia.org/wiki/Usenet
+1980 dos: Microsoft pays less than US$100,000 for the right to sell SCP's DOS to an unnamed client (IBM), then Microsoft buys non-exclusive rights to market QDOS, which has been renamed to 86-DOS.
+1980 dos: QDOS 0.10 (Quick and Dirty Operating System) is shipped by Seattle Computer Products.
+1980 shell: COMMAND.COM
+1980 sudo: Sudo was first conceived and implemented by Bob Coggeshall and Cliff Spencer around 1980 at the Department of Computer Science at SUNY/Buffalo. It ran on a VAX-11/750 running 4.1BSD.
+1980 unix.org: Xenix   Microsoft introduces Xenix. 32V and 4BSD introduced.
+1981 dos: IBM announces the IBM 5150 PC Personal Computer, featuring a 4.77-MHz Intel 8088 CPU, 64 KB (64 KiB) RAM, 40 KB ROM, one 5.25-inch floppy drive, and PC-DOS 1.0
+1981 dos: Microsoft buys all rights to 86-DOS from Seattle Computer Products, and the name MS-DOS is adopted.
+1981 fromusenet: First mention of Microsoft http://www.google.com/googlegroups/archive_announce_20.html
+1981 fromusenet: First mention of Microsoft MS-DOS
+1981 fromusenet: First review of the IBM-PC
+1981 fromusenet: TCP/IP Digest #1
+1981 shell: tcsh
+1982 dos: Microsoft releases MS-DOS 1.1
+1982 fromusenet: Announcement of first cell phone deployment in Chicago
+1982 fromusenet: Early reference to emoticons
+1982 fromusenet: First mention of a compact disc
+1982 fromusenet: First mention of Apple's Lisa and Macintosh products
+1982 fromusenet: First mention of MTV
+1982 fromusenet: First mention of Star Wars Episode 6
+1982 fromusenet: First mention of Sun Microsystems
+1982 fromusenet: First mention of the Commodore 64
+1982 fromusenet: First thread about AIDS
+1982 modem: introduction of 1200 bit/s modems
+1982 shell: ksh (ksh93s+)
+1982 sun: Incorporated with four employees. http://www.sun.com/aboutsun/company/history.jsp#1982
+1982 unix.org: System III  AT&T's UNIX System Group (USG) release System III, the first public release outside Bell Laboratories. SunOS 1.0 ships. HP-UX introduced. Ultrix-11 Introduced.
+1983 dos: IBM PC-DOS 2.1 is released
+1983 dos: Microsoft PC-DOS 2.1 is released
+1983 fromusenet: Earliest Usenet posting statistics
+1983 fromusenet: Early Usenet survey and its results
+1983 fromusenet: First mention of a Fax machine
+1983 fromusenet: First mention of Church of the SubGenius 
+1983 fromusenet: First mention of Madonna
+1983 fromusenet: First mention of Michael Jordan
+1983 fromusenet: First mention of Microsoft Windows
+1983 fromusenet: First "Me too" post
+1983 fromusenet: Rob Pike's first prank as Bimmler
+1983 fromusenet: Stallman's announcement of GNU
+1983 linux: Richard Stallman creates the GNU project with the goal of creating a free operating system. http://en.wikipedia.org/wiki/History_of_the_Linux_kernel
+1983 stallman: published a manifesto in Dr. Dobb's Journal detailing his new project publicly, and outlining his vision of free software.
+1983 stallman: Richard Stallman launched the GNU Project to write a complete operating system free from constraints on use of its source code. http://en.wikipedia.org/wiki/History_of_free_software
+1983 sun: NFS technology introduced and licensed free to the industry. It's destined to become the industry standard for network file sharing.
+1983 unix.org: System V    Computer Research Group (CRG), UNIX System Group (USG) and a third group merge to become UNIX System Development Lab. AT&T announces UNIX System V, the first supported release. Installed base 45,000.
+1983 usenet: the number of UUCP hosts had grown to 550.
+1984 dos: Microsoft releases MS-DOS 3.0. It adds support for 1.2 MB floppy disks and hard disks larger than 10MB.
+1984 fromusenet: First mention of Bill Clinton
+1984 fromusenet: First mention of the Commodore Amiga
+1984 fromusenet: First reference to Apple's Super Bowl commercial
+1984 fromusenet: For C hackers: Tom Duff presents "Duff's Device"
+1984 fromusenet: Microsoft needs wizards
+1984 fromusenet: Rob Pike's and Bruce Ellis' first prank as Mark V. Shaney
+1984 fromusenet: The kremvax hoax
+1984 unix.org: 4.2BSD  University of California at Berkeley releases 4.2BSD, includes TCP/IP, new signals and much more. X/Open formed.
+1984 unix.org: SVR2    System V Release 2 introduced. At this time there are 100,000 UNIX installations around the world.
+1984 usenet: the number of UUCP hosts nearly doubling to 940
+1984 xopen: The group published its specifications under the name X/Open Portability Guide (or XPG). XPG1 Issue 1 covered basic operating system interfaces, and was published within a year of the group's formation.
+1984 xopen: X/Open Company, Ltd. was a consortium founded by several European UNIX systems manufacturers in 1984 to identify and promote open standards in the field of information technology. More specifically, the original aim was to define a single specification for operating systems derived from UNIX, to increase the interoperability of applications and reduce the cost of porting software.
+1985 emacs: release 17.36 Backup file version numbers
+1985 fromusenet: First discussion about "New Coke"
+1985 fromusenet: First discussion of the Y2K problem
+1985 gcc: Richard Stallman started GCC. He extended an existing compiler to compile C. The compiler originally compiled Pastel, an extended, nonportable dialect of Pascal, and was written in Pastel.
+1985 svid: Version 1, based on System V Release 2, published Spring, 1985
+1985 usenet: Widespread use of Usenet by the BBS community was facilitated by the introduction of UUCP feeds made possible by MS-DOS implementations of UUCP such as UFGATE (UUCP to FidoNet Gateway), FSUUCP and UUPC. The Network News Transfer Protocol, or NNTP, was introduced in 1985 to distribute Usenet articles over TCP/IP as a more flexible alternative to informal Internet transfers of UUCP traffic. Since the Internet boom of the 1990s, almost all Usenet distribution is over NNTP.
+1986 emacs: release 18.24 
+1986 fromusenet: First mention of Cisco
+1986 fromusenet: First mention of the Challenger tragedy
+1986 fromusenet: First mention of the MIR space station
+1986 fromusenet: First mention of the term IPO
+1986 fromusenet: First thread about the Chernobyl meltdown
+1986 fromusenet: Gene Spafford's comments on the Great Renaming
+1986 gdb: GDB was first written by Richard Stallman in 1986 as part of his GNU system, after his GNU Emacs was "reasonably stable".
+1986 stallman: founded the Free Software Foundation to promote the concept and a free software definition
+1986 sudo: Garth Snyder released an enhanced version of sudo.
+1986 sun: PC-NFS technology introduced. It brings the power of network computing to PC users, and opens a whole new market for Sun.
+1986 svid: Version 2, based on System V Release 3, published 1986 (3 volumes)[3]
+1986 unix.org: 4.3BSD  4.3BSD released, including internet name server. SVID introduced. NFS shipped. AIX announced. Installed base 250,000. 
+1987 fromusenet: Announcement of UUNET
+1987 gcc: GCC released in 1987 as the compiler for the GNU Project, in order to have a compiler available that was free software.
+1987 shell: bash (v3.1)
+1987 shell: OS/2 cmd.exe
+1987 unix.org: SVR3    System V Release 3 including STREAMS, TLI, RFS. At this time there are 750,000 UNIX installations around the world. IRIX introduced.
+1987 xopen: X/Open Company, XPG2 Issue 2 followed in 1987, and extended the coverage to include Internationalization, Terminal Interfaces, Inter-Process Communication, and the programming languages C, COBOL, FORTRAN, and Pascal, as well as data access interfaces for SQL and ISAM. In many cases these were profiles of existing international standards.
+1988 dos: Digital Research rewrites DOS Plus as DR-DOS, releases DR-DOS 3.31, supporting hard disk partitions up to 512 MB.
+1988 dos: IBM ships PC-DOS 4.0. It adds a shell menu interface and support for hard disk partitions over 32 MB.
+1988 dos: Microsoft releases MS-DOS 4.0, including a graphical/mouse interface.
+1988 fromusenet: First mention of the term 'search engine'
+1988 fromusenet: First warning about the Morris Internet Worm
+1988 fromusenet: Thread about how the Internet Worm worked
+1988 glibc: FSF described glibc as having nearly completed the functionality required by ANSI C.
+1988 posix: POSIX.1, Core Services (incorporates Standard ANSI C) (IEEE Std 1003.1-1988) - Process Creation and Control - Signals[6] - Floating Point Exceptions - Segmentation Violations - Illegal Instructions - Bus Errors - Timers - File and Directory Operations - Pipes - C Library (Standard C) - I/O Port Interface and Control 
+1988 sun: reaches $1 billion in revenue
+1988 unix.org:     POSIX.1 published. Open Software Foundation (OSF) and UNIX International (UI) formed. Ultrix 4.2 ships.
+1988 xopen: XPG3, its primary focus being convergence with the POSIX operating system specifications. This was probably the most widely used and influential deliverable of the X/Open organisation.
+1989 fromusenet: Brad Templeton announces ClariNet - the first "dot com"
+1989 fromusenet: Brad Templeton's "Imminent death of net predicted"
+1989 fromusenet: Early post by BIFF
+1989 fromusenet: First discussion of cold fusion
+1989 fromusenet: First Make Money Fast post
+1989 fromusenet: First mention of AOL
+1989 fromusenet: First mention of Internet Relay Chat (IRC)
+1989 fromusenet: First mention of The Simpsons
+1989 fromusenet: First post about San Francisco earthquake
+1989 fromusenet: First post about Tiananmen Square massacre
+1989 fromusenet: First post from Berlin after the wall came down
+1989 fromusenet: First post in alt.hypertext
+1989 gpl: the first version of the GNU General Public License was published
+1989 linux: Richard Stallman writes the first version of the GNU General Public License.
+1989 shell: 4DOS
+1989 shell: ash
+1989 shell: rc (plan 9 and POSIX)
+1989 sun: SPARCstation 1 system introduced.
+1989 svid: Version 3, based on System V Release 4, published 1989
+1989 unix.org:     AT&T UNIX Software Operation formed in preparation for spinoff of USL. Motif 1.0 ships.
+1989 unix.org: SVR4    UNIX System V Release 4 ships, unifying System V, BSD and Xenix. Installed base 1.2 million.
+1990 fromusenet: Announcement of the Electronic Frontier Foundation (EFF)
+1990 fromusenet: Discussion of raid on Steve Jackson Games
+1990 shell: zsh
+1990 unix.org: XPG3    X/Open launches XPG3 Brand. OSF/1 debuts. Plan 9 from Bell Labs ships.
+1990 xopen: By 1990 the X/Open group had expanded to 21 members: in addition to the original five, Philips and Nokia from Europe; AT&T, Digital, Unisys, Hewlett-Packard, IBM, NCR, Sun Microsystems, Prime Computer, Apollo Computer from North America; Fujitsu, Hitachi, and NEC from Japan; plus the Open Software Foundation and Unix International.
+1991 dos: Microsoft releases MS-DOS 5.0. The full-screen MS-DOS Editor is added to succeed Edlin. It adds undelete and unformat utilities, and task swapping. GW-BASIC is replaced with QBasic.
+1991 dos: PC-DOS 5 is released. It featured the moving of command.com into HMA.
+1991 emacs: xemacs is a fork of GNU Emacs
+1991 fromusenet: Announcement of Internet Gopher
+1991 fromusenet: Early post to alt.religion.kibology by Kibo
+1991 fromusenet: Linus Torvalds' Linux announcement
+1991 fromusenet: Mike Godwin formalizes Godwin's Law
+1991 fromusenet: The kremvax exists!
+1991 fromusenet: Tim Berners-Lee's announcement of the World Wide Web project
+1991 gcc: GCC 1.x had reached a point of stability, but architectural limitations prevented many desired improvements, so the Free Software Foundation (FSF) started work on GCC 2.x.
+1991 gnu: The GNU project's kernel, later called "GNU Hurd", was continually delayed, but most other components were completed by 1991. Some of these, especially the GNU Compiler Collection, had become market leaders in their own right. The GNU Debugger and GNU Emacs were also notable successes.
+1991 gpl: A slightly updated version 2 was published
+1991 linux: Linus Benedict Torvalds announced the Linux project on Usenet. http://groups.google.com/group/comp.os.minix/msg/b813d52cbc5a044b
+1991 linux: The Linux kernel is publicly announced on 25 August by the 21 year old Finnish student Linus Benedict Torvalds.
+1991 linux: The Linux kernel, started by Linus Torvalds, was released as freely modifiable source code
+1991 shell: Python shell
+1991 sudo: ave Hieb and Jeff Nieusma wrote a new version of sudo with an enhanced sudoers format under contract to a consulting firm called ``The Root Group''. This version was later released under the GNU public license.
+1991 sun: unveils Solaris 2 operating environment, specially tuned for symetric multiprocessing.
+1991 unix.org:     UNIX System Laboratories (USL) becomes a company - majority-owned by AT&T. Linus Torvalds commences Linux development. Solaris 1.0 debuts.
+1991 www: Tim Berners-Lee announced WorldWideWeb project on Usenet. http://groups.google.com/group/alt.hypertext/msg/395f282a67a1916c
+1992 bbs: he BBS industry became so popular that it spawned two monthly magazines, Boardwatch and BBS Magazine, which devoted extensive coverage of the software and technology innovations and people behind them, and listings to US and worldwide BBSes.
+1992 fromusenet: Famous debate between Andy Tanenbaum and Linus Torvalds
+1992 fromusenet: First BOFH post
+1992 fromusenet: First post from an AOL account
+1992 fromusenet: Terry Pratchett's first post on alt.fan.pratchett
+1992 fromusenet: Thread about Johnny Carson's last Tonight Show
+1992 fromusenet: Thread about Rodney King verdict and resulting LA riots
+1992 gnu: linux is used as kernel.
+1992 linux: Linus relicensed the project under the GPL
+1992 linux: The Linux kernel is relicensed under the GNU GPL. The first so called “Linux distributions” are created.
+1992 lynx: Lynx was a product of the Distributed Computing Group within Academic Computing Services of the University of Kansas as part of a Campus-Wide Information Server. In 1993 Montulli added an Internet interface and released a new version (2.0) of the browser.
+1992 sun: SPARCstation 10 system, the first multiprocessing desktop computer.
+1992 unix.org: SVR4.2  USL releases UNIX System V Release 4.2 (Destiny). October - XPG4 Brand launched by X/Open. December 22nd Novell announces intent to acquire USL. Solaris 2.0 ships.
+1993 browser: Marc Andreesen announced the creation of the Mosaic browser on Usenet and the introduction of the image tag,[13] which revolutionized the World Wide Web by turning it into a graphical medium. http://groups.google.com/group/comp.windows.x/msg/7fde2f6d4d5dc4e7
+1993 browser: Mosaic 1.0, the first Web browser, was released by the National Center for Supercomputing Applications (NCSA) at the University of Illinois at Urbana-Champaign. Marc Andreessen was the lead developer.
+1993 bsd: FreeBSD 1.0 released http://www.freebsd.org/releases/index.html
+1993 bsd: When the USL v. BSDi lawsuit was settled out of court in 1993, FreeBSD and NetBSD (both derived from 386BSD) were released as free software.
+1993 debian: Among GNU/Linux distributions, Debian GNU/Linux, begun by Ian Murdock, is noteworthy for being explicitly committed to the GNU and FSF principles of free software.
+1993 dos: IBM releases PC-DOS 6.1. It is separate from MS-DOS 6.1, and IBM and Microsoft begin developing separately.
+1993 dos: Microsoft introduces MS-DOS 6.0, including DoubleSpace disk compression.
+1993 dos: Novell releases Novell DOS 7.
+1993 fromusenet: Douglas Adams' first post on alt.fan.douglas-adams
+1993 fromusenet: First mention of Britney Spears
+1993 fromusenet: First mention of Osama bin Laden
+1993 fromusenet: Gene Spafford's farewell post
+1993 fromusenet: Marc Andreessen's Mosaic announcement
+1993 linux: Over 100 developers work on the Linux kernel. With their assistance the kernel is adapted to the GNU environment, which creates a large spectrum of application types for Linux. The oldest currently existing Linux distribution, Slackware, is released for the first time. Later in the same year, the Debian project is established. Today it is the largest community distribution.
+1993 posix: POSIX.1b, Real-time extensions (IEEE Std 1003.1b-1993) - Priority Scheduling - Real-Time Signals - Clocks and Timers - Semaphores - Message Passing - Shared Memory - Asynch and Synch I/O - Memory Locking Interface 
+1993 shell: 4NT
+1993 shell: Windows cmd.exe[1]
+1993 unix.org: 4.4BSD  4.4BSD the final release from Berkeley. June 16 Novell acquires USL
+1993 unix.org: SVR4.2MP    Novell transfers rights to the "UNIX" trademark and the Single UNIX Specification to X/Open. COSE initiative delivers "Spec 1170" to X/Open for fasttrack. In December Novell ships SVR4.2MP , the final USL OEM release of System V
+1993 usenet: the online service America Online began offering Usenet access to its tens of thousands, and later millions, of users. Since that time, the dramatic rise in the popularity of the Internet has brought a constant stream of new users—in some people's view, drowning out the old Usenet entirely. (Eternal September)
+1994 browser: Following a legal challenge by the University of Illinois, Mosaic Communications became Netscape Communications 
+1994 browser: Netscape 1.0 (18%0 (initial), Opera 1.0 (initial) released, Mozaic (68%)
+1994 debian: The Debian project switched to calling itself "GNU/Linux" in early 1994;[4] Debian founder Ian Murdock later noted that this change was made in response to a request by Richard Stallman (who initially proposed "Lignux," but suggested "GNU/Linux" instead after hearing complaints about the awkwardness of the former term).
+1994 dos: Microsoft releases MS-DOS 6.21, removing DoubleSpace disk compression, then releases MS-DOS 6.22, bringing back disk compression under the name DriveSpace.
+1994 fromusenet: Amazon founder Jeff Bezos is hiring
+1994 fromusenet: Announcement of WebCrawler launch
+1994 fromusenet: Early mentions of Yahoo! and Lycos
+1994 fromusenet: First hoax alert about "Good Times"
+1994 fromusenet: First thread about the show "Friends"
+1994 fromusenet: Instance of first commercial mass spamming (more on spam history)
+1994 fromusenet: Instance of first mass spamming
+1994 fromusenet: Marc Andreessen's Netscape announcement
+1994 fromusenet: Thread about televised O.J. Simpson arrest
+1994 gnu: Stallman's and the FSF's efforts to include "GNU" in the name started around 1994, but were reportedly mostly via private communications (such as the abovementioned request to Debian) until 1996.
+1994 linux: In March Torvalds judges all components of the kernel to be fully matured: he releases version 1.0 of Linux. The XFree86 project contributes a graphic user interface (GUI). In this year the companies Red Hat and SUSE publish version 1.0 of their Linux distributions.
+1994 li.org: Linux International, a vendor organization since 1994 which has helped to promote the Linux Operating System, announces their new charter of being an end-user organization for Free and Open Source Software (FOSS).
+1994 redhat: released 1.0
+1994 shell: Scsh
+1994 sun: www.sun.com
+1994 unix.org: Single UNIX Specification   BSD 4.4-Lite eliminated all code claimed to infringe on USL/Novell. As the new owner of the UNIX trademark, X/Open introduces the Single UNIX Specification (formerly Spec 1170), separating the UNIX trademark from any actual code stream.
+1995 apache: Apache HTTP Server became the most used web server software
+1995 browser: IE 1.0 as part of the new Microsoft Windows 95 (initial) released (2.9%),  netscape (80.1%)
+1995 bsd: OpenBSD forked from NetBSD
+1995 dos: Windows 95 is released. It comes with an MS-DOS like bootloader reporting DOS version 7.0.
+1995 fromusenet: Announcement of AltaVista launch
+1995 fromusenet: eBay founder Pierre Omidyar advertises new auctioning service 
+1995 fromusenet: First mention of DejaNews
+1995 fromusenet: First mention of the Taliban
+1995 javascript: JavaScript was originally developed by Brendan Eich of Netscape under the name Mocha, later LiveScript, and finally renamed to JavaScript. In December 1995 Sun Microsystems and Netscape announced JavaScript in a press release.
+1995 linux: Linux is ported to the DEC Alpha and to the Sun SPARC. Over the following years it is ported to an ever greater number of platforms.
+1995 posix: POSIX.1c, Threads extensions (IEEE Std 1003.1c-1995) - Thread Creation, Control, and Cleanup - Thread Scheduling - Thread Synchronization - Signal Handling
+1995 shell: Ruby shell
+1995 sudo: a new parser for the sudoers file was contributed by Chris Jepeway. The new parser was a proper grammar (unlike the old one) and could work with both sudo and visudo (previously they had slightly different parsers).
+1995 sun: Java technology enables developers to write applications once to run on any computer.
+1995 svid: Version 4, updated for compliance with XPG4 and POSIX 1003.1-1990, published 1995
+1995 unix.org: UNIX 95 X/Open introduces the UNIX 95 branding programme for implementations of the Single UNIX Specification. Novell sells UnixWare business line to SCO. Digital UNIX introduced. UnixWare 2.0 ships. OpenServer 5.0 debuts.
+1995 usenet: Web-based archiving of Usenet posts began in 1995 at Deja News with a very large, searchable database.
+1996 bbs: According to the FidoNet Nodelist, BBSes reached their peak usage around 1996, which was the same period that the World Wide Web suddenly became mainstream. BBSes rapidly declined in popularity thereafter, and were replaced by systems using the Internet for connectivity.
+1996 browser: Netscape 3.0 (55%), Opera 2.0, IE 3.0 (16%), MacIE 2.0 (initial)
+1996 desktop: The first version of Enlightenment was released by Raster (Carsten Haitzler). http://en.wikipedia.org/wiki/Enlightenment_(window_manager)
+1996 dos: Windows 95 OEM Service Release 2.0 (OSR2.0) is released. It comes with MS-DOS 7.1, which adds support for the FAT32 file system.
+1996 emacs: Stallman released Emacs 19.31 with the Autoconf system target "linux" changed to "lignux" (shortly thereafter changed to "linux-gnu" in emacs 19.32)
+1996 glibc: FSF released glibc 2.0 in 1996, it had much more complete POSIX standards support, better internationalisation/multilingual support, support for IPv6, 64-bit data access, support for multithreaded applications, future version compatibility support, and the code was more portable.
+1996 javascript: Microsoft named its dialect of the language JScript to avoid trademark issues. JScript was first supported in Internet Explorer version 3.0, released in August 1996, and it included Y2K-compliant date functions, unlike those based on java.util.Date in JavaScript at the time.
+1996 javascript: Netscape submitted JavaScript to Ecma International for standardization resulting in the standardized version named ECMAScript.
+1996 kde: KDE was founded in 1996 by Matthias Ettrich. 
+1996 linux: Version 2.0 of the Linux kernel is released. The kernel can now serve several processors at the same time, and thereby becomes a serious alternative for many companies.
+1996 sun: engineer Jon Bosak leads World Wide Web Consortium team developing XML
+1996 sun: Sun licenses Java technology to all major hardware and software companies.
+1996 unix.org:     The Open Group forms as a merger of OSF and X/Open.
+1996 usenet: Daily Volume is 4.5 GB http://en.wikipedia.org/wiki/Usenet
+1997 browser: Netscape 4.0 (51), Opera 3.0, IE 4.0 (23%), MacIE 3.0 
+1997 debian: the Debian project published their Debian Free Software Guidelines.
+1997 emacs: release 20.1 Support for multiple frames using the X Windowing System; New interface for version control systems, called VC; New hexl mode, which is a hexadecimal editing mode
+1997 gcc: a group of developers formed EGCS, to merge several experimental forks into a single project. The basis of the merger was a gcc development snapshot taken between the 2.7 and 2.81 releases. Projects merged included g77 (Fortran), PGCC (Pentium-optimized GCC), many C++ improvements, and many new architectures and operating system variants.
+1997 javascript: Edition 1; First edition ECMA-262, editor Guy L. Steele, Jr.
+1997 opensource.org: Eric Raymond's paper The Cathedral and the Bazaar, Raymond's presentation of the paper at the O'Reilly Perl Conference helped trigger Netscape's announcement, on January 22nd 1998, that it planned to release the source code of its popular Web browser as free software. http://www.opensource.org/history
+1997 sun: Sun becomes the number one supplier of UNIX multiuser disk subsystems.
+1997 unix.org: Single UNIX Specification, Version 2    The Open Group introduces Version 2 of the Single UNIX Specification, including support for realtime, threads and 64-bit and larger processors. The specification is made freely available on the web. IRIX 6.4, AIX 4.3 and HP-UX 11 ship.
+1997 usenet: Daily Volume is 9 GB
+1998 browser: AOL bought Netscape, which then ceased to exist as an independent company 
+1998 browser: Netscape 4.5 (54%), Opera 3.5, MacIE 4.0, IE (39%)
+1998 browser: Netscape announced that its browser is now free. 
+1998 fromusenet: First mention of Google
+1998 fromusenet: First mention of Mac OSX
+1998 javascript: Edition 2; Editorial changes to keep the specification fully aligned with ISO/IEC 16262 international standard; editor Mike Cowlishaw.
+1998 linux: Many major companies such as IBM, Compaq and Oracle announce their support for Linux. In addition a group of programmers begins developing the graphic user interface KDE.
+1998 opensource.org: April 8th, most of the tribal chieftains of the hacker culture met at Tim O'Reilly's Free Software Summit, a gathering pulled together specifically in response to the possibilities opened up by the Netscape release and the buzz developing around the new label "open source". The meeting included the founding figures of Linux, sendmail, Perl, Python, Apache, and several other key projects, and representatives from allies including the IETF and Internet Software Consortium.
+1998 opensource.org: February 3rd, 1998 in Palo AltoThe 'open source' label was invented at a strategy session held on February 3rd, 1998 in Palo Alto, California. The people present included Todd Anderson, Chris Peterson (of the Foresight Institute), John "maddog" Hall and Larry Augustin (both of Linux International), Sam Ockman (of the Silicon Valley Linux User's Group), Michael Tiemann, and Eric Raymond.
+1998 opensource.org: February 8th Raymond issued the first public call to the community to begin using the new term: Open Source
+1998 opensource.org: OSI was jointly founded by Eric Raymond and Bruce Perens in late February 1998, with Raymond as its first president and an initial Board of Directors including Brian Behlendorf, Ian Murdock, Russ Nelson, and Chip Salzenberg.  
+1998 opensource.org: Raymond had been invited out by Netscape to help them plan their browser source-code release. 
+1998 unix.org: UNIX 98 The Open Group introduces the UNIX 98 family of brands, including Base, Workstation and Server. First UNIX 98 registered products shipped by Sun, IBM and NCR. The Open Source movement starts to take off with announcements from Netscape and IBM. UnixWare 7 and IRIX 6.5 ship.
+1998 usenet: Daily Volume is 12 GB
+1999 browser: IE 5.0 (75.31%), MacIE 4.5 Mozilla (initial), Netscape (24.68%)
+1999 gcc: FSF officially halted development on their GCC 2.x compiler, "blessed" EGCS as the official version. the project explicitly adopted the "bazaar" model over the "cathedral" model.
+1999 javascript: Edition 3; Added regular expressions, better string handling, new control statements, try/catch exception handling, tighter definition of errors, formatting for numeric output and other enhancements; editor Mike Cowlishaw.
+1999 linux: A group of developers begin work on the graphic environment GNOME, which should become a free replacement for KDE, which depended on the then proprietary Qt toolkit. During the year IBM announces an extensive project for the support of Linux.
+1999 sun: Sun makes StarOffice productivity suite available to all, free of charge. LGPL
+1999 unix.org: UNIX at 30  The UNIX system reaches its 30th anniversary. Linux 2.2 kernel released. The Open Group and the IEEE commence joint development of a revision to POSIX and the Single UNIX Specification. First LinuxWorld conferences. Dot com fever on the stock markets. Tru64 UNIX ships. 
+1999 usenet: Daily Volume is 26 GB
+2000 browser: Netscape 6.0 (13.90%), Opera 5.0, IE 5.5 (86.08%), Mozilla 0.6 released. MacIE 5.0 released and no more MacIE releases.
+2000 dos: Microsoft Windows Me is released, identifying itself as DOS 8. It was the last MS-DOS, as future versions of Windows were based on the NT kernel.
+2000 usenet: Daily Volume is 82 GB
+2001 browser: Internet Explorer 6.0 was released with the Windows XP operating system 
+2001 browser: Netscape 6.2 (10.47%), Opera 6.0, IE 6.0 (89.03%), Mozilla 0.9 released, IE (89.03%)
+2001 emacs: release 21.1 Support for displaying colors and some other attributes on terminals; Built-in horizontal scrolling; Sound support; Wheel mouse support; Improved menu bar layout;
+2001 film: Revolution OS is a 2001 documentary film which traces the twenty-year history of GNU, Linux, open source, and the free software movement. It features interviews with prominent hackers and entrepreneurs (and hackers-cum-entrepreneurs), including Richard Stallman, Michael Tiemann, Linus Torvalds, Larry Augustin, Eric S. Raymond, Bruce Perens, Frank Hecker and Brian Behlendorf.
+2001 fromusenet: First thread after terrorist attacks (Second, Third, Fourth)
+2001 fromusenet: Google acquires Deja archive
+2001 fromusenet: Google offers 20-year Usenet Archive
+2001 gcc: GCC 3.0 released.
+2001 unix.org: Single UNIX Specification, Version 3    Version 3 of the Single UNIX Specification unites IEEE POSIX, The Open Group and the industry efforts. Linux 2.4 kernel released. IT stocks face a hard time at the markets. The value of procurements for the UNIX brand exceeds $25 billion. AIX 5L ships. 
+2001 usenet: Daily Volume is 181 GB
+2001 usenet: Google acquired Deja News' Usenet posts database.
+2002 browser: Netscape 7.0, IE 6.0-SP1, Mozilla 1.2 (3.39%), Phoenix 0.5 (former firefox) released, IE (95.97%)
+2002 browser: Phoenix — which would become Firebird and then Firefox — was released by Dave Hyatt and Blake Ross of Mozilla. 
+2002 browser: Significant downsizing and re-assignments at AOL's Netscape division are announced. 
+2002 sus: Beginning in 1998, a joint working group known as the Austin Group began to develop the combined standard that would be known as the Single UNIX Specification Version 3; it was released on January 30, 2002.
+2002 usenet: Daily Volume is 257 GB
+2003 browser: Microsoft announced that Internet Explorer would no longer be considered a stand-alone browser; future updates will only accompany releases of new operating systems. 
+2003 browser: Netscape 7.1, Opera 7.2, Mozilla 1.5, Firebird 0.5 (former firefox), Safari 1.0 (initial) released.
+2003 browser: The Mozilla Foundation was established 
+2003 sun: More than 1 million students and educators use Sun StarOffice desktop productivity software.
+2003 unix.org: ISO/IEC 9945:2003   The core volumes of Version 3 of the Single UNIX Specification are approved as an international standard. The "Westwood" test suite ship for the UNIX 03 brand. Solaris 9.0 E ships. Linux 2.6 kernel released.
+2003 usenet: Daily Volume is 492 GB
+2004 browser: Netscape 7.2 (0.92%), Opera 7.5 (1.01%), IE 6.0-SP2 (89.47%), Mozilla 1.7 (2.50%), Firefox 1.0(5.51%), Safari 1.0 released.
+2004 gdb: 6.3 released. (We rock!)
+2004 javascript: Ecma International published ECMA-357 standard, defining an extension to ECMAScript, known as E4X (ECMAScript for XML).
+2004 linux: The XFree86 team splits up and joins with the existing X Window standards body to form the X.Org Foundation, which results in a substantially faster development of the X Window Server for Linux.
+2004 usenet: Daily Volume is 1.38 TB
+2005 browser: Netscape 8.0 (0.61%), Opera 8.5 (0.90%), Mozilla is now Seamonkey 1.0a (1.06%), Firefox 1.5 (12.41%), Safari 2.0 (1.40%) released , IE (83.31%)
+2005 browser: The Mozilla Foundation announced the creation of the Mozilla Corporation, a wholly-owned subsidiary for the development, distribution, and marketing of Mozilla Firefox and Mozilla Thunderbird. 
+2005 dos: GNU/DOS is released
+2005 gcc: GCC 4.0 released.
+2005 shell: BeanShell
+2005 sudo: Todd rewrote the sudoers parser to better support the features that had been added in the past ten years. This new parser removes some limitations of the previous one, removes ordering constraints and adds support for including multiple sudoers files.
+2005 usenet: AOL announced that it would discontinue its integrated Usenet service in early 2005, citing the growing popularity of weblogs, chat forums and on-line conferencing. The AOL community had a tremendous role in popularizing Usenet some 11 years earlier, with all of its positive and negative aspects. This change marked the end of the legendary Eternal September. Others, however, feel that Google Groups, especially with its new user interface, has picked up the torch that AOL has dropped—and that the so-called Eternal September has yet to end.
+2005 usenet: Daily Volume is 2.00 TB
+2006 browser: Netscape 8.1 (0.11%), Opera 9.1 (0.69%), IE 7.0 (85.24%), Seamonkey 1.0 and last release of Mozilla 1.7.13, Firefox 2.0 (12.15%) released, Safari (1.61%)
+2006 browser: the usage share of Netscape browsers had fallen, from over 90% in the mid 1990s, to less than 1%
+2006 dos: FreeDOS 1.0 is released
+2006 graphics: Xgl was originally developed on public mailing lists, but for a long time, until January 2, 2006 most [2] development of Xgl was done behind closed doors. On that day the source to Xgl was re-opened to the public [3][4], and included in freedesktop.org, along with major restructuring to allow a wider range of supported display drivers.
+2006 shell: Windows PowerShell
+2006 sun: Sun Opens Java
+2007 browser: Netscape 9.0, Opera 9.2 (1.41%), SeaMonkey 1.1, Safari 3.0 (1.84%), NetSurf 1.0 (initial) released, Firefox (27.77%), IE (62.36%)
+2007 emacs: release 22.1 Support for the GTK+ graphical toolkit; Drag-and-drop on X; images, toolbar, and tooltips; Unicode support
+2007 redhat: RedHat launched IcedTea to resolve the ncumbered components with the equivalents from GNU classpath implementation. for the un-GPL'ed parts of the Java class library (4% of it) 
+2007 sun: Sun Microsystems released the Java Development Kit as OpenJDK under the GNU General Public License GPL
+2007 usenet: Daily Volume is 3.12 TB
+2008 browser: Netscape last release 9.0.0.6, Opera 9.60 (1.55%), IE 8b2 (58.46%), Firefox 3.1b1 (31.40%), Safari 3.1 (1.80%), NetSurf 1.2, and new google Chrome 0.2.149.27 (initial) released.
+2008 emacs: release 22.3 GTK+ toolkit support, enhanced mouse support, a new keyboard macro system, improved Unicode support, and drag-and-drop operation on X, plus many new modes and packages including a graphical user interface to GDB, Python mode, the mathematical tool Calc, and the remote file editing system Tramp. New support for the Bazaar, Mercurial, Monotone, and Git version control systems; New major modes for editing CSS, Vera, Verilog, and BibTeX style files; Improved scrolling support in Image mode
+2008 usenet: Daily Volume is 3.80 TB
+
+
+1993 web: CGI (Common Gateway Interface) http://lampsailesh.blogspot.com/2008/09/history-of-dynamic-web.html
+1994 web: Perl 5, Python 1.0
+1995 web: PHP 2 (Personal Home Page Tools), Ruby Allaire Cold Fusion version 1.0
+1996 web: ASP 1.0, Lasso 1.0, Python 1.4
+1997 web: ASP 2.0, Allaire Cold Fusion version 3.0, Java Servlet 1.0
+1998 web: PHP3, Allaire Cold Fusion version 4.0, Java Servlet 2.1
+1999 web: Java Servlets 2.2
+2000 web: PHP4, ASP 3.0, Python 2.0
+2001 web: Macromedia ColdFusion version 5.0, Java servlet 2.3, Python 2.2
+2002 web: ASP.NET 1.0, Macromedia ColdFusion MX version 6.0
+2003 web: ASP.NET 1.1, JAva Servlet 2.4, Pyhon 2.3
+2004 web: PHP5, Ruby on Rails 0.5.0, Python 2.4
+2005 web: ASP.NET 2, Django, Macromedia ColdFusion MX 7, Java servlet 2.5, CakePHP, Python 2.5
+2006 web: Ruby on Rails 1.1.0
+2007 web: ASP.NET 3.5, Adobe ColdFusion 8, Symfony 1.0, Ruby on Rails 1.2.0
+
+1955 FORTRAN, the "FORmula TRANslator, invented by John W. Backus et al.; 
+1958 Lisp was invented by John McCarthy in 1958 while he was at the Massachusetts Institute of Technology (MIT)
+1959 A specification of COBOL was initially created. COBOL, the COmmon Business Oriented Language, created by the Short Range Committee, heavily influenced by Grace Hopper.
+
+ 
+
+
+2000 domain: More than 15M domains has taken, nearly half of these are active http://news.netcraft.com/archives/2008/08/29/august_2008_web_server_survey.html
+2001 domain: More than 35M domains has taken, nearly half of these are active
+2003 domain: More than 40M domains has taken, nearly half of these are active
+2004 domain: More than 55M domains has taken, nearly half of these are active
+2005 domain: More than 72M domains has taken, nearly half of these are active
+2006 domain: More than 100M domains has taken, nearly half of these are active
+2007 domain: More than 159M domains has taken, nearly half of these are active
+2008 domain: More than 175M domains has taken, nearly half of these are active
+
+
+1962 editor: PDP 1 TECO text editor http://www.csail.mit.edu/timeline/timeline.php
+1964 editor: PDP 6 TECO text editor
+1964 editor: Typset editor, Runoff formatter in CTSS
+1971 editor: SCRIPT/370 marketed by IBM
+1974 editor: R. Stallman begins Emacs
+1976 editor: First Emacs is operating.
+1979 editor: First Emacs manual.
+1986 editor: GNU Emacs manual is in Edition 5 Version 18.
+1990 editor: Stallman wins Hopper Award
+
+
+1960 lisp: First paper on Lisp (MIT) http://www.csail.mit.edu/timeline/timeline.php
+1962 lisp: Lisp 1.5 manual published
+1963 lisp: Garbage collector for PDP 1
+1963 lisp: Interactive Lisp implemented for CTSS
+1966 lisp: Start of Maclisp
+1969 lisp: Maclisp 97 in being. Includes compiler.
+1969 lisp: Multics garbage collector
+1971 lisp: McCarthy wins Turing Award (MIT)
+1971 lisp: Muddle (MDL) development started
+1975 lisp: Scheme
+1978 lisp: A simple real time garbage collector
+1979 lisp: NIL starts in Mathlab Group
+1979 lisp: The MDL programming language
+1980 lisp: The MDL programming environment
+1981 lisp: Lisp published
+1982 lisp: The Scheme chip
+1983 lisp: Generational garbage collection introduced.
+1987 lisp: McCarthy elected to NAE
+1988 lisp: Steele wins Hopper Award
+
+
+
+1986 book: "Abstraction and Specification in Program Development" published
+1994 book: "Design Patterns: Elements of Reusable Object-Oriented Software" [gang of four] published
+1988 book: B. W. Kernighan and D. M. Ritchie, The C Programming Language, Prentice-Hall, Englewood Cliffs, New Jersey, 1978. Second edition, 1988. 
+1962 book: John McCarthy, Paul Abrahams, Daniel Edwards, Timothy Hart, and Michael Levin. Lisp 1.5 Programmer’s Manual MIT Computation Center and Research Laboratory of Electronics.
+
+
+1984 X: X Window System development begins, joint effort with Project Athena.
+1986 X: X Window System Version 10 released
+1988 X: Industrially sponsored MIT X Consortium formed to control further evolution of the X Window System.
+
+
+1947 The Association for Computing Machinery, or ACM, was founded in 1947 as the world's first scientific and educational computing society. 
+1963 The Institute of Electrical and Electronics Engineers or IEEE (read eye-triple-e) is an international non-profit, professional organization for the advancement of technology related to electricity.
+1971 IEEE Computer Society is an organizational unit of the Institute of Electrical and Electronics Engineers (IEEE) established.
+
+
+
+
+
