@@ -1,0 +1,4 @@
+# python
+argv=os.sys.argv
+argv=['q', "-v", "hede", "--time", "hede"]
+a=getopt.gnu_getopt(argv, "qt:v:", ['quiet', 'time=', 'verbose='])
