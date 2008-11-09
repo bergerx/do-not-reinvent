@@ -317,22 +317,25 @@
 2004 linux: The XFree86 team splits up and joins with the existing X Window standards body to form the X.Org Foundation, which results in a substantially faster development of the X Window Server for Linux.
 1996 linux: Version 2.0 of the Linux kernel is released. The kernel can now serve several processors at the same time, and thereby becomes a serious alternative for many companies.
 
-1996 sun: engineer Jon Bosak leads World Wide Web Consortium team developing XML
 1982 sun: Incorporated with four employees.
-1995 sun: Java technology enables developers to write applications once to run on any computer.
-2003 sun: More than 1 million students and educators use Sun StarOffice desktop productivity software.
-1983 sun: NFS technology introduced and licensed free to the industry. It's destined to become the industry standard for network file sharing.
+1982 sun: First workstation introduced. It includes TCP/IP, now known as the Internet protocol suite.
+1984 sun: NFS technology introduced and licensed free to the industry. It's destined to become the industry standard for network file sharing.
 1986 sun: PC-NFS technology introduced. It brings the power of network computing to PC users, and opens a whole new market for Sun.
+1987 sun: Sun and AT&T lay the groundwork for business computing in the next decade with an alliance to develop UNIX(R) System V Release 4.
+1987 sun: Sun connects to Internet.
 1988 sun: reaches $1 billion in revenue
-1992 sun: SPARCstation 10 system, the first multiprocessing desktop computer.
 1989 sun: SPARCstation 1 system introduced.
-1997 sun: Sun becomes the number one supplier of UNIX multiuser disk subsystems.
-1996 sun: Sun licenses Java technology to all major hardware and software companies.
-1999 sun: Sun makes StarOffice productivity suite available to all, free of charge. LGPL
-2007 sun: Sun Microsystems released the Java Development Kit as OpenJDK under the GNU General Public License GPL
-2006 sun: Sun Opens Java
 1991 sun: unveils Solaris 2 operating environment, specially tuned for symetric multiprocessing.
+1992 sun: SPARCstation 10 system, the first multiprocessing desktop computer.
 1994 sun: www.sun.com
+1995 sun: Java technology enables developers to write applications once to run on any computer.
+1996 sun: Sun licenses Java technology to all major hardware and software companies.
+1996 sun: engineer Jon Bosak leads World Wide Web Consortium team developing XML
+1997 sun: Sun becomes the number one supplier of UNIX multiuser disk subsystems.
+1999 sun: Sun makes StarOffice productivity suite available to all, free of charge. LGPL
+2003 sun: More than 1 million students and educators use Sun StarOffice desktop productivity software.
+2006 sun: Sun Opens Java
+2007 sun: Sun Microsystems released the Java Development Kit as OpenJDK under the GNU General Public License GPL
 
 1998 browser: AOL bought Netscape, which then ceased to exist as an independent company 
 1994 browser: Following a legal challenge by the University of Illinois, Mosaic Communications became Netscape Communications 
@@ -611,110 +614,418 @@
 2001 perl: Larry Wall and Guido van Rossum reveal their plans for joint Perl and Python development to be called Parrot. http://www.perl.com/pub/2001/04/01/parrot.htm (1 April)
 2001 perl: ActiveState unveils its ASPN.
 
-1968 readhat: ARPANET founded. The precursor to the Internet, it allows researchers to share code and information.
-1969 readhat: Ken Thompson, researcher at Bell Labs, writes the first version of Unix.
-1979 readhat: AT&T announces plans to commercialize Unix. 
-1983 readhat: Richard Stallman establishes the Free Software Foundation at MIT. The GNU project to construct an operating system based on Unix but for which the source code is freely available, begins. Stallman also establishes the idea of "copyleft" and the General Public License (GPL).
-1987 readhat: Andrew Tanenbaum releases Minix, a version of Unix for the PC, Mac, Amiga, and Atari ST. Source code included.
-1989 readhat: Michael Tiemann (Red Hat CTO) co-founds Cygnus Solutions, the first business to provide custom engineering and support services for free software.
-1991 readhat: Linus Torvalds releases the Linux kernel.
-1991 readhat: Bob Young introduced to free software and UNIX by the system administrators of the New York City UNIX Users Group (Unigroup).
-1993 readhat: Young incorporates ACC Corporation, a catalog business that sells Linux and Unix software accessories and books and distributes a magazine called New York UNIX
-1994 readhat: Marc Ewing creates his own distribution of Linux which he names Red Hat Linux. Released in October, it becomes known as the Halloween release.
-1995 readhat: Young buys Ewing's business, merges it with ACC Corporation, and names the new company Red Hat Software.
-1995 readhat: Red Hat Linux 2.0 is released, officially unveils the new package management system called RPM.
-1996 readhat: Red Hat opens sales and administration functions to North Carolina, opens corporate headquarters in Durham.
-1997 readhat: January Greylock and August Capital invest $6.25 million in Cygnus Solutions, become first VCs to invest in a free software business. 
-1997 readhat: May Eric Raymond delivers "The Cathedral and the Bazaar" at the Linux Kongress in Germany.
-1997 readhat: May The Red Hat training model and the term "Red Hat Certified Engineer" are first developed as the benchmark for technical skills required of Red Hat Support Partners worldwide. 
-1997 readhat: July Red Hat Linux 4.2 released.
-1997 readhat: December Red Hat announces Red Hat Linux 5.0, followed by the introduction of telephone technical support.
-1998 readhat: January Netscape announces plans to make the source code for Communicator free on the Internet.
-1998 readhat: February Term "Open Source" is coined in Palo Alto, CA.
-1998 readhat: July Oracle, CA, and Informix announce support for Red Hat Linux. 
-1998 readhat: November A lawyer for Microsoft brandishes a box of Red Hat Linux in an attempt to refute Justice Department charges that the software giant has a monopoly on the operating system market. 
-1998 readhat: December The first formal RHCE training course, class sessions and dates, and the RHCE Exam are announced.
-1998 readhat: December IDC reports that Linux installations grew by 212% from the previous year, outpacing growth rates of Unix, Windows NT, Netware, and all other server operating systems. 
-1999 readhat: February IBM and Red Hat announce Linux Alliance.
-1999 readhat: April Dell becomes the first major computer vendor to factory-install Red Hat Linux on servers and workstations.
-1999 readhat: April Red Hat Linux 6.0 released.
-1999 readhat: July Red Hat expands European presence, opening offices in the United Kingdom and Germany.
-1999 readhat: August Red Hat goes public, the eighth-biggest first-day gain in Wall Street history. 
-1999 readhat: September Red Herring names Bob Young one of the "Top 10 Entrepreneurs of 1999."
-1999 readhat: September Red Hat announces expansion into Japan.
-1999 readhat: October Red Hat releases Red Hat Linux 6.1.
-1999 readhat: November Matthew Szulik promoted to CEO. Red Hat Named One of the Top 20 "Best Regarded" Technology Companies, Top 10 for "Vision and Leadership" in Harris Interactive survey. 
-1999 readhat: November Red Hat acquires Cygnus, creating the largest open source company in the world.
-2000 readhat: February InfoWorld awards Red Hat with its fourth-consecutive Operating System Product of the Year award for Red Hat Linux 6.1.
-2000 readhat: February IDC reports that Linux was the fastest growing server operating system in 1999, capturing 25% of the server operating system shipment market.
-2000 readhat: May Red Hat Linux receives Network Magazine's "Product of the Year" and CRN's "Editor's Choice" award. Red Hat is named one of the Red Herring "Top 50 Public Companies."
-2000 readhat: June Red Hat and Dell create the One Source Alliance.
-2000 readhat: July Netcraft Web Server Survey finds Red Hat holds 70% of worldwide global Linux market share.
-2000 readhat: August IDC names Red Hat the Linux market leader for second consecutive year with 52.4% of Linux shipments worldwide.
-2000 readhat: September Red Hat Network launches and Red Hat Linux 7.0 released.
-2001 readhat: January Linus Torvalds releases the highly anticipated 2.4 Linux kernel.
-2001 readhat: January Sun Microsystems CEO Scott McNealy calls Linux a "better NT than NT" and says Solaris is Sun's implementation of Linux.
-2001 readhat: February Microsoft CEO Steve Ballmer calls Linux a "cancer" and an "intellectual property destroyer."
-2001 readhat: April Red Hat releases Red Hat Linux 7.1 , the first release to incorporate the 2.4 kernel. Red Hat also launches Software Manager for Red Hat Network, providing real-time bug notification, security alerts, and software updates.
-2001 readhat: May Microsoft's Senior Vice President Craig Mundie announces "shared source" initiative, admits there are benefits to sharing source code with developers and customers.
-2001 readhat: June Microsoft's Ballmer calls Linux the biggest threat to Microsoft.
-2001 readhat: June IDC predicts that worldwide relational database revenues on Linux and other open source platforms will grow from $42 million in 2000 to $7.8 billion in 2005.
-2001 readhat: July Tiemann debates Microsoft's Mundie at O'Reilly Open Source Convention in a panel discussion to argue "Shared Source vs. Open Source."
-2001 readhat: July MITRE Corporation reports in a study funded by DISA that open source software is ready for use in government applications.
-2001 readhat: October Red Hat Linux 7.2 is released.
-2001 readhat: October Amazon.com, a major Red Hat customer, reports in a filing to the SEC that it cut technology expenses about 25%, from $71 million to $54 million, and attributes this primarily to the move to a Linux-based technology platform.
-2001 readhat: November Red Hat proposes to provide free software to every school district in the United States if Microsoft pays for the computing hardware in an alternative to Microsoft's class action lawsuit settlement plan.
-2001 readhat: December Matthew Szulik tells Senate Judiciary Committee at Microsoft hearing "Monopolist has seriously warped the technology industry."
-2001 readhat: December Red Hat ranked 140 in Deloitte & Touche "Technology Fast 500." Red Hat Linux earns editor's choice honors in PC Magazine, CNET, and Linux Magazine. Red Hat Linux selected as the reader's choice for top distribution in Network World and Linux Journal.
-2002 readhat: January IDC reports a 45-80% lower Total Cost of Ownership for Linux on Intel architecture over RISC/Unix environments.
-2002 readhat: January RHCE program rated #1 IT certification program for Overall Quality in Fairfield Research survey.
-2002 readhat: February Sun's McNealy dons penguin suit for speech at LinuxWorld.
-2002 readhat: February Red Hat moves its headquarters to the Centennial Campus in Raleigh, North Carolina.
-2002 readhat: March Red Hat introduces the first enterprise-class Linux operating system: Red Hat Linux Advanced Server. Dell, IBM, HP, Oracle, and VERITAS announce their support of the platform. 
-2002 readhat: April Dreamworks, a major Red Hat customer, reveals that hit film "Shrek" was rendered on Red Hat Linux servers. Also releases "Spirit: Stallion of the Cimarron"; first animated film to be created entirely on Linux workstations and rendered on Linux servers.
-2002 readhat: April Credit Suisse First Boston, a major Red Hat customer, reports a 20x increase in overall performance for their new Red Hat Linux-powered trading architecture.
-2002 readhat: May Red Hat opens a major engineering and R&D facility in Westford, Mass. 
-2002 readhat: May Red Hat announces the Red Hat Alliance. Committed partners include Alias|Wavefront, BMC, Borland, Checkpoint, Computer Associates, Dell, HP, IBM, Legato Systems, Novell, Oracle, Rogue Wave, Softimage, Synopsys, TIBCO, and VERITAS.
-2002 readhat: May Red Hat officially announces its entry into the enterprise with the "Enterprise-Ready Linux" event with partners Oracle and Dell. 
-2002 readhat: June Red Hat stock price, closing at $5.50 per share, eclipses Sun Microsystems ($5.12 per share) for first time.
-2002 readhat: September Red Hat Linux 8.0 released, introducing new Bluecurve desktop.
-2002 readhat: September IBM and Red Hat announce global multi-year alliance to deliver enterprise Linux solutions.
-2002 readhat: September Microsoft's Ballmer says that Microsoft does not plan to offer software for Linux.
-2002 readhat: December Red Hat Q3 financial report shows positive cash flow (GAAP) from operations for second consecutive quarter and positive revenue growth for third consecutive quarter.
-2002 readhat: December META Group predicts that Linux will run on 45% of new Intel based servers by 2006 or 2007, up from 15%. Also predicts that Microsoft will move some of its proprietary application enablers to Linux by 2004.
-2003 readhat: January Red Hat Network registers its one millionth system.
-2003 readhat: January Morgan Stanley, a major Red Hat customer, speaks at LinuxWorld about how a flexible architecture based on Red Hat Linux has allowed them to increase performance and reliability while decreasing costs. Red Hat reports that 8 of the top 10 global investment banks are customers of Red Hat.
-2003 readhat: January Goldman Sachs reports that "Linux will have the greatest effect in the Datacenter, where mission critical functions (database, ERP, CRM, etc) are run on higher-end servers and the majority of enterprise IT dollars are spent."
-2003 readhat: February Red Hat launches Red Hat Academy to bring RHCE program to schools and colleges worldwide. 
-2003 readhat: February Red Hat achieves US Department of Defense COE certification.
-2003 readhat: March Red Hat Enterprise Linux family of operating system products launched, including server and workstation operating systems.
-2003 readhat: March Sun's McNealy says his company can embrace Linux while still selling Solaris.
-2003 readhat: March HP and Red Hat announce expanded global agreement to deliver enterprise Linux solutions.
-2003 readhat: March Goldman Sachs IT Spending Survey reports that Red Hat ranks first among software companies gaining share of IT dollars.
-2003 readhat: March 10th anniversary of the incorporation of ACC Corporation, the company that eventually became Red Hat.
-2003 readhat: September Red Hat posts profits for first time, for 2Q03 numbers.
-2003 readhat: October Red Hat Enterprise Linux 3.0 is released.
-2003 readhat: December Oracle and HP Set World Record TPC-C Benchmark Result; First to Top One Million Transactions Per Minute With Clustered Linux Servers.
-2003 readhat: December Red Hat announces an agreement to acquire storage specialist Sistina Software for about $31 million in stock.
-2004 readhat: January Red Hat raises $600 million through a bond offering, bringing its cash reserves to about $1 billion.
-2004 readhat: May Red Hat Desktop 3 is released, focused as Red Hat's first dedicated desktop product.
-2004 readhat: June Red Hat Global File System (GFS) is released as a solution for files to be stored in a single file system shared by numerous servers.
-2004 readhat: August The Red Hat Application Server, a server that works with other Java Enterprise Edition 2.0 (J2EE) application servers from IBM, BEA, and Oracle, is released.
-2004 readhat: September Red Hat acquires AOL's Netscape server software for around $25 million in cash.
+1968 redhat: ARPANET founded. The precursor to the Internet, it allows researchers to share code and information.
+1969 redhat: Ken Thompson, researcher at Bell Labs, writes the first version of Unix.
+1979 redhat: AT&T announces plans to commercialize Unix. 
+1983 redhat: Richard Stallman establishes the Free Software Foundation at MIT. The GNU project to construct an operating system based on Unix but for which the source code is freely available, begins. Stallman also establishes the idea of "copyleft" and the General Public License (GPL).
+1987 redhat: Andrew Tanenbaum releases Minix, a version of Unix for the PC, Mac, Amiga, and Atari ST. Source code included.
+1989 redhat: Michael Tiemann (Red Hat CTO) co-founds Cygnus Solutions, the first business to provide custom engineering and support services for free software.
+1991 redhat: Linus Torvalds releases the Linux kernel.
+1991 redhat: Bob Young introduced to free software and UNIX by the system administrators of the New York City UNIX Users Group (Unigroup).
+1993 redhat: Young incorporates ACC Corporation, a catalog business that sells Linux and Unix software accessories and books and distributes a magazine called New York UNIX
+1994 redhat: Marc Ewing creates his own distribution of Linux which he names Red Hat Linux. Released in October, it becomes known as the Halloween release.
+1995 redhat: Young buys Ewing's business, merges it with ACC Corporation, and names the new company Red Hat Software.
+1995 redhat: Red Hat Linux 2.0 is released, officially unveils the new package management system called RPM.
+1996 redhat: Red Hat opens sales and administration functions to North Carolina, opens corporate headquarters in Durham.
+1997 redhat: January Greylock and August Capital invest $6.25 million in Cygnus Solutions, become first VCs to invest in a free software business. 
+1997 redhat: May Eric Raymond delivers "The Cathedral and the Bazaar" at the Linux Kongress in Germany.
+1997 redhat: May The Red Hat training model and the term "Red Hat Certified Engineer" are first developed as the benchmark for technical skills required of Red Hat Support Partners worldwide. 
+1997 redhat: July Red Hat Linux 4.2 released.
+1997 redhat: December Red Hat announces Red Hat Linux 5.0, followed by the introduction of telephone technical support.
+1998 redhat: January Netscape announces plans to make the source code for Communicator free on the Internet.
+1998 redhat: February Term "Open Source" is coined in Palo Alto, CA.
+1998 redhat: July Oracle, CA, and Informix announce support for Red Hat Linux. 
+1998 redhat: November A lawyer for Microsoft brandishes a box of Red Hat Linux in an attempt to refute Justice Department charges that the software giant has a monopoly on the operating system market. 
+1998 redhat: December The first formal RHCE training course, class sessions and dates, and the RHCE Exam are announced.
+1998 redhat: December IDC reports that Linux installations grew by 212% from the previous year, outpacing growth rates of Unix, Windows NT, Netware, and all other server operating systems. 
+1999 redhat: February IBM and Red Hat announce Linux Alliance.
+1999 redhat: April Dell becomes the first major computer vendor to factory-install Red Hat Linux on servers and workstations.
+1999 redhat: April Red Hat Linux 6.0 released.
+1999 redhat: July Red Hat expands European presence, opening offices in the United Kingdom and Germany.
+1999 redhat: August Red Hat goes public, the eighth-biggest first-day gain in Wall Street history. 
+1999 redhat: September Red Herring names Bob Young one of the "Top 10 Entrepreneurs of 1999."
+1999 redhat: September Red Hat announces expansion into Japan.
+1999 redhat: October Red Hat releases Red Hat Linux 6.1.
+1999 redhat: November Matthew Szulik promoted to CEO. Red Hat Named One of the Top 20 "Best Regarded" Technology Companies, Top 10 for "Vision and Leadership" in Harris Interactive survey. 
+1999 redhat: November Red Hat acquires Cygnus, creating the largest open source company in the world.
+2000 redhat: February InfoWorld awards Red Hat with its fourth-consecutive Operating System Product of the Year award for Red Hat Linux 6.1.
+2000 redhat: February IDC reports that Linux was the fastest growing server operating system in 1999, capturing 25% of the server operating system shipment market.
+2000 redhat: May Red Hat Linux receives Network Magazine's "Product of the Year" and CRN's "Editor's Choice" award. Red Hat is named one of the Red Herring "Top 50 Public Companies."
+2000 redhat: June Red Hat and Dell create the One Source Alliance.
+2000 redhat: July Netcraft Web Server Survey finds Red Hat holds 70% of worldwide global Linux market share.
+2000 redhat: August IDC names Red Hat the Linux market leader for second consecutive year with 52.4% of Linux shipments worldwide.
+2000 redhat: September Red Hat Network launches and Red Hat Linux 7.0 released.
+2001 redhat: January Linus Torvalds releases the highly anticipated 2.4 Linux kernel.
+2001 redhat: January Sun Microsystems CEO Scott McNealy calls Linux a "better NT than NT" and says Solaris is Sun's implementation of Linux.
+2001 redhat: February Microsoft CEO Steve Ballmer calls Linux a "cancer" and an "intellectual property destroyer."
+2001 redhat: April Red Hat releases Red Hat Linux 7.1 , the first release to incorporate the 2.4 kernel. Red Hat also launches Software Manager for Red Hat Network, providing real-time bug notification, security alerts, and software updates.
+2001 redhat: May Microsoft's Senior Vice President Craig Mundie announces "shared source" initiative, admits there are benefits to sharing source code with developers and customers.
+2001 redhat: June Microsoft's Ballmer calls Linux the biggest threat to Microsoft.
+2001 redhat: June IDC predicts that worldwide relational database revenues on Linux and other open source platforms will grow from $42 million in 2000 to $7.8 billion in 2005.
+2001 redhat: July Tiemann debates Microsoft's Mundie at O'Reilly Open Source Convention in a panel discussion to argue "Shared Source vs. Open Source."
+2001 redhat: July MITRE Corporation reports in a study funded by DISA that open source software is ready for use in government applications.
+2001 redhat: October Red Hat Linux 7.2 is released.
+2001 redhat: October Amazon.com, a major Red Hat customer, reports in a filing to the SEC that it cut technology expenses about 25%, from $71 million to $54 million, and attributes this primarily to the move to a Linux-based technology platform.
+2001 redhat: November Red Hat proposes to provide free software to every school district in the United States if Microsoft pays for the computing hardware in an alternative to Microsoft's class action lawsuit settlement plan.
+2001 redhat: December Matthew Szulik tells Senate Judiciary Committee at Microsoft hearing "Monopolist has seriously warped the technology industry."
+2001 redhat: December Red Hat ranked 140 in Deloitte & Touche "Technology Fast 500." Red Hat Linux earns editor's choice honors in PC Magazine, CNET, and Linux Magazine. Red Hat Linux selected as the reader's choice for top distribution in Network World and Linux Journal.
+2002 redhat: January IDC reports a 45-80% lower Total Cost of Ownership for Linux on Intel architecture over RISC/Unix environments.
+2002 redhat: January RHCE program rated #1 IT certification program for Overall Quality in Fairfield Research survey.
+2002 redhat: February Sun's McNealy dons penguin suit for speech at LinuxWorld.
+2002 redhat: February Red Hat moves its headquarters to the Centennial Campus in Raleigh, North Carolina.
+2002 redhat: March Red Hat introduces the first enterprise-class Linux operating system: Red Hat Linux Advanced Server. Dell, IBM, HP, Oracle, and VERITAS announce their support of the platform. 
+2002 redhat: April Dreamworks, a major Red Hat customer, reveals that hit film "Shrek" was rendered on Red Hat Linux servers. Also releases "Spirit: Stallion of the Cimarron"; first animated film to be created entirely on Linux workstations and rendered on Linux servers.
+2002 redhat: April Credit Suisse First Boston, a major Red Hat customer, reports a 20x increase in overall performance for their new Red Hat Linux-powered trading architecture.
+2002 redhat: May Red Hat opens a major engineering and R&D facility in Westford, Mass. 
+2002 redhat: May Red Hat announces the Red Hat Alliance. Committed partners include Alias|Wavefront, BMC, Borland, Checkpoint, Computer Associates, Dell, HP, IBM, Legato Systems, Novell, Oracle, Rogue Wave, Softimage, Synopsys, TIBCO, and VERITAS.
+2002 redhat: May Red Hat officially announces its entry into the enterprise with the "Enterprise-Ready Linux" event with partners Oracle and Dell. 
+2002 redhat: June Red Hat stock price, closing at $5.50 per share, eclipses Sun Microsystems ($5.12 per share) for first time.
+2002 redhat: September Red Hat Linux 8.0 released, introducing new Bluecurve desktop.
+2002 redhat: September IBM and Red Hat announce global multi-year alliance to deliver enterprise Linux solutions.
+2002 redhat: September Microsoft's Ballmer says that Microsoft does not plan to offer software for Linux.
+2002 redhat: December Red Hat Q3 financial report shows positive cash flow (GAAP) from operations for second consecutive quarter and positive revenue growth for third consecutive quarter.
+2002 redhat: December META Group predicts that Linux will run on 45% of new Intel based servers by 2006 or 2007, up from 15%. Also predicts that Microsoft will move some of its proprietary application enablers to Linux by 2004.
+2003 redhat: January Red Hat Network registers its one millionth system.
+2003 redhat: January Morgan Stanley, a major Red Hat customer, speaks at LinuxWorld about how a flexible architecture based on Red Hat Linux has allowed them to increase performance and reliability while decreasing costs. Red Hat reports that 8 of the top 10 global investment banks are customers of Red Hat.
+2003 redhat: January Goldman Sachs reports that "Linux will have the greatest effect in the Datacenter, where mission critical functions (database, ERP, CRM, etc) are run on higher-end servers and the majority of enterprise IT dollars are spent."
+2003 redhat: February Red Hat launches Red Hat Academy to bring RHCE program to schools and colleges worldwide. 
+2003 redhat: February Red Hat achieves US Department of Defense COE certification.
+2003 redhat: March Red Hat Enterprise Linux family of operating system products launched, including server and workstation operating systems.
+2003 redhat: March Sun's McNealy says his company can embrace Linux while still selling Solaris.
+2003 redhat: March HP and Red Hat announce expanded global agreement to deliver enterprise Linux solutions.
+2003 redhat: March Goldman Sachs IT Spending Survey reports that Red Hat ranks first among software companies gaining share of IT dollars.
+2003 redhat: March 10th anniversary of the incorporation of ACC Corporation, the company that eventually became Red Hat.
+2003 redhat: September Red Hat posts profits for first time, for 2Q03 numbers.
+2003 redhat: October Red Hat Enterprise Linux 3.0 is released.
+2003 redhat: December Oracle and HP Set World Record TPC-C Benchmark Result; First to Top One Million Transactions Per Minute With Clustered Linux Servers.
+2003 redhat: December Red Hat announces an agreement to acquire storage specialist Sistina Software for about $31 million in stock.
+2004 redhat: January Red Hat raises $600 million through a bond offering, bringing its cash reserves to about $1 billion.
+2004 redhat: May Red Hat Desktop 3 is released, focused as Red Hat's first dedicated desktop product.
+2004 redhat: June Red Hat Global File System (GFS) is released as a solution for files to be stored in a single file system shared by numerous servers.
+2004 redhat: August The Red Hat Application Server, a server that works with other Java Enterprise Edition 2.0 (J2EE) application servers from IBM, BEA, and Oracle, is released.
+2004 redhat: September Red Hat acquires AOL's Netscape server software for around $25 million in cash.
+
+1998 mozilla: February 23 - The mozilla.org project is launched by Netscape
+1998 mozilla: March 31 - Netscape Communicator source code is posted on the Internet via mozilla.org
+1998 mozilla: October 26 - mozilla.org posts product roadmap that includes next browser release based on Gecko and a cross platform user interface
+1999 mozilla: March 18 - America Online acquires Netscape Communications Corporation
+2000 mozilla: April 7 - First Mozilla Developer Day is hosted at Netscape
+2001 mozilla: September 19 - Mozilla relicensing begins, more than 6000 NPL files are relicensed under an MPL/GPL/LGPL tri-licence
+2003 mozilla: April 2 - A new roadmap is posted that details the switch from developing an integrated suite to developing Firefox and Thunderbird as separate applications
+2003 mozilla: July 15 - The Mozilla Foundation is born with a $2 million start-up support from America Online's Netscape division; Mitch Kapor pledges support and heads up the board of directors
+2004 mozilla: February 17 - Mozilla Europe is founded to spur Mozilla’s community, mindshare and marketshare in Europe
+2004 mozilla: August 18 - Mozilla Japan is founded to create a foothold in Asia and foster the growing community in Japan
+2004 mozilla: September 14 - Mozilla establishes the Bug Bounty program to reward contributors for discovering bugs and helping continually improve Mozilla's products
+2005 mozilla: March 4 - Mozilla China is founded to tap into China’s thriving Firefox community
+2005 mozilla: July 2 - The community led SeaMonkey project takes over development of former Mozilla Application Suite code
+2005 mozilla: August 3 - The Mozilla Corporation is created as a wholly owned subsidiary of the Mozilla Foundation
+2005 mozilla: October 19 - Firefox surpasses 100 million downloads just before its 1st anniversary
+2006 mozilla: December 4 - The World Economic Forum selects Mozilla as one of the Technology Pioneers for 2007
+2007 mozilla: December 28 - AOL announces that there will be no further releases of Netscape Navigator and recommends that Navigator users switch to Firefox
+2008 mozilla: February 19 - Mozilla Messaging, the new mail focused subsidiary of the Mozilla Foundation, begins operations
+
+2000 mozilla: November 14 - Netscape 6 is released and is the first official Netscape product based on open source code
+2002 mozilla: June 5 - Mozilla 1.0 is released - the browser which is the precursor to today’s wildly popular Firefox Web browser
+2002 mozilla: September 23 - Phoenix 0.1 is released, the first official version of a stand-alone browser that will later be renamed to Firefox
+2003 mozilla: June 30 - Mozilla 1.4 is released with popup blocking, junkmail filtering, and many improvements
+2004 mozilla: June 17 - Mozilla 1.7 is launched with many improvements to speed and standards support
+2004 mozilla: November 9 - Mozilla Firefox 1.0 goes live, allowing users to experience the Web in a whole new way
+2004 mozilla: December 7 - Mozilla rolls out Thunderbird 1.0 providing users with an alternative, free email client
+2005 mozilla: November 29 - Mozilla releases Firefox 1.5
+2006 mozilla: January 12 - Thunderbird 1.5 is made available
+2006 mozilla: January 30 - SeaMonkey 1.0 is released
+2006 mozilla: October 24 - Mozilla releases Firefox 2.0
+2007 mozilla: January 18 - SeaMonkey 1.1 is made available
+2007 mozilla: April 18 - Thunderbird 2.0 is released as a major update to the free, open source email client
+2008 mozilla: June 17 - Firefox 3.0 is released
+
+1991 python-groups: Feb 20: Guido announces Python. "This is Python, an extensible interpreted programming language that combines remarkable power with very clear syntax. This is version 0.9 (the first beta release), patchlevel 1." http://groups.google.com/groups?selm=2986%40charon.cwi.nl
+1991 python-groups: Feb 20: Python 0.9.1 part 01/21. The entire Python source code — actually an installer (via sh) — was posted to alt.sources. Including documentation. In uncompressed plain text. In 21 parts.
+1991 python-groups: Feb 25: Python mode for Emacs. Posted, in its entirety, to gnu.emacs.sources.
+1992 python-groups: May 22: Python 0.9.6 now available for MS-DOS. "If you don’t know yet what Python is: it’s an interpreted, interactive, object-oriented programming language. (Yes, I’m trying to compete with lisp, perl and tcl here!)"
+1993 python-groups: Dec 26: comp.lang.python FAQ "There is no Python newsgroup yet; if you want to post to the net about Python, use comp.lang.misc."
+1994 python-groups: Mar 28: Earliest archived post on comp.lang.python. "I love to post my first message to a group that I have waited anxiously for."
+1994 python-groups: Mar 31: Tim Peters. "an-argument-is-a-connected- series-of-statements-intended-to- establish-a-proposition-ly y’rs"
+1994 python-groups: Dec 1: Mark Hammond: "I have been working on an MS Windows layer for Python."
+1995 python-groups: Apr 21: Fred L. Drake: "I’ll be doing my Masters project this summer, and am considering using Python as my implementation language."
+1995 python-groups: Jun 22: Fredrik Lundh: "Python is everywhere."
+1996 python-groups: Aug 21: Mark Lutz: "Programming Python, Object-Oriented Scripting, By Mark Lutz, O’Reilly and Associates. 1st edition September 1996 (est.). 900 pages (est.)"
+1996 python-groups: Oct 11: Paul Everitt: "Hope to see you at the workshop.. (countdown to Bobo…)"
+1997 python-groups: Jan 23: Martin von Loewis and Nils Fischbeck "proudly announce Das Python-Buch, a German book about the great Python language."
+1997 python-groups: Feb 7: Cameron Laird: "C-codings also *do* much less than superficially comparable Python applications, precisely because memory management and such occupy some large percentage of a C programmer’s consciousness."
+1998 python-groups: Dec 4: Paul Everitt: "Bobo has merged with our Principia and Aqueduct products to become the “Z Object Publishing Environment”, aka Zope. The first source release is tomorrow."
+1998 python-groups: Dec 15: Oleg Broytmann: "Programmers don’t die, they just GOSUB without RETURN."
+1999 python-groups: Dec 7: Alex Martelli: "I’d really like to do my scripting in Python instead [of Perl] (for reasons I’m sure I don’t have to explain on this newsgroup!-)"
+2000 python-groups: Jan 17: Python version history, from 0.9 to 1.5.1.
+2000 python-groups: Apr 18: Stephen Figgins: Re: o’rielly [sic] python devcenter. "It isn’t old news, it just went public last night."
+2000 python-groups: Oct 16: Python 2.0 final release is out! "I thank my colleagues at BeOpen PythonLabs and the many volunteers in the Python developer community…"
+2001 python-groups: Jan 29: Mark Pilgrim: "I am writing a free book on Python."
+2001 python-groups: Jun 16: Python 2.0.1’s GPL-compatibility is official! "Richard Stallman, Eben Moglen and the FSF agree."
+
+1989 python-rossum: first code
+1991 python-rossum: first release
+1992 python-rossum: mailing list
+1993 python-rossum: newsgroup
+1994 python-rossum: first workshop
+1995 python-rossum: website
+1996 python-rossum: first books
+
+1990 python: Python was created in the early 1990s by Guido van Rossum at Stichting Mathematisch Centrum (CWI, see http://www.cwi.nl/) in the Netherlands as a successor of a language called ABC. Guido remains Python's principal author, although it includes many contributions from others.
+1995 python: Guido continued his work on Python at the Corporation for National Research Initiatives (CNRI, see http://www.cnri.reston.va.us/) in Reston, Virginia where he released several versions of the software.
+2000 python: May, Guido and the Python core development team moved to BeOpen.com to form the BeOpen PythonLabs team. In October of the same year, the PythonLabs team moved to Digital Creations (now Zope Corporation; see http://www.zope.com/).
+2001 python: the Python Software Foundation (PSF, see http://www.python.org/psf/) was formed, a non-profit organization created specifically to own Python-related Intellectual Property. Zope Corporation is a sponsoring member of the PSF.
+
+1936 aboutcom: Konrad Zuse - Z1 Computer   First freely programmable computer.
+1942 aboutcom: John Atanasoff & Clifford Berry - ABC Computer    Who was first in the computing biz is not always as easy as ABC.
+1944 aboutcom: Howard Aiken & Grace Hopper - Harvard Mark I Computer The Harvard Mark 1 computer.
+1946 aboutcom: John Presper Eckert & John W. Mauchly - ENIAC 1 Computer    20,000 vacuum tubes later...
+1948 aboutcom: Frederic Williams & Tom Kilburn - Manchester Baby Computer & The Williams Tube    Baby and the Williams Tube turn on the memories.
+1947 aboutcom: John Bardeen, Walter Brattain & Wiliam Shockley - The Transistor  No, a transistor is not a computer, but this invention greatly affected the history of computers. 
+1951 aboutcom: John Presper Eckert & John W. Mauchly - UNIVAC Computer First commercial computer & able to pick presidential winners.
+1953 aboutcom: International Business Machines - IBM 701 EDPM Computer   IBM enters into 'The History of Computers'.
+1954 aboutcom: John Backus & IBM  - FORTRAN Computer Programming Language   The first successful high level programming language.
+1955 aboutcom: (In Use 1959)   Stanford Research Institute, Bank of America,  and General Electric- ERMA and MICR   The first bank industry computer - also MICR (magnetic ink character recognition) for reading checks.
+1958 aboutcom: Jack Kilby & Robert Noyce - The Integrated Circuit  Otherwise known as 'The Chip'
+1962 aboutcom: Steve Russell & MIT - Spacewar Computer Game  The first computer game invented.
+1964 aboutcom: Douglas Engelbart - Computer Mouse & Windows    Nicknamed the mouse because the tail came out the end.
+1969 aboutcom: ARPAnet The original Internet.- 1970    Intel 1103 Computer Memory  The world's first available dynamic RAM chip.
+1971 aboutcom: Faggin, Hoff & Mazor - Intel 4004 Computer Microprocessor  The first microprocessor.
+1971 aboutcom: Alan Shugart &IBM - The "Floppy" Disk   Nicknamed the "Floppy" for its flexibility.
+1973 aboutcom: Robert Metcalfe & Xerox - The Ethernet Computer Networking    Networking.
+1974 aboutcom: Scelbi  & Mark-8 Altair & IBM 5100 Computers    The first consumer computers.
+1976 aboutcom: Apple I, II & TRS-80 & Commodore Pet Computers  More first consumer computers.
+1978 aboutcom: Dan Bricklin & Bob Frankston - VisiCalc Spreadsheet Software   Any product that pays for itself in two weeks is a surefire winner.
+1979 aboutcom: Seymour Rubenstein & Rob Barnaby - WordStar Software   Word Processors.
+1981 aboutcom: IBM - The IBM PC - Home Computer  From an "Acorn" grows a personal computer revolution
+1981 aboutcom: Microsoft - MS-DOS Computer Operating System    From "Quick And Dirty" comes the operating system of the century.
+1983 aboutcom: Apple Lisa Computer The first home computer with a GUI, graphical user interface.
+1984 aboutcom: Apple Macintosh Computer    The more affordable home computer with a GUI.
+1985 aboutcom: Microsoft Windows   Microsoft begins the friendly war with Apple.
+
+1991 linuxjournal: August Linus' original 1991 announcement, with embarassing photo http://www.linux.org/people/linus_post.html
+1991 linuxjournal: September Linux version 0.01 is released and put on the Net.
+1992 linuxjournal: April The first Linux newsgroup, comp.os.linux, is proposed and started by Ari Lemmke.
+1992 linuxjournal: October Peter MacDonald announces SLS, the first standalone Linux install. At least 10MB of space on disk was recommended.
+1993 linuxjournal: June Slackware, by Patrick Volkerding, becomes the first commercial standalone distribution and quickly becomes popular within the Linux community.
+1993 linuxjournal: August Matt Welsh's Linux Installation and Getting Started, version 1 is released. This is the first book on Linux.
+1994 linuxjournal: March The first issue of Linux Journal is published. This issue featured an interview with Linus Torvalds and articles written by Phil Hughes, Robert “Bob” Young, Michael K. Johnson, Arnold Robbins, Matt Welsh, Ian A. Murdock, Frank B. Brokken, K. Kubat, Micahel Kraehe and Bernie Thompson. Advertisers in the premier issue include Algorithms Inc., Amtec Engineering, Basmark, Fintronic (later became VA Research, VA Linux Systems, then...), Infomagic, Prime Time Freeware, Promox, Signum Support, SSC, Trans Ameritech, USENIX, Windsor Tech and Yggdrasil.
+1994 linuxjournal: March Linux 1.0 is released.
+1994 linuxjournal: June While at a conference in New Orleans, Jon “maddog” Hall persuades Linus to port Linux to DEC's 64-bit Alpha computer processor chip. Less than two weeks later, maddog had also persuaded DEC to fund the project. An Alpha workstation was immediately sent to Linus. “Digital [DEC] and the Linux community formed the first truly successful venture of suits and Linux geeks working together”, said maddog.
+1994 linuxjournal: June Linux International, a nonprofit vendor organization, is founded by Jon “maddog” Hall. Linux International goes on to become a major contributor to the success of Linux, helping corporations and others work toward the promotion of the Linux operating system.
+1994 linuxjournal: August Linux trademark dispute: is Linux trademarked? William R. Della Croce, Jr. files for the trademark “Linux” on August 15, 1994, and it is registered in September. Della Croce has no known involvement in the Linux community yet sends letters out to prominent Linux companies demanding money for use of the trademark “Linux”. A lawsuit is filed in 1996 against Della Croce. Plai.pngfs in the suit include Linus Torvalds; Specialized Systems Consultants, Inc. (publishers of Linux Journal); Yggdrasil Computing, Inc.; Linux International; and WorkGroup Solutions (also known as LinuxMall). The plaintiffs prevail, and in 1997 announce the matter as settled by the assignment of the mark to Linus Torvalds on behalf of all Petitioners and Linux users.
+1994 linuxjournal: September Linux is first mentioned in the mainstream press. Wired magazine features an article titled “Kernel Kid”, by Seth Rosenthal. He writes: “So, is Linus going to become the Bill Gates of Finland? Maybe not. He claims to be 'by no means a good student' and is in no hurry to graduate since 'Linux has taken a lot of time from my studies, and I like the work I have at the University which keeps me alive.”'
+1994 linuxjournal: September Randolph Bentson reports on the world's first vendor-supported Linux device driver in Linux Journal. Cyclades gave him a multiport serial card in exchange for developing a Linux driver for it.
+1994 linuxjournal: December A major tradeshow and conference take notice of Linux. Open Systems World features a Linux track, hosted by Linux Journal. Two days of seminars include Eric Youngdale, Donald Becker, Dirk Hohndel, Phil Hughes, Michael K. Johnson and David Wexelblat as speakers.
+1995 linuxjournal: April Linux Expo, the first Linux-specific tradeshow and conference series, launches, thanks to the folks at North Carolina State University and in particular, Donnie Barnes. Speakers include Marc Ewing, Rik Faith and Michael K. Johnson, among others. Linux Expo snowballs and becomes the most popular and well-attended annual Linux show for the next several years (after three years Red Hat takes over organization and becomes the major sponsor). The price for entry into the exhibit hall and a pass to the conferences? $4.
+1997 linuxjournal: January First “Linux virus” discovered. Called Bliss, it actually works on any UNIX-like OS and offers a helpful—“bliss-uninfect-files-please” command-line option. Alan Cox points out that Bliss “does not circumvent the security of the system, it relies on people with privilege to do something dumb” and reminds users to install digitally signed software from trustworthy sites only and to check signatures before installing.
+1997 linuxjournal: January “In fact it's probably easier to write a virus for Linux because it's open source and the code is available. So we will be seeing more Linux viruses as the OS becomes more common and popular.” —Wishful thinking from McAfee
+1998 linuxjournal: January Linux Weekly News begins publication with Jonathan Corbet and Elizabeth Coolbaugh as founders. The very first issue, dated January 22, was just a tiny hint of what LWN was to become.
+1998 linuxjournal: January Netscape announces that they will release the source to their browser under a free software license. This almost certainly remains one of the most important events of the year; it opened a lot of eyes to what Linux and free software could provide.
+1998 linuxjournal: January Red Hat Advanced Development Labs (RHAD) is founded. It has since become one of the higher-profile places where people are paid to develop free software and an important component of the GNOME Project. RHAD is able to attract developers like “Rasterman” (although only for a short time) and Federico Mena-Quintero.
+1998 linuxjournal: February The Cobalt Qube is announced and immediately becomes a favorite in the trade press due to its high performance, low price and cute form factor. Cobalt's Linux engineering is done by none other than David Miller, the source of much that is good in the Linux kernel.
+1998 linuxjournal: February The Linux user community wins InfoWorld's technical support award; Red Hat 5.0 also won their Operating System award. But it was the tech support award that truly opened some eyes; everybody had been saying that Linux had no support. This was the beginning of the end of the “no support” argument.
+1998 linuxjournal: February Eric Raymond and friends come up with the term “open source”. They apply for trademark status and put up the opensource.org web site. Thus begins the formal effort to push Linux for corporate use.
+1998 linuxjournal: March Consumer advocate Ralph Nader asks the large PC vendors (Dell, Gateway, Micron, etc.) to offer non-Microsoft systems, including systems with Linux installed.
+1998 linuxjournal: April Linux is covered by the US National Public Radio news, marking one of its first appearances in the mainstream, nontechnical press.
+1998 linuxjournal: April O'Reilly holds the “first ever” Free Software Summit, featuring Larry Wall, Brian Behlendorf, Linus Torvalds, Guido van Rossum, Eric Allman, Phil Zimmermann, Eric Raymond and Paul Vixie.
+1998 linuxjournal: May The Google search engine pops up. Not only is it one of the best search engines around, but it's based on Linux and features a Linux-specific search page.
+1998 linuxjournal: May Big databases start to arrive. Support for Linux is announced by Computer Associates for their Ingres system and by Ardent Software for their O2 object database.
+1998 linuxjournal: June “Like a lot of products that are free, you get a loyal following even though it's small. I've never had a customer mention Linux to me.” —Bill Gates, PC Week, June 25, 1998
+1998 linuxjournal: June “...these operating systems will not find widespread use in mainstream commercial applications in the next three years, nor will there be broad third-party application support.” —The Gartner Group says there is little hope for free software.
+1998 linuxjournal: June A Datapro study comes out showing that Linux has the highest user satisfaction of any system; it also shows Linux to be the only system other than Microsoft Windows NT that is increasing its market share.
+1998 linuxjournal: June IBM announces that it will distribute and support the Apache web server after working a deal with the Apache team.
+1998 linuxjournal: July The desktop wars rage as KDE and GNOME advocates hurl flames at each other. Linus gets in on the act, saying that KDE is okay with him. In this context, KDE 1.0 is released. The first stable release of the K Desktop Environment proves to be popular, despite the complaints from those who do not like the licensing of the Qt library.
+1998 linuxjournal: July Informix quietly releases software for Linux. Meanwhile, Oracle beats Informix to the punch PR-wise and makes a Linux-friendly announcement first, suggesting that they would soon be supporting Linux. Oracle promises to make a trial version available by the end of 1998, a deadline they beat by months. This, seemingly, was one of the acid tests for the potential of long-term success for Linux; a great deal of attention resulted from both Informix's and Oracle's announcements.
+1998 linuxjournal: July Informix announces support for Linux effectively moments after Oracle does so. Sybase later announces their support for Linux also.
+1998 linuxjournal: July Linus appears on the cover of Forbes magazine. A lengthy story presents Linux in a highly positive manner and brings the system to the attention of many who had never heard of it before. Linux begins to become a household word.
+1998 linuxjournal: September LinuxToday.com is launched by Dave Whitinger and Dwight Johnson. The site, later acquired by Internet.com, arguably becomes the most well-read and visited Linux portal of all time.
+1998 linuxjournal: September Microsoft's Steve Ballmer admits that they are “worried” about free software and suggests that some of the Windows NT source code may be made available to developers. The same month Microsoft goes on to list Linux as a competitive threat in its annual SEC (US Securities and Exchange Commission) filing. Speculation abounds that their real purpose is to influence the upcoming antitrust trial.
+1998 linuxjournal: October “For the moment, however, the company from Redmond, Washington, seems almost grateful for the rising profile of Linux, seeing it as an easy way of demonstrating that Windows is not a monopoly, ahead of its antitrust trial, scheduled to begin on October 15. That may be short-sighted. In the long run, Linux and other open-source programs could cause Mr. Gates much grief.” —The Economist, October 3, 1998
+1998 linuxjournal: October Intel and Netscape (and two venture capital firms) announce minority investments in Red Hat Software. The money is to be used to build an “enterprise support division” within Red Hat. An unbelievable amount of press is generated by this event, which is seen as a big-business endorsement of Linux.
+1998 linuxjournal: October Corel announces that WordPerfect 8 for Linux will be downloadable for free for “personal use”. They also announce a partnership with Red Hat to supply Linux for the Netwinder.
+1998 linuxjournal: December A report from IDC says that Linux shipments rose by more than 200% in 1998, and its market share rose by more than 150%. Linux has a 17% market share and a growth rate unmatched by any other system on the market.
+1999 linuxjournal: January “Microsoft Corp. will shout it out to the world when Windows 2000 finally ships. Linux creator Linus Torvalds announced the arrival of the next generation of Linux, version 2.2, with a simple note to the Linux-kernel mailing list.” —Steven J. Vaughan-Nichols, Sm@rt Reseller
+1999 linuxjournal: January Samba 2.0 is released. It contains a reverse-engineered implementation of the Microsoft domain controller protocols, allowing Linux servers to provide complete services to Windows networks.
+1999 linuxjournal: January Hewlett-Packard and Compaq announce plans to offer Linux-based systems. Later, Dell also announces plans to begin selling Linux-installed systems. SGI contents itself with providing information on how to bring up Linux on its systems.
+1999 linuxjournal: January Loki Entertainment Software announces that it will port Civilization: Call to Power to Linux.
+1999 linuxjournal: February Linux and BSD users unite for “Windows Refund Day”. They visit Microsoft, hoping to return the unused Windows licenses that they were forced to acquire when they purchased a computer system bundled with the OS.
+1999 linuxjournal: March “Like a Russian revolutionary erased from a photograph, he is being written out of history. Stallman is the originator of the Free Software movement and the GNU/Linux operating system. But you wouldn't know it from reading about LinuxWorld (Expo). Linus Torvalds got all the ink.” —Leander Kahney, Wired magazine, March 1999
+1999 linuxjournal: March The first LinuxWorld Conference and Expo is held in San Jose, California. As the first big commercial “tradeshow” event for Linux, it serves notice to the world that Linux has arrived; 12,000 people are said to have attended.
+1999 linuxjournal: March Linux Magazine debuts, bringing some additional competition to the Linux print business. Later, other magazines rise and fall including Open, Journal of Linux Technology (JOLT) and Maximum Linux.
+1999 linuxjournal: March VA Research buys the Linux.com domain for $1,000,000 and announces plans to turn it into a Linux portal. Microsoft's rumored bid for the domain is frustrated.
+1999 linuxjournal: April “...please imagine what it is like to see an idealistic project stymied and made ineffective because people don't usually give it the credit for what it has done. If you're an idealist like me, that can ruin your whole decade.” —Richard Stallman on GNU/Linux
+1999 linuxjournal: April Al Gore's presidential campaign web site claims to be open source. That claim is gone, but the site still claims: “In the spirit of the Open Source movement, we have established the Gore 2000 Volunteer Source Code Project; www.algore2000.com is an 'open site'.“
+1999 linuxjournal: April HP announces 24/7 support services for the Caldera, Turbolinux, Red Hat and SuSE distributions. They also release OpenMail for Linux.
+1999 linuxjournal: April The Linux FreeS/WAN Project releases a free IPSec implementation, allowing Linux to function as a VPN gateway using what is now the industry standard.
+1999 linuxjournal: April “But the mere fact that there is now an official SEC document that includes the text of the GPL serves as fairly astonishing proof that the rules of the software business really are being rewritten.” —Andrew Leonard, Salon
+1999 linuxjournal: May “Those two little words—open source—have become a magical incantation, like portal in 1998 or push in 1997. Just whisper them and all will be yours: media attention, consumer interest and, of course, venture capital.” —Andrew Leonard, Wired
+1999 linuxjournal: August First Intel IA-64 “Merced” silicon. Although Intel had given simulators to several OS vendors, Linux is the only OS to run on the new architecture on its first day. The Register headline: “Merced silicon happens: Linux runs, NT doesn't”.
+1999 linuxjournal: August SGI announces the 1400L—a Linux-based server system. SGI also announces a partnership with Red Hat and begins contributing to kernel development in a big way.
+1999 linuxjournal: August Red Hat's initial public offering happens; a last-minute repricing helps to create difficulties for people participating in the community offering. The stock price immediately rises to $50; a value that seems high at the time.
+1999 linuxjournal: August “For the umpteenth time, someone paved paradise, put up a parking lot. For the thousands of Linux coders who've built the utopian open-source movement—offering free help to create a free operating system—the IPO of Red Hat Software was a sure sign of Wall Street cutting the ribbon on the new Linux mall.” —The Industry Standard
+1999 linuxjournal: August Motorola jumps into Linux announcements of embedded systems products, support and training services, and a partnership with Lineo.
+1999 linuxjournal: August Sun acquires StarDivision; it announces plans to release StarOffice under the Sun Community Source License and to make a web-enabled version of the office suite.
+1999 linuxjournal: September “'Burlington Coat Factory Warehouse Corp. in Burlington, New Jersey is spending $1 million or so to buy 1,250 Linux-equipped PCs from Dell, but it won't pay Red Hat a dime for support', says Michael Prince, chief information officer. 'I suppose Red Hat's business model makes sense to somebody, but it makes no sense to us', he says.” —Daniel Lyons, Forbes, May 31, 1999. Then in September, Burlington ended up purchasing support from Red Hat.  The first big Linux stock rush happens. Shares in Applix more than double in volume, reaching nearly 27 million shares—three times the 9 million shares that are actually on the market.
+1999 linuxjournal: September SCO trashes Linux in a brochure distributed in Northern Europe: “Linux at this moment can be considered more a plaything for IT students rather than a serious operating system in which to place the functioning, security and future of a business. Because Linux is basically a free-for-all it means that no individual person/company is accountable should anything go wrong, plus there is no way to predict which way Linux will evolve.”
+1999 linuxjournal: September Stock in Red Hat hits $135/share. The price seems unbelievably high at the time.
+1999 linuxjournal: October Sun Microsystems announces that it will release the source to Solaris under the Sun Community Source License. The actual release drew criticism: “In a move aimed at Linux, Sun said it will announce Wednesday that it is making the source code for its new Solaris 8 operating system 'open'. Webster's has lots of definitions for the word, including 'not sealed, fastened, or locked'. But when you dig into the details of Sun's announcement, you'll find that what it is offering doesn't come close to meeting the dictionary's definition, let alone that of the Open Source movement.” —Lawrence Aragon, Redherring.com, January 26, 2000
+1999 linuxjournal: November “...if there's one thing about Linux users, they're do-ers, not whiners.” —Andy Patrizio,
+1999 linuxjournal: November Red Hat buys Cygnus for almost $700 million in stock. Rumors of other acquisitions by Red Hat begin to circulate and show no signs of stopping.
+1999 linuxjournal: December VA Linux Systems goes public after two repricings (originally priced at $11-$13/share). The final IPO price is $30/share; that price rises immediately to $300 before closing around $250. It sets the record for the biggest IPO rise in the history of the NASDAQ.
+1999 linuxjournal: December “Gee. Remember when the big question was 'How do we make money at this?”' —Eric Raymond
+2000 linuxjournal: January VA Linux Systems announces SourceForge (although the site had actually been up and running since November 1999). SourceForge also makes the code for its operation available under the GPL. By the end of the year, SourceForge hosted over 12,000 projects and 92,000 registered developers.
+2000 linuxjournal: January Version 1.0 of Red Flag Linux is released in the People's Republic of China.
+2000 linuxjournal: January Transmeta breaks its long silence and tells the world what it has been up to—the Crusoe chip, of course.
+2000 linuxjournal: January The Linux Professional Institute announces the availability of its first Linux professional certification exam.
+2000 linuxjournal: January Linux wannabe press releases flow from companies trying to ride on the success of Linux stocks. Vitamins.com, for example, posts the following: “Vitamins.com has further distinguished itself in the competitive Internet health industry race by being one of the first to integrate the Linux Operating System, produced by Red Hat, the leading developer and provider of open-source software solutions.”
+2000 linuxjournal: February The latest IDC report suggests that Linux now ranks as the “second-most-popular operating system for server computers”, with 25% of the server operating system sales in 1999. Windows NT is first with 38% and NetWare ranks third with 19%. IDC previously predicted that Linux would get up to the number two position—in 2002 or 2003. The revolution appears to be well ahead of schedule.
+2000 linuxjournal: February VA Linux Systems acquisition of Andover.net in a high-profile purchase that values Andover shares at 0.425 of VA's, or roughly $50/share. Andover.net is the owner of the popular web sites Slashdot.org and Freshmeat.org.
+2000 linuxjournal: February LinuxMall.com and Frank Kaspar and Associates also have made plans to merge. LinuxMall.com has been at the top of the retail side of Linux almost since the very beginning; Kaspar is one of the largest distribution channels.
+2000 linuxjournal: February Red Hat wins InfoWorld's “Product of the Year” award for the fourth time in a row.
+2000 linuxjournal: March “The law in open code means that no actor can gain ultimate control over open-source code. Even the kings can't get ultimate control over the code. For example, if Linus Torvalds, father of the Linux kernel, tried to steer GNU/Linux in a way that others in the community rejected, then others in the community could always have removed the offending part and gone in a different way. This threat constrains the kings; they can only lead where they know the people will follow.” —“Innovation, Regulation, and the Internet” by Lawrence Lessig for The American Prospect.
+2000 linuxjournal: March A new version of LILO is posted that is able to get past the 1024-cylinder boot limit that has plagued PC systems for years.
+2000 linuxjournal: March The latest Netcraft survey shows Apache running on just over 60% of the Web.
+2000 linuxjournal: March Caldera Systems goes public after a short delay, on March 21. The stock, which was offered at $14/share, began trading at $26 and closed at $29.44. It thus registered a 110% gain on its first day.
+2000 linuxjournal: March “Caldera knows of no company that has built a profitable business based in whole or in part on open-source software.” —Caldera SEC filing
+2000 linuxjournal: March Walnut Creek (the parent company for Slackware) and BSDi announce their merger. Yahoo! will be taking an equity investment in the new company.
+2000 linuxjournal: March Motorola Computer Group announces the release of its HA Linux distribution. This distribution is aimed at telecommunications applications that require very high amounts of uptime; it includes hot-swap capability and is available for the i386 and PowerPC architectures.
+2000 linuxjournal: March The Embedded Linux Consortium is announced. Its goal is “to amplify the depth, breadth and speed of Linux adoption in the enormous embedded computer market”. The initial leader will be Rick Lehrbaum, the man behind the LinuxDevices.com and DesktopLinux.com web sites, among other things.
+2000 linuxjournal: March Ericsson announces its “Screen Phone HS210” product—a Linux-based telephone with a touchscreen that can be used for e-mail, web browsing, etc. Ericsson and Opera Software also announce that Ericsson's (Linux-based) HS210 Screen Phone will incorporate the Opera web browser.
+2000 linuxjournal: April Code is ruled to be speech. On April 4, 2000, the United States Court of Appeals for the Sixth Circuit published its decision regarding Peter Junger's challenge to the Export Administration Regulations that prevented him from posting information on the Internet that contained cryptographic example code. Most critical in the ruling: “Because computer source code is an expressive means for the exchange of information and ideas about computer programming, we hold that it is protected by the First Amendment.”
+2000 linuxjournal: April Andy Tanenbaum releases the the Minix operating system under the BSD license. Had Minix been open source from the beginning, Linux may never have happened.
+2000 linuxjournal: May SuSE releases the first supported Linux distribution for the IBM S/390 mainframe.
+2000 linuxjournal: May “Approximately 140 distribution companies exist across the globe. We believe all but the top five will be bought, will go out of business or will be relegated to insignificance. Market-share leaders are currently defined around geographic boundaries. Red Hat has the largest global brand recognition and leading North American market share; SuSE leads in Europe, Turbolinux leads in Asia, and Conectiva leads in South America.” —Keith Bachman, an analyst for WR Hambrecht, predicting in The Red Herring
+2000 linuxjournal: June Commercial considerations help prompt the relicensing of MySQL under the GPL. Now the two freely available databases that are widely used in the Linux and Free Software communities, PostgreSQL and MySQL, meet the Debian Free Software Guidelines and the Open Source Guidelines. In addition, Progress Software forms a new company, NuSphere, just for the purpose of supporting MySQL.
+2000 linuxjournal: July “In a world of NDA-bound business agreements, Debian is an open book. In a world of mission statements, Debian has a social contract. At a time when commercial distributors are striving to see how much proprietary software they can pack into a box of Linux, Debian remains the bastion of software freedom—living proof that you can have a fully functional and usable operating system without needing any proprietary code.” —Evan Leibovitch, ZDNet
+2000 linuxjournal: July Sun announces that StarOffice is to be released under the GPL. The code is going to be reworked, integrated with Bonobo and GTK, and released as a set of reusable components. StarOffice will also be reworked to use a set of open XML-based file formats.
+2000 linuxjournal: July Oracle's Linux-based internet appliance system hits the shelves. The “New Internet Computer” (NIC) is the latest result of Larry Ellison's long personal crusade to make non-Microsoft systems available to the world. It's aimed at people who only want access to the Net; as such, it's essentially a $199 (without monitor) X terminal.
+2000 linuxjournal: July Reports first appear that SCO may be purchased by Caldera. Later in 2000 Caldera and SCO announce their intent for Caldera International to be formed from Caldera's existing operation and two of SCO's three divisions.
+2000 linuxjournal: July Ted Ts'o steps forward to become the new 2.4 status list maintainer. Alan Cox was doing the job until he said that it was time to “find someone else to maintain it”. Ted Ts'o responded to Linus' subsequent call for a new status list maintainer.
+2000 linuxjournal: August HP, Intel, IBM and NEC announce the “Open Source Development Lab”, which makes large hardware available to Linux developers for benchmarking and testing.
+2000 linuxjournal: September “I'm a bastard. I have absolutely no clue why people can ever think otherwise. Yet they do. People think I'm a nice guy, and the fact is that I'm a scheming, conniving bastard who doesn't care for any hurt feelings or lost hours of work if it just results in what I consider to be a better system.” —Linus Torvalds trying to change his image.
+2000 linuxjournal: September The RSA patent expires, allowing for secure web transactions without proprietary software.
+2000 linuxjournal: September Trolltech releases the Qt library under the GPL, putting a definitive end to a long-running and unpleasant license flame war.
+2000 linuxjournal: September The CueCat fiasco begins. Digital Convergence attempts to shut down programmers who have written Linux drivers for its CueCat bar code scanner. The company has given out large numbers of these scanners for free, expecting people to use them with its proprietary software and web site. The threats cause the drivers to become marginally harder to find for a short period, after which the company declares victory and moves on.
+2000 linuxjournal: October Microsoft says that penguins can mutate in a European print ad that quickly becomes famous.
+2000 linuxjournal: December “I was dumbfounded to discover that installing Linux was easy. Why? Well, the world has changed. No more do you have to understand everything about Linux before you install it, downloading the many chunks of code necessary to run a complete system and getting them all to work together. That was BSW—before shrink-wrap. With companies such as Red Hat and Corel putting all the software you need in a box, the pain is (nearly) gone.” —John Schwartz, Washington Post
+2000 linuxjournal: December IBM announces plans to invest $1 billion in Linux in 2001.
+2001 linuxjournal: January The long-awaited 2.4.0 kernel was released on January 4.
+2001 linuxjournal: January The US National Security Agency (NSA) releases SELinux under the GPL. SELinux offers an additional layer of security checks in addition to the standard UNIX-like permissions system.
+2001 linuxjournal: March The Linux 2.5 kernel summit is held in San Jose, California; it is, perhaps, the most complete gathering of Linux kernel hackers in history.
+2001 linuxjournal: April IBM gets into trouble over its “Peace, Love and Linux” graffiti in several cities.
+2001 linuxjournal: April “Slackware has always made money (who else producing a commercial distribution can say that?), but with BSDi we ended up strapped to a sinking ship.” —Patrick Volkerding
+2001 linuxjournal: May Sony's PlayStation Linux kit, shipped in Japan, sells out in eight minutes despite a doubling of the available stock.
+2001 linuxjournal: June Sharp announces its upcoming Linux PDA based on Lineo's Embedix system.
+2001 linuxjournal: June VA Linux Systems exits the hardware business, choosing to focus on SourceForge instead. Later VA drops the word “Linux” from its name altogether, relaunching as VA Software Corporation.
+2001 linuxjournal: June “In a press release issued Wednesday afternoon, VA Linux CEO Larry M. Augustin called the shift in strategy a logical move. 'Our differentiating strength has always been our software expertise', Augustin said”. —Wired. You only thought VA was a hardware company.
+2001 linuxjournal: July Free Dmitry! Dmitry Sklyarov is arrested in Las Vegas after Adobe complains about the Advanced eBook Processor. The following month he is charged with DMCA violations and conspiracy: the potential penalties add up to 25 years in prison. Dmitry's defense is based on constitutional challenges to the DMCA, on free speech and jurisdictional issues. Later in the year, charges are dropped, conditional on one year of good behavior and testimony in the ElcomSoft trial.
+2001 linuxjournal: July “Although Adobe withdrew its support for the criminal complaint against Dmitry Sklyarov, we respect the grand jury and federal government's decision to prosecute the company, ElcomSoft, and as a law-abiding corporate citizen, Adobe intends to cooperate fully with the government as required by law.” —Adobe's position
+2001 linuxjournal: November Sharp Electronics Corporation begins a special Linux developer prerelease of the Zaurus PDA to attract free software developers to the hot new platform.
+2002 linuxjournal: February Avaya, the former PBX and enterprise systems division of Lucent, announces Linux-based PBX systems.
+2002 linuxjournal: February “So there are some—and I'd list myself among them—who believe that the return to Earth is a good thing. There's nothing wrong with making a buck, but Linux doesn't benefit from being elevated beyond reality on a shaky foundation.” —Evan Leibovitch takes a look at the post-rush world of Linux.
+
+1995 ie: Aug. V1.0   This was the base release included in the Windows 95 PLUS pack product release.
+1995 ie: Oct. V2.0B1 The Beta release of 2.0 came very soon after the 1.0 version and added support for tables and several new HTML elements.
+1995 ie: Nov. V2.0   Version 2.0 Final Release
+1995 ie:        IE2 shipped with Windows NT V4.0
+1996 ie: Mar. V3.0A1 This limited release of 3.0 adds full support for the current HTML tables specification, frames and more HTML elements.
+1996 ie: May. V3.0B1 The first public release of 3.0 added scripting support (VB and Java) as well as more HTML support in addition to the features available in the first Alpha
+1996 ie: Jul. V3.0B2 The second beta release of 3.0 added support for Cascading Style Sheets and Java applets.
+1996 ie: Aug. V3.0   Version 3.0 Final Release
+1996 ie: Oct. V3.01  Version 3.0 Update Release. Among other things, fixed a major behavioral bug in style sheet margin treatment.
+1996 ie:        IE3 shipped with Windows 95 OSR2
+1997 ie: Apr. V4.0B1 Also known as the Platform Preview 1, this is the first release of a major update to the browser. Improved style sheet support and Microsoft's Document Object Model add many new attributes and display abilities to the browser.
+1997 ie: Jul. V4.0B2 Also known as the Platform Preview 2. MANY changes and additions in style sheet support, HTML capabilities and other things.
+1997 ie: Oct. V4.0   Version 4.0 Final Release. Many more changes and additions in style sheet support, HTML capabilities and other things.
+1997 ie: Nov. V4.01  Version 4.0 update Release.
+1997 ie:        IE4 shipped with Windows 98
+1998 ie: Jun. V5.0B1 Also known as the Developer Preview, this is a new major update to the browser. Support for more CSS2 features is a highlight of this release.
+1998 ie: Nov. V5.0B2 Also known as the Public Preview. Bi-directional text, rubies and direct XML/XSL support are new features included in this release. Also included are many new CSS properties.
+1999 ie: Mar. V5.0   Version 5.0 Final Release. 
+1998 ie:        IE5 shipped with Windows 98SE and Windows 2000
+1999 ie: Dec. V5.5B1 Also known as the Developer Preview. A few changes to the implementation of frames and some new CSS properties are supported.
+2000 ie: Jul. V5.5   Version 5.5 Final Release.
+2000 ie:        IEV5.5 shipped with Windows Millennium Edition (ME)
+2001 ie: Mar. V6.0B1 More CSS changes and bug fixes to be more spec-compliant.
+2001 ie: Oct. V6.0   Version 6.0 Final Release. Released in conjunction with Microsoft Windows XP.
+2002 ie: Sep. V6.0SP1Security fix update.
+2002 ie:       IE6 shipped with Windows XP Home/Pro
+2003 ie:       May. Microsoft settles pending lawsuits with AOL/TimeWarner. Part of the settlement includes 750 Million US dollars plus an agreement for AOL to continue to use IE, royalty-free, as its default browser for the next 7 years.
+2003 ie:       May. Microsoft announces that IE will no longer be released as a stand-alone browser, rather it will only be released with new operating system releases.
+
+1994 netscape: Oct. V1.0B1     The First Beta of version 1 (version 0.9) The original release of the browser supports all basic HTML 2 elements and some limited HTML 3 functionality.
+1994 netscape: Dec. V1.0   Final Release of version 1.0
+1995 netscape: Mar. V1.1B1     The first Beta of version 1.1 added table support as well as many of its own new HTML elements and attributes.
+1995 netscape: Apr. V1.1   Final Release of version 1.1
+1995 netscape: Jun. V1.2B1     First Beta of version 1.2 which updated the user interface for Windows 95 and added no new HTML support.
+1995 netscape: Jul. V1.2   Final Release of version 1.2
+1995 netscape: Oct. V2.0B1     First Beta of the Navigator release added several HTML 3 elements, Frames and the ability to handle Java.
+1995 netscape: Dec. V2.0B3     This version added the ability to process JavaScript
+1996 netscape: Mar. V2.0   Final Release of version 2.0
+1996 netscape: Apr. V3.0B1     First Beta which was originally titled Atlas, this release added many new plug-ins, and support for background colors in tables.
+1996 netscape: Jul. V3.0B5     This version adds support for underlining, frame border control and Font FACE styles. It also adds new elements to allow for column layout (<Multicol>) and spacing control (<Spacer>)
+1996 netscape: Aug. V3.0B7     The only new HTML feature in this version appears to be the ARCHIVE attribute to the APPLET element.
+1997 netscape: Aug. V3.04      Final Release of version 3. Point releases beyond this add no new HTML support, just address Javascript functionality and security bugs.
+1996 netscape: Dec. V4.0B1     Preview release of 4.0 (Netscape Communicator.) This adds the new LAYER element that allows precise positioning control in documents.
+1997 netscape: Feb. V4.0B2     Second preview release of 4.0 (Netscape Communicator.) This adds in-line layering, and Cascading/JavaScript Style Sheet Support.
+1997 netscape: Apr. V4.0B3     Third preview release of 4.0 (Netscape Communicator.) Improves upon the very rudimentary style sheet support in Beta 2 (PR2.)
+1997 netscape: May. V4.0B4/5   Fourth and fifth beta of 4.0. Beta 4 was a PC-only release with minor HTML improvements, while Beta 5 is cross-platform and adds the Netcaster push technology.
+1998 netscape: Nov. V4.08     Final Release of Communicator. Final tally adds more CSS support (much but not all of the CSS1 spec and the CSS positioning draft are implemented), minimal dynamic font and OBJECT element support. Point releases beyond this add no new HTML support, just address security bugs.
+1998 netscape: Jan. Netscape announces its browser will be free.  Also announced: Browser source code will be made available for free on the Internet.  Mozilla project begins
+1998 netscape: Jul. V4.5B1     Various functionality improvements, but no new HTML or CSS support.
+1998 netscape: Sep. V4.5B2     Beta 2.
+1998 netscape: Oct.-V4.5-4.8 
+2002 netscape: Aug. V4.5 final release. Point releases beyond this add no new HTML support, just address bugs.
+1998 netscape: Nov. Netscape decides to integrate its new NGLayout rendering engine (Gecko) into Mozilla (v.V6.0) AOL Buys Netscape for a ~$V4.3 billion stock transaction ($~8.98 billion by the time the sale was finalized.)
+2000 netscape: Jan. Mozilla project hits Milestone 13 (M13) - considered to be first "alpha" quality release of the project.
+2000 netscape: Apr. V6.0B1     Netscape/AOL releases 6.0 PR1 - its first all new beta browser in several years. This release integrates the Mozilla code approximately from the Milestone 14 (M14) work.
+2000 netscape: Aug. V6.0B2     Netscape/AOL releases 6.0 PR2. This release integrates the Mozilla work from ~ the Milestone 17 (M17) timeframe.
+2000 netscape: Oct. V6.0B3     Netscape/AOL releases 6.0 PR3. This release integrates the Mozilla work from ~ the Milestone 18 (M18) timeframe.
+2000 netscape: Nov. V6.0   Final release of version 6.0. Based on the Mozilla 0.6 milestone.
+2001 netscape: Feb. V6.01      Update release based on Mozilla 0.6.1 milestone.
+2001 netscape: Jun. V6.1PR1    Pre-release of 6.1.
+2001 netscape: Aug. V6.1   Update release based on Mozilla 0.9.2. Includes bug fixes, and is much quicker and more stable than original 6.0 release.
+2001 netscape: Oct. V6.2   Update release based on Mozilla 0.9.4 milestone.
+2002 netscape: May. V6.2.3     Update release also based on Mozilla 0.9.4 milestone.
+2002 netscape:  May. Mozilla finally reaches the V1.0 milestone
+2002 netscape: May. V7.0PR1    Pre-release of 7.0, based on the Mozilla 1.0 RC2 code.
+2002 netscape: Aug. V7.0   Final release of Netscape 7.0, based on the Mozilla 1.0.1 code. Deactivates the popular popup-blocking Mozilla feature by default.
+2002 netscape: Dec. V7.01      Update release based on Mozilla 1.0.2. Re-instates the popup-blocking feature.
+2003 netscape: Feb. V7.02      Update also based on Mozilla 1.0.2. Minor security and stability changes.
+2003 netscape: Jun. V7.1   This update synchronizes Netscape with the Mozilla codebase of the time: Mozilla 1.4.
+2002 netscape: Dec. Major layoffs/reassignments at Netscape/AOL
+2003 netscape: May. Microsoft resolves a lawsuit with Netscape parent company AOL in a $750 million settlement. AOL will continue distributing Microsoft's Internet Explorer instead of Netscape.
+2003 netscape: Jul. AOL cuts Mozilla loose and transforms the open source project into a non-profit organization with 2 Million US dollars in seed funding. AOL's Netscape division suffers another major layoff round, cutting 50 employees.
+
+1992 freesoftwarereport: Volume 1, number 1. Articles by Cygnus and Michael Shapiro introducing free software as a business model; Wind River and GNU development tools; article on unix freeware versus MS-DOS and Macintosh freeware and shareware; GNU development tools for Solaris.
+1993 freesoftwarereport: Volume 2, number 1. Article comparing various legal terms for free software; E-mu and GNU development tools; John Perry Barlow on intellectual property in cyberspace; free software in numerical computation.
+1993 freesoftwarereport: Volume 2, number 2. Article comparing automobiles with software (lean versus mass manufacturing in automobiles, and proprietary versus free software); the WAIS, Inc., provider of internet search tools; the Andrew user interface system; the Yggdrasil linux company.
+1993 freesoftwarereport: Volume 2, number 3. Free software and open systems (particularly networking standards and Novell); the GNU debugger gdb; Pegasus mail, a free mail program for Novell networks.
+1994 freesoftwarereport: Volume 3, number 1. Regression testing; regression testing of unix systems; dejagnu, a free regression testing framework; testing Nascent, a fortran compiler.
 
 
 
+
+aboutcom: http://inventors.about.com/library/blcoindex.htm
 browser: http://groups.google.com/group/comp.windows.x/msg/7fde2f6d4d5dc4e7
 desktop: http://en.wikipedia.org/wiki/Enlightenment_(window_manager) http://en.wikipedia.org/wiki/Desktop_environment
 debian: http://git.chris-lamb.co.uk/index.html?p=debian-timeline.git;a=snapshot;h=a06a96b1b720e6bc8d4a2efcba7cdf76f036f715;sf=tgz
 domain: http://news.netcraft.com/archives/2008/08/29/august_2008_web_server_survey.html
 dos: http://en.wikipedia.org/wiki/Timeline_of_x86_DOS_operating_systems
 electronics: http://everything2.com/e2node/Chronology%2520of%2520Communication%2520after%2520electronics%2520to%25201998
+freesoftwarereport: http://www.toad.com/gnu/cygnus/index.html
 fromusenet: http://www.google.com/googlegroups/archive_announce_20.html
+ie: http://www.blooberry.com/indexdot/history/ie.htm
 linux: http://en.wikipedia.org/wiki/History_of_the_Linux_kernel
+linuxjournal: http://www.linuxjournal.com/article/6000
 lisp: http://www.csail.mit.edu/timeline/timeline.php
+mozilla: http://www.mozilla.org/about/timeline.html
+netscape: http://www.blooberry.com/indexdot/history/netscape.htm
 opensource.org: http://www.opensource.org/history
 perl: http://history.perl.org/PerlTimeline.html
+python-groups: http://diveintomark.org/archives/2001/12/11/python_timeline
+python-rossum: http://www.python.org/doc/essays/ppt/www8-py-open-source/sld002.htm
+python: http://www.python.org/doc/2.5.2/lib/node950.html
 redhat: http://www.redhat.com/about/corporate/timeline.html
 sun: http://www.sun.com/aboutsun/company/history.jsp#1982
 unix: http://snap.nlc.dcccd.edu/learn/unix-history.html
@@ -770,16 +1081,19 @@ xp:
 
 
 
+1981 IBM PC Announcement 1981 http://www.bricklin.com/ibmpcannouncement1981.htm
 
+1991 Linus' original 1991 announcement, with embarassing photo http://www.linux.org/people/linus_post.html
 
-
-
+1996 Initial KDE announcement http://groups.google.com/group/comp.os.linux.development.apps/msg/cb4b2d67ffc3ffce
 
 1976 billgates: Bill Gates signaled the change of the times in 1976 when he wrote his now-famous Open Letter to Hobbyists, sending out the message that what hackers called "sharing" was, in his words, "stealing".
 
 2001 film: Revolution OS is a 2001 documentary film which traces the twenty-year history of GNU, Linux, open source, and the free software movement. It features interviews with prominent hackers and entrepreneurs (and hackers-cum-entrepreneurs), including Richard Stallman, Michael Tiemann, Linus Torvalds, Larry Augustin, Eric S. Raymond, Bruce Perens, Frank Hecker and Brian Behlendorf.
 
 1991 www: Tim Berners-Lee announced WorldWideWeb project on Usenet. http://groups.google.com/group/alt.hypertext/msg/395f282a67a1916c
+
+1991 Feb 20: Guido announces Python. "This is Python, an extensible interpreted programming language that combines remarkable power with very clear syntax. This is version 0.9 (the first beta release), patchlevel 1." http://groups.google.com/groups?selm=2986%40charon.cwi.nl
 
 1976 emacs: The original EMACS was a set of Editor MACroS for the TECO editor. It was written in 1976 by Richard Stallman, initially together with Guy L. Steele, Jr.
 1985 emacs: release 17.36 Backup file version numbers
