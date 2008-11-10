@@ -1,0 +1,9 @@
+# when "svn up" failed because of existing files use this: 
+until output="$(svn up 2>&1)"; do
+    echo $output;
+    ( file="$(echo "$output" | grep "Failed to add file" | cut -d\' -f2)" &&
+        echo "$file" $(mv -v -- "$file" "$file-svn-up-backup") &&
+            svn revert "$file" ) ||
+    ( echo failed &&
+        break )
+done
