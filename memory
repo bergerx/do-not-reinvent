@@ -1,0 +1,28 @@
+ps
+top
+pmap
+
+http://virtualthreads.blogspot.com/2006/02/understanding-memory-usage-on-linux.html
+ps bize sunlari gosterir
+VSZ and RSS, which stand for "virtual set size" and "resident set size"
+ornegin KEdit icin 25MB ve 14 MB
+
+linuxda paylasilan kutuphaneler bellege bir kez yuklenirler (libc gibi), ya da X kutuphaneleri ya da kullandiginiz masaustu ortaminin kutuphaneleri
+ancak ps bu kutuphaneleri her program icin tekrar tekrar hesaba katar
+
+bunlara ek olarak su amcalarin yorumu da baya ogretici 
+http://virtualthreads.blogspot.com/2006/02/understanding-memory-usage-on-linux.html#c113920989429532289
+http://virtualthreads.blogspot.com/2006/02/understanding-memory-usage-on-linux.html#c113923478025575058
+
+
+"Garbage Collection without Paging"
+"Automatic Heap Sizing"
+
+
+acik kutuphhanleri lsof ile gorebiliyoruz neden paylasilanlari hesabetmek icn bunu kullanmiyoruz
+
+
+birisi de sunu yazmis: http://www.berthels.co.uk/exmap/
+
+
+

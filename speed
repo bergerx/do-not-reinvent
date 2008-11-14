@@ -1,0 +1,45 @@
+http://wiki.debian.org/BootProcessSpeedup
+http://forums.debian.net/viewtopic.php?t=31275&highlight=
+http://initscripts-ng.alioth.debian.org/soc2006-bootsystem/bootcharts.html
+
+--- Boot Speed Up
+# apt-get install insserv
+# dpkg-reconfigure insserv
+Allow parallel starts:
+# echo 'CONCURRENCY=shell' >> /etc/default/rcS
+# apt-get install readahead
+# touch /etc/readahead/profile-once
+
+--- Application Start Up Speed
+# apt-get install preload
+
+--- Application/General Responsiveness
+a quick edit of /etc/fstab, change this: 
+    /dev/sda1       /               ext3    defaults,errors=remount-ro 0       1 
+    /dev/sda3       /home           ext3    defaults       0       2 
+to 
+    /dev/sda1       /               ext3    defaults,noatime,errors=remount-ro 0       1 
+    /dev/sda3       /home           ext3    defaults,noatime        0       2 
+
+We can choose a value between 0 and 100 where 0 means the kernel tries to keep everything in RAM and not cached to disk and 100 means it aggressively caches to disk to free RAM. The default in Debian is 60, which is OK but conservative. Laptop users should in any case use a low value to reduce writing to disk (because writing to disk negates benefits of power management and runs down your battery very quickly).
+# echo 'vm.swappiness=20' >> /etc/sysctl.conf
+
+because having cached filesystem entries makes our filemanagers and other applications much more responsive than if they had to seek everything from the actual filesystem. This time we set a value for vm.vfs_cache_pressure, also in /etc/sysctl.conf. The default is 100, I don't know what the top limit might be but if you choose 0 your system may indulge in a horrible swapfest when handling large files. Try this:
+# echo 'vm.vfs_cache_pressure=50' >> /etc/sysctl.conf 
+
+
+
+
+
+
+How to enable prelink:
+1. Activate Ubuntu universe sources. The procedure is well-documented by Ubuntu.
+2. use apt-get or synaptic to install prelink.
+3. Open /etc/default/prelink with your favorite editor, as sudo/root.
+4. Change PRELINKING=unknown from unknown to yes.
+5. Adjust the other options if you know what the heck you're doing. Defaults work well.
+6. To start the first prelink (the longest one!), run sudo /etc/cron.daily/prelink
+
+* In the future, prelink performs a quick prelink (a less-than-1-minute procedure on most systems) daily, usually at midnight. Every 14 days, or whatever you changed it to be, a full prelink will run.
+* If you just did a major apt-get upgrade that changed systemwide libraries (i.e. libc6, glibc, major gnome/X libs, etc etc etc) and experience cryptic errors about libs, rerun step 6.
+* To undo prelink, change step 4 from yes to no, then rerun step 6.
