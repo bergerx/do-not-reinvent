@@ -4,7 +4,7 @@ http://initscripts-ng.alioth.debian.org/soc2006-bootsystem/bootcharts.html
 
 --- Boot Speed Up
 # apt-get install insserv
-# dpkg-reconfigure insserv
+# dpkg-reconfigure insserv # '/usr/sbin/update-bootsystem-insserv restore' to restore the old boot sequence
 Allow parallel starts:
 # echo 'CONCURRENCY=shell' >> /etc/default/rcS
 # apt-get install readahead
