@@ -1,0 +1,58 @@
+http://mihai.bazon.net/blog/acpi-suspend-resume-your-linux
+
+
+-- Suspend to RAM
+echo -n mem > /sys/power/state
+* hibernate http://www.suspend2.net/downloads/
+* s2ram http://en.opensuse.org/S2ram
+* gnome-power-manager
+-- Suspend to Disk
+echo -n disk > /sys/power/state
+* suspend2
+* hibernate
+* s2disk
+* gnome-power-manager
+
+
+http://acpi.sourceforge.net/documentation/sleep.html
+
+Warning: /proc/acpi is being replaced by interfaces in /sys and new software should not look in /proc. 
+2.6 /sys/power/state
+2.4 /proc/acpi/sleep
+
+
+sudo sh -c 'echoi -n mem > /sys/power/state'
+sudo sh -c 'echo -n disk > /sys/power/state'
+
+
+for testing add "init=/bin/bash" to your boot options,
+# mount /proc
+# mount /sys
+# echo mem > /sys/power/state
+
+
+
+
+Sleep States
+S1 - "Stopgrant"
+
+Power to cpu is maintained, but no instructions are executed. The CPU halts itself and may shut down many of its internal components. In Microsoft Windows, the "Standby" command is associated with this state by default.
+S2
+
+While defined in the spec, this state is not currently in use. It resembles S3 with the qualification that some devices are permitted to remain on.
+S3 - "Suspend to RAM"
+
+All power to the cpu is shut off, and the contents of its registers are flushed to RAM, which remains on. In Microsoft Windows, the "Standby" command can be associated with this state if enabled in the BIOS. Because it requires a high degree of coordination between the cpu, chipset, devices, OS, BIOS, and OS device drivers, this system state is the most prone to errors and instability.
+Pavel Machek has created a small document with some hints how to solve problems with S3. You can find it in the kernel sources at Documentation/power/tricks.txt.
+S3 is currently _not_ supported by the 2.4.x kernel series in Linux.
+S4 - "Suspend to Disk"
+
+CPU power shut off as in S3, but RAM is written to disk and shut off as well. In Microsoft Windows, the "Hibernate" command is associated with this state. A variation called S4BIOS is most prevalent, where the system image is stored and loaded by the BIOS instead of the OS. Because the contents of RAM are written out to disk, system context is maintained. For example, unsaved files would not be lost following an S4 transition.
+S4 is currently _not_ supported by the 2.4.x kernel series in Linux, but you might have good luck with SWSUSP. Some machines offer S4_BIOS whose support is considered to be experimental within Linux/ACPI.
+S5 - "Soft Off"
+
+System is shut down, however some power may be supplied to certain devices to generate a wake event, for example to support automatic startup from a LAN or USB device. In Microsoft Windows, the "Shut down" command is associated with this state. Mechanical power can usually be removed or restored with no ill effects.
+Processor "C" power states
+
+Processor "C" power states are also defined. These are typically implemented in laptop platforms only. Here the cpu consumes less power while still doing work, and the tradeoff comes between power and performance, rather than power and latency. Please consult the ACPI specification for more information on C states, or see here.
+
