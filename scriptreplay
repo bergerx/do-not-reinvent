@@ -1,0 +1,5 @@
+# recording script:
+script -t 2>timingfile
+
+# and for replaying the recorded script
+scriptreplay timingfile
