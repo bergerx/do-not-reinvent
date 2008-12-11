@@ -1,4 +1,5 @@
 vserver vs1 build -m debootstrap -n vs1 --pkgbase /var/cache/apt/archives/ --hostname vs1 -- -d lenny
+sudo vserver etch1 build -m debootstrap --hostname etch1  --interface eth0:192.168.199.199/32  --  -d etch -- --unpack-tarball /media/free/etch/etch.tgz
 
 
 mkdir /vservers/template/

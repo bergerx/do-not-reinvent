@@ -1,0 +1,42 @@
+bekir@bdgn:/etc/bind$ cat db.bdgn.net
+$TTL 21600
+@ IN   SOA   ns1.bdgn.net. root.bdgn.net. (
+        2006020201 ; Serial
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800); Negative Cache TTL
+bdgn.net.       IN      NS      ns1.bdgn.net.
+bdgn.net.       IN      NS      ns1.bekirdogan.net.
+bdgn.net.       IN      A       72.9.228.144
+ns1.bdgn.net.   IN      A       72.9.228.144
+ns2.bdgn.net.   IN      A       81.214.84.44
+mail.bdgn.net.  IN      CNAME   ghs.google.com.
+ev.bdgn.net.    IN      CNAME   bergerx.dyndns.org.
+www.bdgn.net.   IN      A       72.9.228.144
+*.bdgn.net.     IN      A       72.9.228.144
+bdgn.net.   IN  MX  1  ASPMX.L.GOOGLE.COM.
+bdgn.net.   IN  MX  5  ALT1.ASPMX.L.GOOGLE.COM.
+bdgn.net.   IN  MX  5  ALT2.ASPMX.L.GOOGLE.COM.
+bdgn.net.   IN  MX  10 ASPMX2.GOOGLEMAIL.COM.
+bdgn.net.   IN  MX  10 ASPMX3.GOOGLEMAIL.COM.
+bdgn.net.   IN  MX  10 ASPMX4.GOOGLEMAIL.COM.
+bdgn.net.   IN  MX  10 ASPMX5.GOOGLEMAIL.COM.
+bdgn.net.   IN  TXT "v=spf1 redirect=_spf.google.com"
+
+bekir@bdgn:/etc/bind$ 
+bekir@bdgn:/etc/bind$ cat named.conf.local
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "bdgn.net" {
+    type master;
+    file "/etc/bind/db.bdgn.net";
+};
+bekir@bdgn:/etc/bind$ 
+
