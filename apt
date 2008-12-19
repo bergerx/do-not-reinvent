@@ -1,0 +1,8 @@
+# install something from experimental repo
+# http://wiki.debian.org/DebianExperimental
+
+#add this to your sources.list
+deb ftp://ftp.debian.org/debian experimental main
+
+#run like this
+aptitude -t experimental install amarok
