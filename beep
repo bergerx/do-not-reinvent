@@ -1,0 +1,4 @@
+echo ""
+tput bel
+echo "\07"
+
