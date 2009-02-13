@@ -1,4 +1,7 @@
 echo ""
 tput bel
 echo "\07"
+echo -en "\x07"
+echo -e '\a'
+alias beep='echo -en "\x07"'
 
