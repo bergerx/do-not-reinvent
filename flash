@@ -1,0 +1,19 @@
+# first download and install flash player debug version from
+http://www.adobe.com/support/flashplayer/downloads.html
+
+# you must create mm.cfg file in your home directory to enable loggging,
+# look here for details: http://livedocs.adobe.com/flex/3/html/help.html?content=logging_04.html
+bekir@hede:~$ cat > mm.cfg
+ErrorReportingEnable=1
+TraceOutputFileEnable=1
+MaxWarnings=0
+bekir@hede:~$ 
+
+# optionally install flashtracer extension for firefox
+# for instructions see 
+# http://www.sephiroth.it/weblog/archives/2007/01/install_flashtracer_on_linux.php
+
+
+# learning active useragent in flash
+flash.net.URLRequestDefaults.userAgent
+navigator.userAgent
