@@ -1,3 +1,5 @@
+##### Debug with log file #####
+
 # first download and install flash player debug version from
 http://www.adobe.com/support/flashplayer/downloads.html
 
@@ -11,7 +13,44 @@ bekir@hede:~$
 
 # optionally install flashtracer extension for firefox
 # for instructions see 
-# http://www.sephiroth.it/weblog/archives/2007/01/install_flashtracer_on_linux.php
+http://www.sephiroth.it/weblog/archives/2007/01/install_flashtracer_on_linux.php
+
+
+
+##### Debug with fdb (command line debugging) #####
+
+# fdb program could be found in flex_sdk/bin directory
+
+# compile your swf with debug option "on", in my case it could be done by
+-debug=true
+'debug="true"'
+# parameter of mxmlc from command line or ant file mxmlc tag (build.xml)
+
+# use debugger version of flash player
+
+# run fdb
+bekir@hede:~/bin/flex_sdk/bin$ ./fdb
+Adobe fdb (Flash Player Debugger) [build 3958]
+Copyright (c) 2004-2007 Adobe, Inc. All rights reserved.
+(fdb) r
+# type "t" for tutorial in (fdb) command line
+# http://marxsoftware.blogspot.com/2007/11/using-flex-debugger-fdb-with-flex-based.html
+
+# open your swf file from your browser or anywhere
+
+# Using the Command-Line Debugger from Adobe
+# http://livedocs.adobe.com/flex/3/html/debugging_01.html
+
+
+
+
+
+##### Flex Debugging Tools and Frameworks #####
+http://www.flex888.com/656/10-flex-frameworks-and-debugging-tools.html
+http://saravananrk.wordpress.com/2008/03/31/the-list-of-helpful-flex-or-flash-debug-tools/
+
+
+
 
 
 # learning active useragent in flash
