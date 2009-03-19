@@ -56,3 +56,20 @@ http://saravananrk.wordpress.com/2008/03/31/the-list-of-helpful-flex-or-flash-de
 # learning active useragent in flash
 flash.net.URLRequestDefaults.userAgent
 navigator.userAgent
+
+
+
+#Accessing flash object from js:
+function getFlashMovieObject() {
+    var movieName = "FLVPlayer";
+    if (document.embeds[movieName])
+        return document.embeds[movieName];
+    if(window.document[movieName])
+        return window.document[movieName];
+    if(window[movieName])
+        return window[movieName];
+    if(document[movieName])
+        return document[movieName];
+    return null;
+}
+
