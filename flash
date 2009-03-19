@@ -60,6 +60,7 @@ navigator.userAgent
 
 
 #Accessing flash object from js:
+#from http://livedocs.adobe.com/flash/8/main/00002201.html
 function getFlashMovieObject() {
     var movieName = "FLVPlayer";
     if (document.embeds[movieName])
