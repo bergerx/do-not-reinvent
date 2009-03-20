@@ -8,6 +8,9 @@ http://www.adobe.com/support/flashplayer/downloads.html
 bekir@hede:~$ cat > mm.cfg
 ErrorReportingEnable=1
 TraceOutputFileEnable=1
+TraceOutPutFileName=/home/bekir/.macromedia/Flash_Player/Logs/flashlog.txt
+PolicyFileLog=1   # Enables policy file logging
+#PolicyFileLogAppend=1  # Optional; do not clear log at startup
 MaxWarnings=0
 bekir@hede:~$ 
 
