@@ -1,0 +1,5 @@
+# x x11 xorg window
+xprop
+
+# for using with xmonad
+while /bin/true; do xprop | grep WM_CLASS; done
