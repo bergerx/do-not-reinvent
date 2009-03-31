@@ -1,0 +1,18 @@
+# samet'in sirket icindeki bir epostasindan. hiz testleri icin
+  faydali.
+
+--Linux icin--
+Trickle: Bir uygulamanin kullanabilecegi upload ve download
+bantgenisligini sinirliyor.
+# trickle -u 10 -d 20 firefox
+
+iptraf: Anlik kullanilan bantgenisligini gosterebilen bir monitor.
+ornek kullanimi icin, menusunden uygun seceneklere bakmak gerek.
+
+--Windows--
+Netlimiter var, free surumu de var. Eski surumleri sanirim kamu mali
+olmus. Bu eski surumler basit kisitlama islerini ve monitoring
+islemlerini gerceklestirebiliyor.
+
+--Mac--
+Throttle Pro var, lisansini bilmiyorum. Ancak Alper kullaniyordu.
