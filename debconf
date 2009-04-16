@@ -1,0 +1,4 @@
+$ debconf-show --listowners
+$ debconf-show <package_name>
+$ DEBCONF_DEBUG="developer" aptitude install hede
+
