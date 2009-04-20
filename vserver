@@ -47,6 +47,7 @@ ls -l $devices | while read perm fd user group major minor date time file; do
     newfile=$prefix/${file/\//}
     echo mknod $newfile c ${major//,/} $minor;
     echo chmod --reference=$file $newfile;
+    echo chown --reference=$file $newfile;
  done
 
 ============= END devlinks.sh ============
