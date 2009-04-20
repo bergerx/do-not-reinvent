@@ -1,0 +1,2 @@
+sudo modprobe cx88xx card=6
+sudo modprobe cx8800
