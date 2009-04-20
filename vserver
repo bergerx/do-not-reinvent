@@ -16,3 +16,38 @@ vi /vservers/calvin/etc/hosts
 /sbin/vserver <VSERVER_NAME> [ start | stop | restart | enter ]
 /sbin/vserver-stat
 
+
+
+#make devices available for vserver also
+============= BEGIN devlinks.sh ==============
+#!/bin/bash
+
+prefix=/d3/vservers/farmer
+dirs="
+ dev/snd/
+ dev/dri/
+"
+
+devices="
+ /dev/snd/seq
+ /dev/snd/pcmC0D1p
+ /dev/snd/controlC0
+ /dev/snd/pcmC0D0c
+ /dev/snd/pcmC0D0p
+ /dev/dri/card0
+ /dev/radio0
+ /dev/video0
+ /dev/video1
+ /dev/vbi0
+"
+
+echo mkdir -p $dirs
+
+ls -l $devices | while read perm fd user group major minor date time file; do
+    newfile=$prefix/${file/\//}
+    echo mknod $newfile c ${major//,/} $minor;
+    echo chmod --reference=$file $newfile;
+ done
+
+============= END devlinks.sh ============
+
