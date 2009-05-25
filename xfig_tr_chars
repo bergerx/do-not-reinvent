@@ -1,0 +1,6 @@
+xfig'de turkce karakterlerle calismak icin.
+
+$ wget http://homepage3.nifty.com/tsato/xfig/latin/iso8859-9.ps
+$ cp iso8859-9.ps /usr/share/xfig/fig2dev/tr_TR.ps
+$ export LANG=tr_TR.ps
+$ xfig -international
