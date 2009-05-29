@@ -1003,6 +1003,84 @@
 1993 freesoftwarereport: Volume 2, number 3. Free software and open systems (particularly networking standards and Novell); the GNU debugger gdb; Pegasus mail, a free mail program for Novell networks.
 1994 freesoftwarereport: Volume 3, number 1. Regression testing; regression testing of unix systems; dejagnu, a free regression testing framework; testing Nascent, a fortran compiler.
 
+1960s hobbes: Packet-switching networks
+1967 hobbes: ACM Symposium on Operating Principles(Plan presented for a packet-switching network)
+1968 hobbes: Network presentation to the Advanced Research Projects Agency (ARPA)
+1969 hobbes: ARPANET commissioned by DOD for research into networking
+1969 hobbes: First Request for Comment (RFC): "Host Software" by Steve Crocker
+1970 hobbes: ALOHAnet developed by Norman Abrahamson, U of Hawaii (:sk2:)
+1971 hobbes: 15 nodes (23 hosts): UCLA, SRI, UCSB, U of Utah, BBN, MIT, RAND, SDC, Harvard, Lincoln Lab, Stanford, UIU(C), CWRU, CMU, NASA/Ames
+1972 hobbes: International Conference on Computer Communications with demonstration of ARPANET between 40 machines organized by Bob Kahn.
+1972 hobbes: InterNetworking Working Group (INWG) created to address need for establishing agreed upon protocols.  Chairman: Vinton Cerf.
+1973 hobbes: First international connections to the ARPANET: England and Norway
+1975 hobbes: Operational management of Internet transferred to DCA (now DISA)
+1975 hobbes: BBN opens Telenet, commercial version of ARPANET (:sk2:)
+1970s hobbes: Store and Forward Networks - Used electronic mail technology and extended it to conferencing
+1970s hobbes: HM Elizabeth, Queen of the United Kingdom sends out an e-mail (anyone know the exact year?)
+1976 hobbes: uucp (unix-to-unix copy) developed at AT&T Bell Labs and distributed with UNIX one year later.
+1977 hobbes: THEORYNET created at U of Wisconsin providing electronic mail to over 100 researchers in computer science (using uucp).
+1979 hobbes: Meeting between U of Wisconsin, DARPA, NSF, and computer scientists from many universities to establish a Computer Science Department research computer network.
+1979 hobbes: USENET established using uucp between Duke and UNC.
+1981 hobbes: BITNET, the "Because Its Time (There) NETwork" - Started as a cooperative network at the City University of New York. - Provides electronic mail and listserv servers to distribute information. - Unlike USENET, where client s/w is needed, electronic mail is the only tool necessary.
+1981 hobbes: CSNET (Computer Science NETwork) comes into being providing a dial-up capability to electronic mail.  Many universities feeling left out of ARPANET, join CSNET.
+1982 hobbes: INWG establishes the Transmission Control Protocol (TCP) and Internet Protocol (IP), as the protocol suite, commonly known as TCP/IP, for ARPANET. - This leads to one of the first definition of an "internet" as a connected set of networks, specifically those using TCP/IP, and "Internet" as connected TCP/IP internets.
+1983 hobbes: Name server developed at U of Wisconsin, no longer requiring users to know the exact path to other systems.
+1983 hobbes: CSNET / ARPANET gateway put in place
+1983 hobbes: ARPANET split into ARPANET and MILNET with the latter becoming integrated with the Defense Data Network created the previous year.
+1983 hobbes: Desktop workstations come into being, many with Berkeley UNIX which includes IP networking software.
+1983 hobbes: Need switches from having a single, large time sharing computer connected to Internet per site, to connection of an entire local network.
+1983 hobbes: Berkeley releases 4.2BSD incorporating TCP/IP (:mpc:)
+1984 hobbes: Domain Name Server (DNS) introduced. 
+1984 hobbes: # of hosts breaks 1,000
+1986 hobbes: NSFNET created (backbone speed of 56Kbps) - NSF establishes 5 super-computing centers to provide high-computing power for all. - ARPANET bureaucracy keeps it from being used to interconnect centers and NSFNET comes into being with the aid of NASA and DOE. - This allows an explosion of connections, especially from universities.
+1986 hobbes: Cleveland Freenet (start of NPTN) comes on-line (:sk2:)
+1987 hobbes: NSF signs a cooperative agreement to manage the NSFNET backbone with IBM, MCI, and Merit Network, Inc.
+1987 hobbes: 1000th RFC: "Request For Comments reference guide"
+1987 hobbes: # of hosts breaks 10,000
+1987 hobbes: # of BITNET hosts breaks 1,000
+1988 hobbes: Internet worm burrows through the Net
+1989 hobbes: # of hosts breaks 100,000
+1989 hobbes: NSFNET backbone upgraded to T1 (1.544Mbps)
+1989 hobbes: RIPE (Reseaux IP Europeens) formed (by European service providers) to ensure the necessary administrative and technical coordination to allow the operation of the pan-European IP Network. (:glg:) 
+1990 hobbes: ARPANET ceases to exist
+1990 hobbes: First relay between a commercial electronic mail carrier (MCI Mail) and the Internet through the Clearinghouse for Networked Information
+1990 hobbes: Electronic Frontier Foundation is founded by Mitch Kapor
+1991 hobbes: Commercial Internet eXchange (CIX) Association, Inc. formed by General Atomics (CERFnet), Performance Systems International, Inc. (PSInet), and UUNET Technologies, Inc. (AlterNet) (:glg:)
+1991 hobbes: WAIS released by Thinking Machines Corporation
+1991 hobbes: Gopher released by University of Minnesota
+1992 hobbes: Internet Society is chartered
+1992 hobbes: World-Wide Web released by CERN
+1992 hobbes: # of hosts breaks 1,000,000
+1992 hobbes: NSFNET backbone upgraded to T3 (44,736Mbps)
+1993 hobbes: InterNIC created to provide specific Internet services:  (:sc1:)		 - directory and database services (AT&T) - registration services (Network Solutions Inc.) - information services (General Atomics/CERFnet)
+1993 hobbes: US White House comes on-line: - President Bill Clinton: president@whitehouse.gov - Vice-President Al Gore: vice-president@whitehouse.gov - First Lady Hillary Clinton: root@whitehouse.gov (-:rhz:-)
+1993 hobbes: Internet Talk Radio begins broadcasting (:sk2:)
+1993 hobbes: Businesses and media take notice of the Internet
+1994 hobbes: Communities begin to be wired up directly to the Internet (Lexington and Cambridge, Mass., USA)
+1994 hobbes: US Senate and State of California provide information servers
+1994 hobbes: Shopping malls arrive on the Internet
+1994 hobbes: Arizona law firm of Canter & Siegel "spams" the Internet with email advertising green card lottery services; Net citizens flame back
+1994 hobbes: NSFNET traffic passes 10 trillion bytes/month
+1994 hobbes: You can now order from Pizza Hut, online!
+1994 hobbes: WWW edges out telnet to become 2nd most popular service on the Net (behind ftp-data)  based on % of packets and bytes traffic distribution on NSFNET
+1994 hobbes: Japanese Prime Minister on-line (http://www.kantei.go.jp/)
+1994 hobbes: UK's HM Treasury on-line (http://www.hm-treasury.gov.uk/)
+1994 hobbes: New Zealand's Info Tech Prime Minister on-line (http://www.govt.nz/)
+1994 hobbes: First Virtual, the first cyberbank, open up for business
+1994 hobbes: Radio stations start rockin' (rebroadcasting) round the clock on the Net: WXYC at UofNC, WJHK at UofKS-Lawrence, KUGS at Western WA U.
+1995 hobbes: NSFNET reverts back to a research network. Main US backbone traffic is now routed through interconnected network providers
+1995 hobbes: Hong Kong police disconnect all but 1 of the colony's Internet providers in search of a hacker. 10,000 people are left without Net access. (:api:)
+1995 hobbes: Radio HK, the first 24 hr., Internet-only radio station starts broadcasting
+1995 hobbes: WWW surpasses ftp-data in March as the service with greatest traffic on NSFNet based on packet count, and in April based on byte count  
+1995 hobbes: Traditional online dial-up systems (Compuserve, American Online, Prodigy) begin to provide Internet access  
+1995 hobbes: A number of Net related companies go public, with Netscape leading the pack with the 3rd largest ever NASDAQ IPO share value (9 August)
+1995 hobbes: Registration of domain names is no longer free. Beginning 14 September, a $50 annual fee has been imposed, which up until now was subsidized by NSF. NSF continues to pay for .edu registration, and on an interim basis for .gov 
+1995 hobbes: The Vatican comes on-line (http://www.vatican.va/)
+1995 hobbes: The Canadian Goverment comes on-line (http://canada.gc.ca/)
+1995 hobbes: The first official Internet wiretap was successful in helping the Secret Service and Drug Enforcement Agency (DEA) aprehend three individuals who were illegally manufacturing and selling cell phone cloning equipment and electronic devices 
+1995 hobbes: Operation Home Front connects, for the first time, soldiers in the field with their families back home via the Internet.
+1996 hobbes: The Internet 1996 World Exposition, the first World's Fair to take place on the Internet
+
 
 
 
@@ -1015,6 +1093,7 @@ dos: http://en.wikipedia.org/wiki/Timeline_of_x86_DOS_operating_systems
 electronics: http://everything2.com/e2node/Chronology%2520of%2520Communication%2520after%2520electronics%2520to%25201998
 freesoftwarereport: http://www.toad.com/gnu/cygnus/index.html
 fromusenet: http://www.google.com/googlegroups/archive_announce_20.html
+hobbes: http://home.utah.edu/history.html
 ie: http://www.blooberry.com/indexdot/history/ie.htm
 linux: http://en.wikipedia.org/wiki/History_of_the_Linux_kernel
 linuxjournal: http://www.linuxjournal.com/article/6000
@@ -1260,3 +1339,133 @@ xp:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+    * 1957 USSR launches Sputnik, first artificial earth satellite. In response, US forms the Advanced Research Projects Agency (ARPA) within the Department of Defense (DoD) to establish US lead in science and technology applicable to the military http://www.culturelink.org/review/s94/sanda.html
+    * 1969 ARPANET commissioned by DoD for research into networking
+    * First node at UCLA and soon after at: Stanford Research Institute (SRI), UCSB, U of Utah
+    * 1972 International Conference on Computer Communications with demonstration of ARPANET between 40 machines organized by Bob Kahn.
+    * Ray Tomlinson of BBN invents email program to send messages across a distributed network.
+    * 1973 First international connections to the ARPANET: England and Norway
+    * 1977 THEORYNET created at U of Wisconsin providing electronic mail to over 100 researchers in computer science (using uucp).
+    * 1982 DCA and ARPA establishes the Transmission Control Protocol (TCP) and Internet Protocol (IP), as the protocol suite, commonly known as TCP/IP, for ARPANET.
+    * This leads to one of the first definitions of an "internet" as a connected set of networks, specifically those using TCP/IP, and "Internet" as connected TCP/IP internets.
+    * EUnet (European UNIX Network) is created by EUUG to provide email and USENET services.
+    * 1984 # of hosts breaks 1,000
+    * 1987 # of hosts breaks 10,000
+    * 1989 # of hosts breaks 100,000
+    * 1991 Wide Area Information Servers (WAIS), invented by Brewster Kahle, released by Thinking Machines Corporation
+    * Gopher released by Paul Lindner and Mark P. McCahill from the U of Minn
+    * 1992 World-Wide Web released by CERN; Tim Berners-Lee developer
+    * # of hosts breaks 1,000,000
+    * First MBONE audio multicast (March) and video multicast (November)
+    * 1993 US White House comes on-line:
+    * Internet Talk Radio begins broadcasting
+    * United Nations and World Bank come on-line
+    * Businesses and media really take notice of the Internet
+    * Mosaic takes the Internet by storm; WWW proliferates at a 341,634% annual growth rate of service traffic. Gopher's growth is 997%.
+    * 1994 Communities begin to be wired up directly to the Internet
+    * US Senate and House provide information servers
+    * Shopping malls arrive on the Internet
+
+
+
+
+
+
+
+
+hobbes:
+A Day in the Life of the Internet" begs to be published (:rhz:)
+
+
+Internet growth summary:
+
+   Date       Hosts      |    Date       Hosts     Networks    Domains
+   -----    ---------    +    -----    ---------   --------    -------
+    1969            4    |    07/89      130,000                 3,900
+   04/71           23    |    10/89      159,000
+   06/74           62    |    10/90      313,000                 9,300
+   03/77          111    |    01/91      376,000
+   08/81          213    |    07/91      535,000                16,000
+   05/82          235    |    10/91      617,000                18,000
+   08/83          562    |    01/92      727,000
+   10/84        1,024    |    04/92      890,000                20,000
+   10/85        1,961    |    07/92      992,000      6,569     16,300
+   02/86        2,308    |    10/92    1,136,000      7,505     18,100
+   11/86        5,089    |    01/93    1,313,000      8,258     21,000
+   12/87       28,174    |    04/93    1,486,000      9,722     22,000
+   07/88       33,000    |    07/93    1,776,000     13,767     26,000
+   10/88       56,000    |    10/93    2,056,000     16,533     28,000
+   01/89       80,000    |    01/94    2,217,000     20,539     30,000
+                         |    10/94    3,864,000     37,022     56,000
+                         |    01/95    4,852,000     39,410     71,000
+                         |    07/95    6,642,000     61,538    120,000
+                         |    01/96    9,472,000     93,671    240,000
+
+
+USENET (News Groups) growth summary: 
+
+   Date  Sites  ~MB  ~Posts  Groups  |  Date   Sites   ~MB  ~Posts  Groups
+   ----  -----  ---  ------  ------  +  ----  -------  ---  ------  ------
+   1979      3            2       3  |  1986     2200  2.0     946     241
+   1980     15           10          |  1987     5200  2.1     957     259
+   1981    150  0.05     20          |  1988     7800  4.4    1933     381
+   1982    400           35          |  1989
+   1983    600          120          |  1991
+   1984    900          225          |  1992   63,000   42  17,556
+   1985   1300  1.0     375          |  1993   69,000   50  19,362
+                                     |  1994  190,000  190  72,755
+
+      ~ approximate: MB - megabytes per day, Posts - articles per day
+
+
+
+
+
+
+
+
+
+
+
+http://www.dgatx.com/computing/people/Frank-da-Cruz/pubs/2003/CCT/archive.html
+[ Herman Hollerith EM 1879 PhD 1890 ]
+[ 1934: The First Automatic Scientific Calculations ]
+[ 1937: The First Scientific Computing Center ]
+[ 1939: The Manhattan Project (Part I) ]
+[ 1940: The First Computer Book ]
+[ 1945: The Manhattan Project (Part II) ] 
+[ 1946: The First Computer Typesetting ] 
+[ 1946: The First Computer Science Course ]
+[ 1947: ACM Founded Here ]
+[ 1947: The First Commercial Computer Course ]
+[ 1948: The IBM SSEC ]
+[ 1948: IBM 610: The First "Personal Computer" ]
+[ 1954: Invention: of the Cursor ]
+[ 1954: NORC: The First Supercomputer ] 
+[ 1955: IBM 650: Columbia's First  "Real" Computer ]
+[ 1963: The Computer Center ]
+[ 1968: IBM 360/91: The Biggest Iron ]
+[ 1973: Self-Service Computing ]
+[ 1975: First Timesharing ]
+[ 1976: First E-Mail ]
+[ 1976: First Hackers ]
+[ 1977: DEC-20s ] 
+[ 1982: IBM MSS ]
+[ 1982: BITNET ]
+[ 1983: First PC Lab ]
+[ 1984: CLIO (Library Online) ]
+[ 1984: ARPANET ]
+[ 1984: Campus Ethernet ]
+[ 1986: UNIX ]
+[ 1994: Columbia Website ] 
