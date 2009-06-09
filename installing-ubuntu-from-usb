@@ -1,0 +1,68 @@
+sudo fdisk -l
+sudo umount /dev/sdb1
+sudo fdisk /dev/sdb
+
+# make two partiions:
+# first +750M type fat16(6) and flag as active
+# second the rest of disk and file type linux
+
+sudo mkfs.vfat -F 16 -n liveusb /dev/sdb1
+sudo mkfs.ext2 -b 4096 -L casper-rw /dev/sdb2
+
+sudo mount /dev/sdb1 /tmp/liveusb
+
+cd /tmp/ubuntu-livecd
+sudo cp -rvf casper disctree dists install pics pool preseed .disk isolinux/* md5sum.txt README.diskdefines ubuntu.ico casper/vmlinuz casper/initrd.gz install/mt86plus /tmp/liveusb/
+
+
+cd /tmp/liveusb
+sudo mv isolinux.cfg syslinux.cfg
+
+
+
+DEFAULT persistent
+GFXBOOT bootlogo
+GFXBOOT-BACKGROUND 0xB6875A
+APPEND  file=preseed/ubuntu.seed boot=casper initrd=initrd.gz ramdisk_size=1048576 root=/dev/ram rw quiet splash --
+LABEL persistent
+  menu label ^Start Ubuntu in persistent mode
+  kernel vmlinuz
+  append  file=preseed/ubuntu.seed boot=casper persistent initrd=initrd.gz ramdisk_size=1048576 root=/dev/ram rw quiet splash --
+LABEL live
+  menu label ^Start or install Ubuntu
+  kernel vmlinuz
+  append  file=preseed/ubuntu.seed boot=casper initrd=initrd.gz ramdisk_size=1048576 root=/dev/ram rw quiet splash --
+LABEL xforcevesa
+  menu label Start Ubuntu in safe ^graphics mode
+  kernel vmlinuz
+  append  file=preseed/ubuntu.seed boot=casper xforcevesa initrd=initrd.gz ramdisk_size=1048576 root=/dev/ram rw quiet splash --
+LABEL check
+  menu label ^Check CD for defects
+  kernel vmlinuz
+  append  boot=casper integrity-check initrd=initrd.gz ramdisk_size=1048576 root=/dev/ram rw quiet splash --
+LABEL memtest
+  menu label ^Memory test
+  kernel mt86plus
+  append -
+LABEL hd
+  menu label ^Boot from first hard disk
+  localboot 0x80
+  append -
+DISPLAY isolinux.txt
+TIMEOUT 300
+PROMPT 1
+F1 f1.txt
+F2 f2.txt
+F3 f3.txt
+F4 f4.txt
+F5 f5.txt
+F6 f6.txt
+F7 f7.txt
+F8 f8.txt
+F9 f9.txt
+F0 f10.txt
+
+
+
+sudo umount /tmp/liveusb
+sudo syslinux -f /dev/sdb1

@@ -1,0 +1,3 @@
+iconv -f UCS-2LE -t UTF-8 < info-utf16.xml > info-utf8.xml
+vim info-utf8.xml
+iconv -f UTF-8 -t UCS-2LE < info-utf8.xml > info-utf16.xml

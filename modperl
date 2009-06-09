@@ -1,0 +1,39 @@
+http://www.debian-administration.org/article/A_brief_introduction_to_mod_perl_-_Part_1
+
+lenny:~# apt-get install libapache2-mod-perl2
+lenny:~# a2enmod perl
+lenny:~# /etc/init.d/apache2 restart
+=== BEGIN /etc/apache2/conf.d/perl-status ===
+ #
+ # make status information available at
+ #   http://example.com/perl-status/
+ #
+ <Location /perl-status>
+    SetHandler perl-script
+    PerlHandler +Apache2::Status
+ </Location>
+
+ #
+ # But only from the local host, and our trusted
+ # remote IP.
+ #
+ <Location /perl-status>
+    order deny,allow
+    deny from all
+    allow from 127.0.0.1
+    allow from your.ip.address
+ </Location>
+=== END ===
+
+Because mod_perl embeds a persistent copy of Perl inside the Apache webserver you can use this embedded copy of perl to run your existing perl-based CGI scripts faster. This speedup comes from avoiding the overhead of launching a new copy of the Perl interpreter when an incoming CGI request is to be handled, to get a more impressive speedup requires making changes to your script(s).
+
+=== BEGIN into site configuration ===
+  PerlModule Apache::Registry
+  Alias /cgi-bin/ /usr/lib/cgi-bin
+  <Location /cgi-bin>
+    SetHandler perl-script
+    PerlHandler Apache::Registry
+    PerlSendHeader On
+    Options +ExecCGI
+  </Location>
+=== END ===

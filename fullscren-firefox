@@ -1,0 +1,12 @@
+http://www.krickelkrackel.de/autohide/ autohide
+https://addons.mozilla.org/en-US/firefox/addon/1568 full fullscreen
+
+
+firefox parameters:
+https://developer.mozilla.org/en/Command_Line_Options
+-nosplash or -quiet
+-foreground
+
+
+oldurup tekrar acilinca hatirlayim mi seceneklerini sorusu iptali
+about:config'de resume_from_crash ara false yap

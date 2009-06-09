@@ -1,0 +1,60 @@
+start dhcp (interface)
+stop dhcp
+
+up interface
+down interface
+isup (/sys/class/net/*/flags & 0x1) | (ifconfig %s | grep UP)
+
+set address (ip mask broadcast)
+
+flush route (ip route flush dev | route del dev)
+set default route (route add default gw %s dev %s)
+
+get ip (ifconfig %s)
+
+set resolve conf
+get resolve conf
+
+get default gw (0.0.0.0 varsa iste o gw)
+set default gw
+
+tools dhcp(dhclient(-r), dhcpcd(-k), pump(-r)-i)
+
+wiredtools mii-tool ethtool
+wirelesstools wpa_cli
+
+get wired interfaces (/sys/class/net/ icinde wireless olmayan ve /sys/class/net/*/type dosyasi icinde 1 yazan dizinler)
+get wireless interfaces (/sys/class/net/ icinde wireless olan dizinler bu olmazsa iwconfig ciktisina bak ESSID faln ayristir)
+
+get wireless pyhsical connection state /sys/class/net/*/carrier
+get wireless pyhsical connection state (ethtool %s | grep "(Link detected: yes)")
+get wireless pyhsical connection state (mii-tool %s | grep "(link ok)")
+
+get wireless essid
+set wireless essid
+
+set wireless key
+
+stop wireless wpa (kill all wpa_supplicant)
+
+get wireless kill switch (iwconfig %s | grep "radio off")
+get wireless networks (iwlist %s scan)
+
+get wireless channel
+get wireless channel by freq ({'2.412 GHz': 1, '2.417 GHz': 2, '2.422 GHz': 3, '2.427 GHz': 4, '2.432 GHz': 5, '2.437 GHz': 6, '2.442 GHz': 7, '2.447 GHz': 8, '2.452 GHz': 9, '2.457 GHz': 10, '2.462 GHz': 11, '2.467 GHz': 12, '2.472 GHz': 13, '2.484 GHz': 14 })
+
+set wireless channel
+
+get wireless mode
+set wireless mode (iwconfig %s mode %s)
+
+use wireless interface (associate (iwconfig %s essid %s channel %s ap %(bssid)) )
+
+generate wireless psk (wpa_passphrase %(essid) %(key))
+
+authenticate wireless (wpa_supplicant -B -i $iface -c $file $bssid.replace(":", "").tolower -D $driver)
+validate wireless authentication (wpa_cli -i$iface status | grep wpa_state)
+force wireless supplicant scan (wpa_cli -i$iface scan)
+
+get wireless bssid (iwconfig $iface | grep "Access Point: ")
+

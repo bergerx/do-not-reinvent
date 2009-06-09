@@ -1,0 +1,22 @@
+v4l2vd - http://sourceforge.net/projects/v4l2vd/
+bekir@hede:~/bin/v4l2vd-0.2/v4l2vdSource$ ./v4l2vdSource -d /dev/video0 -r 320x240 -s _generate
+
+
+vloopback - sudo m-a a-i vloopback & sudo modprobe vloopback
+bekir@hede:/tmp/vloopbackfeedtest-0.28$ ./dummyfill /dev/video2 800x600x24 25 -v
+
+
+AVLD - Another Video Loopback Device - http://allonlinux.free.fr/Projets/AVLD/
+sudo modprobe avld width=320 height=240 fps=5 palette=0
+mencoder my_movie.*** -nosound -ovc raw -vf format=bgr24 -of rawvideo -o /dev/video0
+ffmpeg -f x11grab -vc rawvideo -s 1280x960 -r $FPS -an -i :0.0 -f rawvideo -pix_fmt rgb24 - | mencoder - -demuxer rawvideo -rawvideo fps=$FPS:w=1280:h=960:format=rgb24 -nosound -ovc raw -vf scale=320:240,format=bgr24 -of rawvideo -ofps $FPS -o /dev/video0
+echo "width=800 height=600 fps=25" > /dev/video0
+
+
+
+
+# to read from video:
+mplayer tv:// -tv "driver=v4l:device=/dev/video0:noaudio:outfmt=rgb24"
+
+
+
