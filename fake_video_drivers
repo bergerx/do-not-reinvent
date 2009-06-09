@@ -1,3 +1,6 @@
+virtual video device fake
+
+
 v4l2vd - http://sourceforge.net/projects/v4l2vd/
 bekir@hede:~/bin/v4l2vd-0.2/v4l2vdSource$ ./v4l2vdSource -d /dev/video0 -r 320x240 -s _generate
 
