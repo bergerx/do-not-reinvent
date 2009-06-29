@@ -1,0 +1,83 @@
+from http://cihan.me/how-to-setup-openvpn-server-on-debian-lenny/
+
+
+server
+======
+$ sudo aptitude install openvpn openssl liblzo1
+$ #echo tun >> /etc/modules
+$ cd /usr/share/doc/openvpn/examples/easy-rsa/2.0/
+$ . ./vars
+$ ./clean-all
+$ ./build-ca
+$ ./build-key-server server
+$ ./build-key client
+$ ./build-dh
+$ mv keys /etc/openvpn/
+$ ls -l /etc/openvpn/keys
+> -rw-r--r-- 1 root root 1265 2009-06-29 04:20 ca.crt
+> -rw------- 1 root root  887 2009-06-29 04:20 ca.key
+> -rw-r--r-- 1 root root 3815 2009-06-29 04:20 client.crt
+> -rw-r--r-- 1 root root  680 2009-06-29 04:20 client.csr
+> -rw------- 1 root root  891 2009-06-29 04:20 client.key
+> -rw-r--r-- 1 root root  245 2009-06-29 04:20 dh1024.pem
+> -rw-r--r-- 1 root root 3937 2009-06-29 04:20 server.crt
+> -rw-r--r-- 1 root root  680 2009-06-29 04:20 server.csr
+> -rw------- 1 root root  887 2009-06-29 04:20 server.key
+
+ca.key-> only,must be in CA Server
+ca.crt-> must be in CA Server and all of the clients.
+client.crt-> only,must be in Client
+client.key-> only,must be in Client
+server.crt-> only,must be in OPENVPN Server
+server.key-> only,must be in OPENVPN Server
+
+
+
+ 
+$ cat > /etc/openvpn/server.conf
+# copied from /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz
+port 1194
+proto udp
+dev tun
+ca /etc/openvpn/keys/ca.crt
+cert /etc/openvpn/keys/server.crt
+key /etc/openvpn/keys/server.key  # This file should be kept secret
+dh /etc/openvpn/keys/dh1024.pem
+server 10.8.0.0 255.255.255.0
+ifconfig-pool-persist ipp.txt
+push "route 192.168.199.0 255.255.255.0"
+#push "redirect-gateway def1"
+#push "dhcp-option DNS 192.168.2.1"
+client-to-client
+keepalive 10 120
+comp-lzo
+persist-key
+persist-tun
+status openvpn-status.log
+log /var/log/openvpn.log
+log-append /var/log/openvpn.log
+verb 3
+
+
+client
+======
+$ sudo aptitude install openvpn openssl liblzo1
+$ #echo tun >> /etc/modules
+$ cat > /etc/openvpn/server.conf
+#copied from /usr/share/doc/openvpn/examples/sample-config-files/client.conf
+client
+dev tun
+proto udp
+remote taksim.zeitin.com 1194
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+ca /etc/openvpn/keys/ca.crt
+cert /etc/openvpn/keys/client.crt
+key /etc/openvpn/keys/client.key
+ns-cert-type server
+comp-lzo
+verb 3
+
+
