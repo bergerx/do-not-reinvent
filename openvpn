@@ -23,16 +23,12 @@ $ ls -l /etc/openvpn/keys
 > -rw-r--r-- 1 root root 3937 2009-06-29 04:20 server.crt
 > -rw-r--r-- 1 root root  680 2009-06-29 04:20 server.csr
 > -rw------- 1 root root  887 2009-06-29 04:20 server.key
-
 ca.key-> only,must be in CA Server
 ca.crt-> must be in CA Server and all of the clients.
 client.crt-> only,must be in Client
 client.key-> only,must be in Client
 server.crt-> only,must be in OPENVPN Server
 server.key-> only,must be in OPENVPN Server
-
-
-
  
 $ cat > /etc/openvpn/server.conf
 # copied from /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz
