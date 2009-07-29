@@ -1,3 +1,12 @@
+#http://www.debian.org/doc/FAQ/ch-pkg_basics.en.html#s-sourcebuild
+     apt-get source foo
+     cd foo-*
+     sudo apt-get build-dep foo
+     dch -l local 'Blah blah blah' # create a dedicated version of your own build (so that you won't get confused later when Debian itself releases a new version) 
+     debuild -us -uc
+     sudo dpkg -i ../*.deb
+
+
 # http://www.ducea.com/2008/03/06/howto-recompile-debian-packages/
 apt-get source paket-adi
 apt-get build-dep <package> # derleme bagimliliklarini alip geliyor
