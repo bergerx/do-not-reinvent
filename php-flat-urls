@@ -1,0 +1,22 @@
+php, query string, querystring, rest
+
+Assume we are working in /home/bekir/public_html/directory/
+
+====== .htaccess =====
+RewriteEngine On
+Options FollowSymLinks -MultiViews
+# RewriteBase required if you use public_html (usermod).
+RewriteBase /~bekir/kaplan/src
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.+) - [PT,L]
+RewriteRule ^(.*) hede.php/$1
+#RewriteCond %{HTTP:Authorization}  !^$
+#RewriteRule .* - [E=REMOTE_USER:%{HTTP:Authorization}]
+===== =====
+
+> GET http://localhost/~bekir/directory/asd/fgh
+This request will be delivered to hede.php with $_SERVER["PATH_INFO"] has a value of "/asd/fgh"
+
+You can parse it like this:
+> list($tmp, $roomname, $clientname) = split('/',$_SERVER["PATH_INFO"]);
