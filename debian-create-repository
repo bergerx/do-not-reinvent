@@ -1,0 +1,199 @@
+#from Erhan Kesken's notes in our firm's wiki
+
+DEBIAN DEPOSU OLUSTURMA
+
+(alpaydin'a yaptigim kurulum icin alpaydin uzerinden giderek anlatilmaktadir, genel gecer bir belge olma iddiasi yoktur, daha cok yapilanlarin belgelendirmesidir.)
+
+- depo'yu reprepro ile kurdum[1], http ile sunmak icin de apache kullandim.
+
+$ sudo aptitude install reprepro apache2
+
+- dizinleri olustur.
+
+$ sudo mkdir -p /var/www/apt/debian/conf
+$ sudo mkdir -p /var/www/apt/archive (urunlerimizin eski surumlerini koyacagimiz dizin)
+
+- depo tanimini olustur.
+
+$ cd /var/www/apt/debian
+$ cat > conf/distributions
+Origin: Zeitin Co.
+Label: Zeitin's lenny Repository
+Suite: stable
+Codename: lenny
+Version: 5.0
+Architectures: i386 all source
+Components: main non-free contrib
+Description: Repository for debian stable servers at Zeitin
+SignWith: zeitin
+^D
+
+- yukarida gpg anahtari olarak zeitin'i kullan demistik. gpg anahtarini
+olusturmak lazim.
+
+$ gpg --gen-key
+Your selection? 1
+What keysize do you want? 2048
+Key is valid for? 0
+Is this correct? y
+Real name: Zeitin Co.
+Email address: info@zeitin.com
+Comment: Zeitin Stable Release Key
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+Enter passphrase: (just enter)
+Repeat passphrase: (just enter)
+
+Not enough random bytes available.  Please do some other work to give
+the OS a chance to collect more entropy! (Need 280 more bytes)
+
+gibi birsey derse, sistemi mesgul eden birseyler yapmaniz gerekiyor, arka
+planda top filan calistirin. ben soyle demistim.
+
+$ while :; do echo -en "$RANDOM\r"; done
+
+(benim olusturdugum anahtarlara alpaydin ev dizinimden ulasabilirsiniz,
+alpaydin:.gnugpg dizinini kendinize kopyalarsaniz olur diye tahmin ediyorum.)
+
+- public keyi yayinlamak lazim, insanlar apt-key'le ekleyebilsinler diye.
+
+$ gpg --export --armor > repository_key.asc
+$ sudo cp repository_key.asc /var/www/apt/debian/
+
+- sonra ilk deb paketimizi ekleyelim, benim ilk ekledigim debian paketi red5
+icin olusturdugum deb paketi idi (deb paketi olusturmanin bu belge ile ilgisi
+olmadigindan burada anlatmiyorum, onun icin baska bir belge yazmak daha
+mantikli sanki.)
+
+$ cd /var/www/apt/debian
+$ sudo reprepro -Vb . includedeb lenny ~/red5_0.8-RC2_all.deb
+
+- paketi silmek icin ise
+
+$ reprepro -b . remove sarge reprepro
+
+- red5'in yeni surumunu yuklerken onceden eski paketi silmenize gerek yok
+belgelere gore, includedeb'in halletmesi gerek, yani
+
+$ sudo reprepro -Vb . includedeb lenny ~/red5_0.9_all.deb
+
+demeniz yeterli.
+
+- depoyu apache uzerinden sunmak icin de su ayarlari yaptim:
+(sonradan apacheyi kapattim, kimlik denetlemesi yapabilmek icin ssh uzerinden sunmaya basladim sadace)
+
+$ cd /etc/apache2/sites-available
+$ sudo cat > apt
+<VirtualHost *:80>
+        ServerName deb.zeitin.com
+        ServerAdmin ekesken@zeitin.com
+        DocumentRoot /var/www/apt
+        ErrorLog /var/log/apache2/apt-error.log
+        CustomLog /var/log/apache2/apt-access.log combined
+        ServerSignature On
+
+        # Allow directory listings so that people can browse the repository from their browser too
+        <Directory "/var/www/apt">
+                Options Indexes FollowSymLinks MultiViews
+                DirectoryIndex index.html
+                AllowOverride Options
+                Order allow,deny
+                allow from all
+        </Directory>
+
+        # Hide the conf/ directory for all repositories
+        <Directory "/var/www/apt/*/conf">
+                Order allow,deny
+                Deny from all
+                Satisfy all
+        </Directory>
+
+        # Hide the db/ directory for all repositories
+        <Directory "/var/www/apt/*/db">
+                Order allow,deny
+                Deny from all
+                Satisfy all
+        </Directory>
+
+</VirtualHost>
+^D
+
+$ sudo ln -s /etc/apache2/sites-available/apt /etc/apache2/sites-enabled/apt
+$ sudo /etc/init.d/apache2 restart
+
+- depoyu ssh ile public keyler uzerinden sunmak icin:
+
+$ sudo adduser --disabled-password --uid 3001 apti
+$ sudo addgroup --gid 3002 releasemanager
+$ sudo chown -R apti:releasemanager /var/www/apt
+$ sudo chmod -R u-w /var/www/apt
+$ sudo chmod -R g+w /var/www/apt
+
+insanlarin public keylerini /home/apti/.ssh/authorized_keys dosyasina eklemek lazim. ben anahtarlari gitosis'den aldim.
+
+$ scp -r git.zeitin.com:gitosis-admin/keydir . (daha once gitosis-admin'i ev dizinime cekmistim)
+$ cd keydir
+$ for i in *; do cat $i >> authorized_keys; done
+$ cd ~apti
+$ sudo mkdir .ssh
+$ sudo cp /tmp/keydir/authorized_keys .ssh/
+$ sudo chown -R apti:apti .ssh/
+
+
+
+
+
+
+- debian deposu hazir, kullanmak icin:
+$ echo "deb http://deb.zeitin.com/debian/ lenny main contrib non-free" >> /etc/apt/sources.list
+
+- gpg anahtarini guvenilir anahtarlar listesine eklemek icin.
+
+$ curl http://deb.zeitin.com/debian/repository_key.asc | sudo apt-key add -
+
+ssh uzerinden almak icin
+
+$ scp apti@deb.zeitin.com:/var/www/apt/debian/repository_key.asc .
+$ cat repository_key.asc | sudo apt-key add -
+
+kaynaklar:
+[1] http://www.debian-administration.org/articles/286
+[2] http://blogs.cae.tntech.edu/mwr/2007/05/28/my-own-private-debian-repository/
+[3] http://www.jejik.com/articles/2006/09/setting_up_and_managing_an_apt_repository_with_reprepro/
+
+
+
+
+
+-----------------
+Asagidaki kisim da bu depoyu disardan nasil kullanacagimizi acikliyor
+
+
+
+debian deposu gitosis'in kullandigi anahtarlari kullanmaktadir, ayni anahtarla kimlik dogrulamasindan gecebilirsin.
+
+ssh apti@deb.zeitin.com
+
+ile baglanabiliyor olman lazim. ancak aptitude komutlari root olarak calistirildigindan /root/.ssh dizinin altina kendi ev dizinimizdeki anahtarlari kopyalamamiz gerekiyor.
+
+sudo cp ~/.ssh/id_dsa* /root/.ssh/
+
+/etc/apt/sources.list'ine
+
+deb ssh://apti@deb.zeitin.com:/var/www/apt/debian lenny main contrib non-free
+
+satirini ekledikten sonra
+
+sudo aptitude update
+
+ssh-agent kullanmiyorsan sifre girmeni isteyecek, kullaniyorsan ne mutlu.
+
+soyle uyarilar goreceksin:
+
+W: GPG error: ssh://apti@deb.zeitin.com lenny Release: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 0D6A6D69CBEA8711
+W: You may want to run apt-get update to correct these problems
+
+anahtari bulamadim diyor, boyle de calisir ama kendi guvenligin icin sunu yapsan iyi olur:
+
+$ scp apti@deb.zeitin.com:/var/www/apt/debian/repository_key.asc .
+$ cat repository_key.asc | sudo apt-key add -
+

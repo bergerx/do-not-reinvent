@@ -1,0 +1,81 @@
+#from Erhan Kesken's notes in our firm's wiki
+
+
+DEB PAKETI OLUSTURMA
+
+(flex3sdk-nonfree icin deb paketi hazirlarken gectigim yollari belgelendirdim, genel gecer bir belge olma iddiasi yoktur.)
+
+- bir debian paketi olusturma isine girismeden daha onceden hazirlanmis bir deb
+  paketinin icerigini incelemek de fayda var, kopyala-pastala icin :)
+
+$ mkdir red5deb; cd red5deb
+$ dpkg -e ../red5.deb (DEBIAN dizinini acar, kontrol betiklerinin bulundugu)
+$ dpkg -x ../red5.deb . (paket icerigini acar, tar xzvf misali)
+
+flex3sdk-nonfree icin yaptiklarim:
+
+$ mkdir debian; cd debian
+$ mkdir -p usr/lib
+$ mkdir -p usr/share/doc/flex3sdk-nonfree
+$ cd usr/lib
+$ unzip /home/ekesken/flex_sdk_3.zip
+$ cd -
+$ cat | gzip --best > usr/share/doc/flex3sdk-nonfree/changelog.Debian.gz
+flex3sdk-nonfree (3) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Erhan Kesken <ekesken@zeitin.com>  Sat, 11 Apr 2009 16:59:05 +0300
+^D
+
+$ cat > usr/share/doc/flex3sdk-nonfree/copyright
+see /usr/lib/flex3sdk-nonfree/SDK license.pdf.
+
+$ mkdir DEBIAN
+$ find usr/ -type f -exec md5sum {} \; > DEBIAN/md5sums
+
+- get installed size
+$ du -s usr/
+201368  usr/
+
+
+$ cat > DEBIAN/control
+Package: flex3sdk-nonfree
+Version: 3-RC1
+Section: web
+Priority: optional
+Architecture: all
+Depends:
+Installed-Size: 201368
+Maintainer: Erhan KESKEN <ekesken@zeitin.com>
+Description: Adobe Flex SDK
+ The Adobe Flex 3 Software Development Kit (SDK) includes the Flex framework
+ (component class library) and Flex compiler, enabling you to freely develop and
+ deploy Flex applications using an IDE of your choice.
+^D
+
+$ cd ..
+$ fakeroot dpkg -b debian/ flex3sdk-nonfree_3-RC1_all.deb
+
+- burada 3-RC1 demek onemli, 3 upstream versiyonu, RC1 de debian versiyonu, bkz. 5.6.12 Version@Debian Policy Manual[1].
+
+- lintian yarattiginiz debian paketinin eksiklerini bulmaya yarayan guzel bir program.
+
+$ sudo aptitude install lintian
+$ lintian flex3sdk-nonfree_3-RC1_all.deb
+
+- dediginizde kiyamet gibi uyari basacak ekrana, bazi uyarilari onemsememek lazim flex3sdk-nonfree icin:
+
+$ lintian flex3sdk-nonfree_3-RC1_all.deb |grep -v executable-not-elf-or-script | grep -v  executable-is-not-world-readable | grep -v image-
+
+- hazirladigimiz paketi depomuza koymak icin;
+
+$ scp flex3sdk-nonfree_3-RC1_all.deb alpaydin.zeitin.com:
+$ ssh alpaydin.zeitin.com
+$ cd /var/www/apt/debian
+$ sudo reprepro -C non-free -Vb . includedeb lenny ~/flex3sdk-nonfree_3-RC1_all.deb
+
+
+[1] http://www.debian.org/doc/debian-policy/ch-controlfields.html
+
+

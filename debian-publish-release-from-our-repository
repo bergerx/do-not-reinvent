@@ -1,0 +1,41 @@
+#from Erhan Kesken's notes in our firm's wiki
+
+selfcheck-0.0.3 surumu uzerinden gidecek olursak:
+
+(asagidaki adimlara girismeden gerekli private key'i edinmeniz gerekiyor ekleyeceginiz paketin imzasi icin, deb:~ekesken/.gnupg/'i kendi ev dizininize koyarsaniz olur. bekir gibi bir baskasinin ev dizininden oldugu gibi kopyalarsaniz dosya sahipliklerini uzerinize almayi unutmayin)
+
+Surum hazirladigimiz makinada
+
+$ git clone gitosis@git.zeitin.com:selfcheck.git
+$ # edit ReleaseNotes.txt and do your latest changes, commit and push 
+$ cd selfcheck/scripts
+$ git tag 0.0.3
+$ git push --tags  # bu komudu ciktiginiz deb paketini depoya koyup denedikten sonra calistirmanizi tavsiye ederim.
+$ ./create-release.sh
+$ scp selfcheck_0.0.3_all.deb deb.zeitin.com:
+
+deb.zeitin.com'da
+
+$ mkdir /var/www/apt/archive/selfcheck
+$ cp ~/selfcheck_0.0.3_all.deb /var/www/apt/archive/selfcheck/ # paketi az once ev dizinine atmistik
+$ reprepro -Vb /var/www/apt/debian includedeb lenny /var/www/apt/archive/selfcheck/selfcheck_0.0.3_all.deb 
+WARNING: Distribution lenny contains an architecture called 'all'.
+WARNING: Distribution lenny contains an architecture called 'all'.
+WARNING: Distribution lenny contains an architecture called 'all'.
+../archive/selfcheck/selfcheck_0.0.3_all.deb: component guessed as 'main'
+Created directory "./pool/main/s"
+Created directory "./pool/main/s/selfcheck"
+Exporting indices...
+Successfully created './dists/lenny/Release.gpg.new'
+
+yukaridaki WARNING'lerin bir onemi yok sanirsam.
+
+deb.zeitin.com sunucusunda /var/www/apt/ dizinine sadece releasemanager grubunda olanlarin yazma hakki var.
+
+surum guncellemek icin "includedeb" komudunu tekrar calistirmaniz yeterli, eski surumu kaldirma isini kendisi halleder.
+
+depodan elle surum silmek icin de:
+
+$ reprepro -b /var/www/apt/debian remove lenny selfcheck
+
+depoyu cektiniz ne ReleaseNotes.txt ne de scripts diye bir dizin yoksa etrafta is basa dustu demektir, bir surum hazirlama betigi hazirlayip, gerektirdigi dosyalarla birlikte depoya eklerseniz biz de kullaniriz artik. 
