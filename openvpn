@@ -60,7 +60,7 @@ client
 ======
 $ sudo aptitude install openvpn openssl liblzo1
 $ #echo tun >> /etc/modules
-$ cat > /etc/openvpn/server.conf
+$ cat > /etc/openvpn/client.conf
 #copied from /usr/share/doc/openvpn/examples/sample-config-files/client.conf
 client
 dev tun
@@ -77,4 +77,6 @@ ns-cert-type server
 comp-lzo
 verb 3
 $ /etc/init.d/openvpn restart
+or
+$ sudo openvpn --daemon ovpn-client --cd /etc/openvpn/ --config /etc/openvpn/client.conf
 

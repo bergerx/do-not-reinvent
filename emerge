@@ -1,0 +1,6 @@
+
+emerge -pv opera
+emerge -vN world
+
+
+etc-update
