@@ -52,3 +52,37 @@ ls -l $devices | while read perm fd user group major minor date time file; do
 
 ============= END devlinks.sh ============
 
+
+
+
+=========================== YA DA =============================
+
+sudo newvserver \
+    --hostname <MAKINE_ISMI> \
+    --domain zeitin.com \
+    --ip 212.154.27.247 \
+    --dist lenny \
+    --mirror http://ftp.tr.debian.org/debian \
+    --context 247
+sudo vserver <MAKINE_ISMI> start # yeni sunucuyu baslatalim
+echo "default" > /etc/vservers/<MAKINE_ISMI>/apps/init/mark # fiziksel sunucu acilisinda kendiliginden acilsin
+sudo vserver-stat # yaptiklarimizi denetleyelim
+sudo vserver <MAKINE_ISMI> enter # yeni sunucunun kom ut satirina duselim
+
+$ addgroup --gid 1095 ekesken
+$ adduser --uid 1095 --gid 1095 ekesken
+$ aptitude install sudo
+$ gpasswd -a ekesken sudo
+$ visudo #son satiri ac, sudo grubuna hak veren satiri etkinlestir.
+$ aptitude install openssh-server
+$ vim /etc/hosts # <MAKINE_ISMI>'nin ip'sinin karşısına "ssh-listen" ve "web-listen" yaz.
+$ vim /etc/ssh/sshd_config # 'ListenAddress ssh-listen' ayarini ekle
+$ /etc/init.d/ssh restart
+
+faydali paketler:
+$ aptitude install sudo openssh-server bash-completion ccze screen vim
+
+
+
+
+

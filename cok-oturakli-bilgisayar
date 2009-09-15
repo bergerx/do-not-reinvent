@@ -1,0 +1,19 @@
+multiseat
+
+http://wiki.c3sl.ufpr.br/multiseat/index.php/NVidia_multiseat
+
+yapilmis duzeltmeler:
+
+    * fare tekerlek problemi: http://wiki.c3sl.ufpr.br/multiseat/index.php/Known_Issues
+    * http://www.ducea.com/2006/06/20/how-to-disable-ctrl-alt-del-from-rebooting-a-linux-system/
+    * http://www.howtogeek.com/howto/linux/disable-ctrlaltbackspace-from-restarting-x-windows-on-linux/ 
+
+incelenebilecekler:
+
+    * http://wiki.c3sl.ufpr.br/multiseat/index.php/How_to_make_the_sound_work
+    * http://research.edm.uhasselt.be/~jori/page/uploads/Misc/howto.txt
+    * http://blog.chris.tylers.info/index.php?/archives/14-Multiseat-X-Under-X11R6.97.0.html
+    * http://netpatia.blogspot.com/2006/09/multiseat-iii-xorgconf.html
+    * http://blog.chris.tylers.info/index.php?/archives/15-Multiseat-Issues-with-Nvidia-Cards.html 
+
+

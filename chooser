@@ -1,0 +1,21 @@
+/etc/gdm/gdm.conf'u su sekilde duzenleyin:
+
+[daemon]
+
+[security]
+
+[xdmcp]
+Enable=True
+HonorIndirect=True
+
+[gui]
+
+[greeter]
+
+[chooser]
+
+[debug]
+
+[servers]
+0=inactive
+

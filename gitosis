@@ -1,0 +1,74 @@
+
+Kod Tabanlarımız (Depolarımız)
+
+Şu anda varolan kod tabanlarımız şöyle:
+
+    * goeril.git
+    * goerilvideo.git
+    * palapal.git
+    * selfcheck.git
+    * test.git
+    * tuccar.git
+    * vidi.git
+    * zeitinweb.git
+    * bbg.git 
+
+Kod tabanlarımız için ilgili adresler şöyle:
+
+    * http://git.zeitin.com/: gitweb üzerinden kodları, dalları vs. her şeyi görebilmenizi sağlar.
+    * http://trac.zeitin.com/: trac üzerinden zeitin içerisindeki tüm işlere ve vidi kodlarına ulaşmamızı sağlar. 
+
+Herhangi bir projeyi bir yerlere indirmek ve kod tabanına yazabilmek için sunucu yöneticilerinden birine SSH anahtarını vermeniz ve yazabilmek istediğiniz projeleri söylemelisiniz. (genellikle hepsi) Bu adım tamamlandığında şu komutla herhangi bir depoyu indirebilirsiniz:
+
+ $ git clone gitosis@git.zeitin.com:test.git
+
+
+gitosis Sunucusu kurulumu
+
+Alperin git sunucusu kurmak icin yaptikari:
+
+zeitin sunucularında yaptıklarım
+---------------------------------------
+
+aptitude update
+aptitude safe-upgrade
+
+sudo
+vim
+ssh
+screen
+trac trac-git
+git-core git-completion git-doc git-email git-svn gitk gitweb
+ccze
+gitosis
+
+
+enable sudo group in sudoers file
+groupadd -r gitusers (kamber)
+
+
+giray (1000)
+utku (1066)
+bekir (1053)
+samet (1138)
+remzi (1141)
+ertug (1146)
+ekesken (1095)
+semih (1158)
+alper (1128)
+
+
+Yeni Depo Ekleme
+
+$ git clone gitosis@git.zeitin.com:gitosis-admin.git
+$ cd gitosis-admin
+$ vim gitosis-conf # repo ve group ekle yeni proje icin eski projelere bakarak
+$ git ci -m "added new repository for free_monkey"
+$ mkdir free_monkey
+$ cd free_monkey
+$ git init
+$ git remote add origin gitosis@git.zeitin.com:free_monkey.git
+$ git push origin master:refs/heads/master
+
+bir de git.zeitin.com'un web arayuzunden gorebilmek icin bir haklar vermek gerekiyordu ama tam olarak hangi haklardi hatirlayamadigimdan yazamadim.
+

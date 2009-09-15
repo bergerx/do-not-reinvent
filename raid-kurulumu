@@ -1,0 +1,202 @@
+# Description of phases:
+# Phase1: just change partition types and make partitions 
+# Phase2: create the md array on second disk, reboot
+# Phase3: copy stuff from actual disk to md array, reboot from md array
+# Phase4: destroy old disk by adding it to the array, final reboot
+
+
+##### PHASE 1 #####
+aptitude install mdadm
+
+#change partition types
+fdisk /dev/sda
+#change partition type, t, to fd
+#check bootable flag
+
+sfdisk -d /dev/sda | sfdisk /dev/sdb
+fdisk -l
+
+#add md and raid1 to /etc/modules
+
+#to avoid reboot at this phase, also modprobe them
+modprobe md
+modprobe raid1
+cat /proc/mdstat
+
+##### PHASE 2 #####
+
+
+#note I had to 
+mdadm --zero-superblock /dev/sdb 
+mdadm --zero-superblock /dev/sdb1
+mdadm --zero-superblock /dev/sdb2
+#in case they were left over from previous tries during testing.
+
+
+
+mdadm --create /dev/md2 --level=1 --raid-devices=2 missing /dev/sdb2
+mkfs.ext3 /dev/md2
+
+
+#testing stop and reassembly, check /proc/mdstat for status
+mdadm --stop --scan
+cat /proc/mdstat
+mdadm -Ac partitions /dev/md2 -m dev
+cat /proc/mdstat
+
+
+cp /etc/mdadm/mdadm.conf /etc/mdadm/mdadm.conf-original
+mdadm --examine --scan >> /etc/mdadm/mdadm.conf
+#edit mdadm.conf, make sure array line is there
+
+#other examples, not used
+#DEVICES /dev/sdb2
+#ARRAY /dev/md2	devices=missing,/dev/sdb2
+
+
+#grub.conf
+#do nothing, debian initrd should support raid1
+
+##### REBOOT, check if your md array starts
+
+
+##### PHASE 3 #####
+
+
+mkdir /mnt/newroot
+mount -t ext3 /dev/md2 /mnt/newroot/
+
+#copying all stuff to the new drive
+cp -aix / /mnt/newroot
+
+
+
+#modify /mnt/newroot/etc/fstab
+vim /mnt/newroot/etc/fstab
+
+# /etc/fstab: static file system information.
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+proc            /proc           proc    defaults        0       0
+/dev/md2        /               ext3    errors=remount-ro 0       1
+/dev/sdb1       none            swap    sw              0       0
+
+##grub trick
+
+#edit /boot/grub/menu.lst
+
+default saved
+#default 1
+fallback 0
+[new entry with /dev/md2 at position 1]
+panic=10  #add to end of line with the md2 boot
+
+
+#grub from boot 
+grub> savedefault --default=1 --once
+
+grub> quit
+
+#or instead install regular in case you changed default
+#grub> root (hd0,1)
+#grub> setup (hd0)
+
+
+##### REBOOT
+
+
+##### PHASE 4 #####
+
+#confirm that you rebooted from raid array
+mount
+
+
+##REINSTALL grub ON BOTH DISKS
+
+#fix /boot/grub/menu.lst, change /dev/sda2 to /dev/md2
+#:%s/sda2/md2/g
+
+#don't forget line below in menu.lst. Don't remove # at beginning.
+
+# kopt=root=/dev/md2 ro
+
+
+grub> root (hd0,1)
+ Filesystem type is ext2fs, partition type 0xfd
+grub> setup (hd0)
+
+grub> root (hd1,1)
+ Filesystem type is ext2fs, partition type 0xfd
+grub> setup (hd1)
+
+
+###POINT OF NO RETURN
+mdadm /dev/md2 -a /dev/sda2
+watch -n 1 cat /proc/mdstat
+
+
+#fix /etc/mdadm/mdadm.conf, (even though it is not used?)
+#DEVICE /dev/sda2 /dev/sdb2
+#ARRAY /dev/md2 devices=/dev/sda2,/dev/sdb2
+mdadm --examine --scan >> /etc/mdadm/mdadm.conf
+
+
+#do final checks, check these files
+# /boot/grub/menu.lst
+# /etc/fstab
+# /etc/mdadm/mdadm.conf    #i think this is not used.
+
+##### FINAL REBOOT, good luck
+
+
+###############################################################################
+
+#optional, changing the swaps to raid1 as well
+swapoff /dev/sda1
+#change their types to fd with fdisk
+fdisk /dev/sda
+fdisk /dev/sdb
+mdadm --create /dev/md1 --level=1 --raid-devices=2 /dev/sda1 /dev/sdb1
+mkswap /dev/md1
+swapon /dev/md1
+
+#add it to /etc/fstab
+
+###############################################################################
+
+#tests:
+
+#try failing drive sda on purpose
+#check if installing new kernels still updates the second drive bootblock 
+
+title		Debian GNU/Linux, kernel 2.6.26-2-vserver-amd64
+root		(hd0,1)
+kernel		/boot/vmlinuz-2.6.26-2-vserver-amd64 root=/dev/md2 ro 
+initrd		/boot/initrd.img-2.6.26-2-vserver-amd64
+
+title		Debian GNU/Linux, kernel 2.6.26-2-vserver-amd64 (single-user mode)
+root		(hd0,1)
+kernel		/boot/vmlinuz-2.6.26-2-vserver-amd64 root=/dev/md2 ro single
+initrd		/boot/initrd.img-2.6.26-2-vserver-amd64
+
+title		Debian GNU/Linux, kernel 2.6.26-2-amd64
+root		(hd0,1)
+kernel		/boot/vmlinuz-2.6.26-2-amd64 root=/dev/md2 ro 
+initrd		/boot/initrd.img-2.6.26-2-amd64
+
+title		Debian GNU/Linux, kernel 2.6.26-2-amd64 (single-user mode)
+root		(hd0,1)
+kernel		/boot/vmlinuz-2.6.26-2-amd64 root=/dev/md2 ro single
+initrd		/boot/initrd.img-2.6.26-2-amd64
+
+title		Debian GNU/Linux, kernel 2.6.18-6-amd64
+root		(hd0,1)
+kernel		/boot/vmlinuz-2.6.18-6-amd64 root=/dev/md2 ro 
+initrd		/boot/initrd.img-2.6.18-6-amd64
+
+title		Debian GNU/Linux, kernel 2.6.18-6-amd64 (single-user mode)
+root		(hd0,1)
+kernel		/boot/vmlinuz-2.6.18-6-amd64 root=/dev/md2 ro single
+initrd		/boot/initrd.img-2.6.18-6-amd64
+
+
