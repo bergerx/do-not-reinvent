@@ -1,0 +1,4 @@
+http://devsec.org/info/ssl-cert.html
+
+( openssl x509 -in newcert.pem; cat privkey.pem ) > server.pem
+( openssl x509 -in newcert.crt; cat privkey.key ) > server.pem
