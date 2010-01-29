@@ -1,0 +1,22 @@
+# http://www.gentoo-wiki.info/TIP_Fast_Copy
+tar -cS src1/ src2/ | tar -C dest/ -x
+
+# http://serverfault.com/questions/18125/how-to-copy-a-large-number-of-files-quickly-between-two-servers
+tar -cf - /path/to/dir | ssh remote_server 'tar -xvf - -C /path/to/remotedir'
+
+srv1$ tar cfv - *mp3 | nc -w1 remote.server.net 4321
+srv2$ nc -l -p 4321 |tar xfv -
+
+host1$ tar cvf - filespec | socat stdin tcp4:host2:portnum
+host2$ socat tcp4-listen:portnum stdout | tar xvpf -
+
+=receiving machine=
+cd <destdir>
+netcat -l -p <port> | gunzip | cpio -i -d -m
+=sending side=
+cd <srcdir>
+find . -type f | cpio -o | gzip -1 | netcat <desthost> <port>
+
+
+
+
