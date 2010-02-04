@@ -1,3 +1,6 @@
+#sparse copy tar 
+
+
 # http://www.gentoo-wiki.info/TIP_Fast_Copy
 tar -cS src1/ src2/ | tar -C dest/ -x
 

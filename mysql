@@ -1,0 +1,7 @@
+mysql
+> SHOW PROCESSLIST
+> KILL 27
+
+mysqladmin processlist
+mysqladmin kill $id
+

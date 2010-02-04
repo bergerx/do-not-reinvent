@@ -1,0 +1,3 @@
+# if you want to run a process in background while ending the callee program immediately.
+# It's like trigger a program in background and exit immediately.
+screen -d -m command goes here

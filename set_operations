@@ -1,0 +1,7 @@
+
+# from http://www.pixelbeat.org/cmdline.html
+sort file1 file2 | uniq	#Union of unsorted files
+sort file1 file2 | uniq -d	#Intersection of unsorted files
+sort file1 file1 file2 | uniq -u	#Difference of unsorted files
+sort file1 file2 | uniq -u	#Symmetric Difference of unsorted files
+

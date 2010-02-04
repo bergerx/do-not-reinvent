@@ -1,0 +1,15 @@
+#http://www.cups.org/documentation.php/doc-1.4/options.html
+sudo aptitude install cups-bsd
+
+/etc/cups/client.conf # cups server
+>> ServerName 192.168.27.10 # ip addr of cups server
+
+lpstat -p -d # list servers on cups server
+lpoptions -d printer_name # set default printer
+
+#print your documents
+lpr The_One_Page_Linux_Manual.pdf
+lpr -P printer_name The_One_Page_Linux_Manual.pdf # if want to use different printer
+lp -o landscape -o scaling=75 -o media=A4 filename.jpg
+command | lp
+
