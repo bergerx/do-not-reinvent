@@ -1,0 +1,5 @@
+#How to know the Number of Connection made with the database
+#http://bytes.com/topic/postgresql/answers/616677-how-know-number-connection-made-database
+template1=# select datname, count(*) from pg_stat_activity group by datname;
+template1=# select datname, numbackends from pg_stat_database;
+

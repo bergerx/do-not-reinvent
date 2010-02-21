@@ -1,0 +1,6 @@
+# boot on your own disk
+sudo kvm -m 512 /dev/sda
+
+# for management console
+Ctrl-Alt-2
+quit

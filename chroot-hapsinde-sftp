@@ -1,0 +1,53 @@
+== Hedef ==
+Bir sanal sunucuda chroot hapsinde bir kullanıcı ekleyeceğiz, ama öncesinde sistemi hazırlayacağız.
+
+Belki de [[Ftp kurulumu]] sie yeterli olabilir. Kurulumu fiziksel makinada calisma gerektirmiyor ve kullanicilarini /etc/passwd dosyasindan almiyor.
+
+=== Gerekli Paketlerin Yüklenmesi ===
+Öncelikle scponly paketini yüklememiz gerekiyor.
+
+ sudo aptitude install scponly
+
+=== scponly Paketinin konfigürasyonu ===
+scponly paketini chroot destekleyecek şekilde konfigüre etmemiz gerekiyor. 
+
+ sudo dpkg-reconfigure -plow scponly
+
+Bu işlem "yes" diyerek onayalayabileceğimiz sadece bir soru yöneltiyor. Bu aşamadan sonra sadece scp/sftp yapabilecek ve chroot hapsine alınacak bir kullanıcı yaratmamız gerekiyor. Burada yardım alabileceğimiz bir betik var ancak bu betik sadece var olmayan yeni bir kullanıcı ekliyor. Mevcut kullanıcıları chroot hapsine almak için bu betiği kullanamıyoruz.
+
+ cd /usr/share/doc/scponly/setup_chroot
+ sudo gunzip setup_chroot.sh.gz
+ sudo chmod +x setup_chroot.sh
+ sudo ./setup_chroot.sh
+
+setup_chroot.sh betiği çalıştığında bize yazılabilir olacak bir klasör oluşturmamızı isteyecek, bu klasörün adını "pub" olarak seçebiliriz. Kullanıcının ev dizinindeki diğer tüm dosyalar root.root haklarıyla yaratılacak ve güvenlik nedeniyle kullanıcının bu dosyaları değiştirme hakkı olmayacak.
+
+Ancak eğer kullanıcının sftp yaptığı zaman bu dizine girmesini istiyorsak /etc/passwd dosyasının düzenleyip ('''sudo vipw''') klasörün adını // (çift düz slash) ile home dizin tanımının sonuna eklememiz gerekiyor.
+
+ user@host:~$ sudo vipw
+
+ KULLANICI:x:10000:10000::/home/KULLANICI'''<span style="color:#ff0000">//</span>'''pub:/usr/sbin/scponlyc
+
+Bu betiğin yapmadığı, ancak bizim ihtiyacımız bir adım kalıyor. Ancak muhtemelen kısıtlı izinler verilmiş olan sanal sunucumuzdan bu işlemi gerçekleştirmemiz mümkün olmayacaktır. Bu nedenle fiziksel sunucuya geçip, kullanıcının home dizininde bir '''dev''' klasörü oluşturup içine '''null''' aygıtı kurmamız gerekiyor.
+
+ ssh FIZIKSELSUNUCU
+ cd /vserver/VSERVERADI/home/KULLANICI
+ sudo mkdir dev
+ cd dev
+ sudo mknod -m 666 null c 1 3
+
+=== Son Düzenlemeler ===
+setup_chroot.sh betiği maalesef parametre olarak UID ve GID girmemizi engelliyor. Muhtemelen standart parkyeri kullanıcısı eklemiyorsak bu kullanıcının UID ve GID değerlerini manuel olarak '''/etc/passwd''', '''/etc/group''' ve '''/home/KULLANICI/etc/passwd''' dosyalarında düzeltmemiz gerekebilecektir. Genel olarak bu kullanicilar icin id vermeye 10000 ile basliyoruz.
+
+ sudo vipw
+ sudo vigr
+
+Bu düzenlemeleri yaptıktan sonra kullanıcının home dizinindeki '''pub''' dizininin de haklarını düzenlemeyi unutmayın.
+
+ sudo chown -R KULLANICI.KULLANICI /home/KULLANICI/pub
+
+=== Test ===
+Son olarak kurulumumuzu test edebiliz.
+
+ sftp KULLANICI@localhost
+

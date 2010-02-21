@@ -1,0 +1,104 @@
+== Kurulum ==
+
+VSFTPD kurulumunu apt-get ile yaptıktan sonra kullanıcı eklemek için aşağıdaki ayarları yapıyoruz. 
+
+ sudo aptitude install vsftpd libpam-pwdfile
+
+Paketi kurduktan sonra suradan yardim alabilirsiniz, bu dizin bizim genel olarak kullandigimiz senaryo (bilgisayarda olmayan kullanicilar yaratarak belli bir dizine erisim acmak) icin ornek dosyalar ve yapilandirma iceriyor:
+
+ view /usr/share/doc/vsftpd/EXAMPLE/VIRTUAL_USERS/README.gz
+
+Asagidaki bilgileri temel olarak bu dosyanin ozeti olarak dusunebilirsiniz. Sifreleri passwd dosyasinda tutumamiz disinda pek fark yok.
+
+== /etc/vsftpd/passwd ==
+Kullanici ve sifrelerin durdugu dosyayi yaratalim.
+
+ mkdir /etc/vsftpd/
+ htpasswd -c /etc/vsftpd/passwd kullanici1 # ilk kullanicimizi ekleyelim ve passwd dosyasini olusturalim
+ mkdir /etc/vsftpd/kullanici1
+ chmod 600 /etc/vsftpd/passwd
+ htpasswd /etc/vsftpd/passwd kullanici2 # varolan dosyaya bir kullanici daha ekleyelim
+ mkdir /etc/vsftpd/kullanici2
+ htpasswd -D /etc/vsftpd/passwd kullanici1 # bir kullanici silmek icin
+
+== /etc/pam.d/vsftpd ==
+Yetkilendirme servisini ayarlayalim, dosyanin icerigi (tum dosya) boyle olmali:
+
+ auth    required pam_pwdfile.so pwdfile /etc/vsftpd/passwd
+ account required pam_permit.so
+
+== /etc/vsftpd.conf ==
+Servisin yapilandirmasini yapalim:
+<pre>
+# Copied from /usr/share/doc/vsftpd/EXAMPLE/VIRTUAL_USERS/vsftpd.conf
+# but we have changes.
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+anon_upload_enable=NO
+anon_mkdir_write_enable=NO
+anon_other_write_enable=NO
+chroot_local_user=YES
+guest_enable=YES
+guest_username=ftp
+# If you want each user to use his own directory
+user_sub_token=$USER
+local_root=/home/ftp/$USER
+# Remove previous two lines and activate next if you want all users to use same systemwide directory
+#local_root=/home/ftp
+listen=YES
+pasv_enable=YES
+pasv_min_port=30000
+pasv_max_port=30999
+xferlog_enable=YES
+
+## Debian customization
+#secure_chroot_dir=/var/run/vsftpd
+#pam_service_name=vsftpd
+
+# Added by kartaca team
+local_umask=022
+virtual_use_local_privs=YES
+connect_from_port_20=YES
+chown_username=ftp
+</pre>
+
+== restart ==
+Servisi yeniden baslatalim:
+
+ sudo /etc/init.d/vsftpd restart
+
+== test ==
+Asagidaki ornekte kullaniciadi kullanicisi ile giris yapip dosya yuklemesi yaptigimi ve daha sonra sildigimi gorebilirsiniz.
+<pre>
+bekir@hede:/home/ftp/kullaniciadi$ ftp localhost
+Connected to hede.
+220 (vsFTPd 2.0.7)
+Name (localhost:bekir): kullaniciadi
+331 Please specify the password.
+Password:
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+
+ftp> put ~/a a
+local: /home/bekir/a remote: a
+200 PORT command successful. Consider using PASV.
+150 Ok to send data.
+226 File receive OK.
+6 bytes sent in 0.00 secs (48.4 kB/s)
+
+ftp> ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+-rw-r--r--    1 104      65534           6 Feb 18 12:25 a
+226 Directory send OK.
+
+ftp> delete a
+250 Delete operation successful.
+ftp> quit
+221 Goodbye.
+</pre>
+
+Sayfa aramalarda bulunabilsin diye anahtar kelimeler: vsftp ftpserver ftp-server
+
