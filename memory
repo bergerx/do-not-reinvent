@@ -25,4 +25,5 @@ acik kutuphhanleri lsof ile gorebiliyoruz neden paylasilanlari hesabetmek icn bu
 birisi de sunu yazmis: http://www.berthels.co.uk/exmap/
 
 
+free -ms1 |  awk '/buffers\/cache/ {print strftime("%Y-%m-%d %H:%M:%S"), "FreeMem(MB):", $4}'
 
