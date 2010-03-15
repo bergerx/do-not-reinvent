@@ -1,3 +1,17 @@
+sudo -u postgres createdb dbname
+sudo -u postgres createuser username
+sudo -u postgres psql
+GRANT ALL PRIVILEGES ON DATABASE dbname TO username;
+
+sudo vi /etc/postgresql/8.3/main/pg_hba.conf
+> # "local" is for Unix domain socket connections only
+> local   all         all                               md5
+> # IPv4 local connections:
+> host    all         all         127.0.0.1/0             md5 # This was 'ident sameuser'
+> host    all         all         all             md5 # add this new line
+
+
+
 #How to know the Number of Connection made with the database
 #http://bytes.com/topic/postgresql/answers/616677-how-know-number-connection-made-database
 template1=# select datname, count(*) from pg_stat_activity group by datname;
