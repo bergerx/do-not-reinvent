@@ -1,8 +1,20 @@
+
+Create a neew database and its user.
+
 sudo -u postgres createdb dbname
 sudo -u postgres createuser username
 sudo -u postgres psql
 GRANT ALL PRIVILEGES ON DATABASE dbname TO username;
 
+OR
+
+sudo -u postgres psql
+CREATE DATABASE dbname
+CREATE USER username WITH PASSWORD 'userpass';
+GRANT ALL PRIVILEGES ON DATABASE dbname TO username;
+
+
+Then;
 sudo vi /etc/postgresql/8.3/main/pg_hba.conf
 > # "local" is for Unix domain socket connections only
 > local   all         all                               md5

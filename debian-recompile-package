@@ -3,7 +3,7 @@ apt-get source foo
 sudo aptitude install -R devscripts fakeroot # these are required debian compile helper packages
 sudo apt-get build-dep foo # installs all required packages to compile the specified package
 cd foo-*
-dch -l yourname 'changelog goes her' # create a dedicated version of your own build (so that you won't get confused later when Debian itself releases a new version) 
+dch -l yourname 'changelog goes her' # create a dedicated version of your own build (so that you won't get confused later when Debian itself releases a new version)
 debuild -us -uc
 sudo dpkg -i ../*.deb
 

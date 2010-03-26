@@ -1,18 +1,20 @@
-18:00:11 bekir@hede:/tmp$ telnet xxx.kartaca.net 25
+Surada bu konuda guzel bir kaynak var: http://www.stat.ufl.edu/system/mailtesting.html 
+
+18:00:11 bekir@hede:/tmp$ telnet xxx.domain.net 25
 Trying 91.213.1.138...
-Connected to xxx.kartaca.net.
+Connected to xxx.domain.net.
 Escape character is '^]'.
 220 ESMTP
 helo localhost.localdomain
-250 ads.kartaca.net
+250 ads.domain.net
 MAIL From:myaddress@mydomain.com
 250 2.1.0 Ok
-RCPT To: madaxe@parkyeri.com
+RCPT To: madaxe@domain.com
 250 2.1.5 Ok
 DATA
 354 End data with <CR><LF>.<CR><LF>
 From: hebelek@hedehodo.com
-To: bekir@parkyeri.com
+To: bekir@domain.com
 Subject: asdadadsadadsadad
 
 adsfasfdasfdasdf
@@ -27,3 +29,15 @@ QUIT
 Connection closed by foreign host.
 18:00:52 bekir@hede:/tmp$ 
 
+
+
+# Normal baglanti testi
+swaks -au bekir@domain.com -ap <sifre_buraya> -s smtp.domain.com -f bekir@domain.com -t bekirdo@gmail.com
+# START TLS kullanan bir istek de soyle
+swaks -au bekir@domain.com -ap <sifre_buraya> -tls -p 587 -s smtp.domain.com -f bekir@domain.com  -t bekirdo@gmail.com
+
+
+SSL testleri 
+Surasi faydali bir kaynaga benziyor: http://qmail.jms1.net/test-auth.shtml 
+openssl s_client -starttls smtp -crlf -connect smtp.parkyeri.com:587 # starttls ile baglandiktan sonra ssl konusmasini baslatma
+openssl s_client -crlf -connect smtp.parkyeri.com:465 # kafadan ssl ile baglanma

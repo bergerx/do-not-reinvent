@@ -1,9 +1,0 @@
-import imaplib
-import getpass
-M = imaplib.IMAP4("imap.kartaca.com")
-M.capabilities
-M.login("bekir.dogan@kartaca.com", getpass.getpass())
-typ, data = M.search(None, 'ALL')
-print M.fetch(1, '(RFC822)')[1][0][1]
-M.close()
-M.logout()

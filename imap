@@ -1,0 +1,31 @@
+Surada bu konuda guzel bir kaynak var: http://www.stat.ufl.edu/system/mailtesting.html 
+
+nc imap.domain.com 143
+1 LOGIN username password
+12 LIST "" *
+2 SELECT INBOX
+04 STATUS INBOX (MESSAGES)
+3 CLOSE
+4 LOGOUT
+
+
+#imtest from cyrus-clients-2.2 package:
+# normal login
+imtest -m login  imap.domain.com -a bekir@domain.com
+# test using tls
+imtest -m login -t "" imap.domain.com -a bekir@domain.com
+
+openssl s_client -connect imap.domain.com:143 -starttls imap 
+openssl s_client -connect imap.domain.com:443 -showcerts
+
+
+#usr/bin/env python
+import imaplib
+import getpass
+M = imaplib.IMAP4("imap.domain.com")
+M.capabilities
+M.login("bekir@domain.com", getpass.getpass())
+typ, data = M.search(None, 'ALL')
+print M.fetch(1, '(RFC822)')[1][0][1]
+M.close()
+M.logout()
