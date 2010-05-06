@@ -200,3 +200,208 @@ kernel		/boot/vmlinuz-2.6.18-6-amd64 root=/dev/md2 ro single
 initrd		/boot/initrd.img-2.6.18-6-amd64
 
 
+
+
+
+
+
+
+
+
+########### recovery ###########
+http://www.freddenny.com/UNIX/linuxRAID.html
+
+cat /proc/mdstat
+fdisk -l
+fdisk /dev/sdb
+ Disk /dev/sdb: 255 heads, 63 sectors, 4462 cylinders
+ Units = cylinders of 16065 * 512 bytes
+ Device Boot Start End Blocks Id System
+ /dev/sdb1 1 261 2096451 6 FAT16
+
+ Command (m for help): d
+ Partition number (1-4): 1
+
+ Command (m for help): n
+ Command action
+ e extended
+ p primary partition (1-4)
+ p
+ Partition number (1-4): 1
+ First cylinder (1-4462, default 1):
+ Using default value 1
+ Last cylinder or +size or +sizeM or +sizeK (1-4462, default 4462):
+ Using default value 4462
+
+ Command (m for help): t
+ Partition number (1-4): 1
+ Hex code (type L to list codes): fd
+ Changed system type of partition 1 to fd (Linux raid autodetect)
+
+ Command (m for help): w
+ The partition table has been altered!
+ Calling ioctl() to re-read partition table.
+ Syncing disks.
+
+cat /proc/mdstat
+raidhotadd /dev/md0 /dev/sdb1
+cat /proc/mdstat
+
+#############
+http://conshell.net/wiki/index.php/Software_RAID_Recovery_on_Linux
+# df -h
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/md1              487M  320M  142M  70% /
+/dev/md0               99M   16M   79M  17% /boot
+tmpfs                 2.0G     0  2.0G   0% /dev/shm
+/dev/md2               15G  8.8G  4.8G  65% /home
+/dev/md4              7.8G  2.0G  5.4G  27% /usr
+/dev/md5              259G   20G  227G   8% /var
+/dev/sdc1             2.8T  1.9T  847G  70% /mnt/backup
+
+#cat /proc/mdstat
+Personalities : [raid1] [raid6] [raid5] [raid4] 
+md0 : active raid1 sda1[0]
+      104320 blocks [2/1] [U_]
+      
+md2 : active raid1 sda2[0]
+      15358016 blocks [2/1] [U_]
+      
+md3 : active raid1 sdb3[1] sda3[0]
+      8393856 blocks [2/2] [UU]
+      
+md4 : active raid1 sda5[0]
+      8393856 blocks [2/1] [U_]
+      
+md5 : active raid1 sda7[0]
+      279803968 blocks [2/1] [U_]
+      
+md1 : active raid1 sda6[0]
+      513984 blocks [2/1] [U_]
+      
+unused devices: <none>
+
+#grep md: /var/log/dmesg
+md:  adding sdb1 ...
+md: md0 already running, cannot run sdb1
+md: export_rdev(sdb1)
+md: ... autorun DONE.
+
+#cat /etc/mdadm.conf
+DEVICE partitions
+MAILADDR root
+ARRAY /dev/md1 super-minor=1
+ARRAY /dev/md0 super-minor=0
+ARRAY /dev/md2 super-minor=2
+ARRAY /dev/md4 super-minor=4
+ARRAY /dev/md5 super-minor=5
+ARRAY /dev/md3 super-minor=3
+
+#mdadm --detail /dev/md0
+/dev/md0:
+        Version : 00.90.03
+  Creation Time : Mon Feb 19 07:54:06 2007
+     Raid Level : raid1
+     Array Size : 104320 (101.89 MiB 106.82 MB)
+    Device Size : 104320 (101.89 MiB 106.82 MB)
+   Raid Devices : 2
+  Total Devices : 1
+Preferred Minor : 0
+    Persistence : Superblock is persistent
+
+    Update Time : Wed Feb  6 17:09:50 2008
+          State : clean, degraded
+ Active Devices : 1
+Working Devices : 1
+ Failed Devices : 0
+  Spare Devices : 0
+
+           UUID : 9f809745:8bf08609:14ed382c:d0ecabc6
+         Events : 0.7840
+
+    Number   Major   Minor   RaidDevice State
+       0       8        1        0      active sync   /dev/sda1
+       1       0        0        1      removed
+
+#mdadm --manage /dev/md5 --re-add /dev/sdb7
+mdadm: re-added /dev/sdb7
+
+#mdadm --detail /dev/md5
+/dev/md5:
+        Version : 00.90.03
+  Creation Time : Mon Feb 19 08:43:35 2007
+     Raid Level : raid1
+     Array Size : 279803968 (266.84 GiB 286.52 GB)
+    Device Size : 279803968 (266.84 GiB 286.52 GB)
+   Raid Devices : 2
+  Total Devices : 2
+Preferred Minor : 5
+    Persistence : Superblock is persistent
+
+    Update Time : Wed Feb 27 08:30:55 2008
+          State : clean, degraded, recovering
+ Active Devices : 1
+Working Devices : 2
+ Failed Devices : 0
+  Spare Devices : 1
+
+ Rebuild Status : 0% complete
+
+           UUID : ad6bc290:5fe289ce:8c051c7c:5f972730
+         Events : 0.38424642
+
+    Number   Major   Minor   RaidDevice State
+       0       8        7        0      active sync   /dev/sda7
+       2       8       23        1      spare rebuilding   /dev/sdb7
+
+#cat /proc/mdstat 
+...
+md5 : active raid1 sdb7[2] sda7[0]
+      279803968 blocks [2/1] [U_]
+      [>....................]  recovery =  2.1% (6104128/279803968) finish=94.1min speed=48467K/sec
+...      
+
+Now do the same for the other degraded arrays.
+
+#mdadm --manage /dev/md0 --re-add /dev/sdb1
+#mdadm --manage /dev/md1 --re-add /dev/sdb6
+#mdadm --manage /dev/md2 --re-add /dev/sdb2
+#mdadm --manage /dev/md4 --re-add /dev/sdb5
+
+A very handy command for displaying the progress of the rebuilds is:
+
+#watch -d -n 10 cat /proc/mdstat
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+########## Recovery from a multiple disk failure  ############
+http://unthought.net/Software-RAID.HOWTO/Software-RAID.HOWTO-8.html#ss8.1
+The scenario is: p
+
+    * A controller dies and takes two disks offline at the same time,
+    * All disks on one scsi bus can no longer be reached if a disk dies,
+    * A cable comes loose...
+
+In short: quite often you get a temporary failure of several disks at once; afterwards the RAID superblocks are out of sync and you can no longer init your RAID array.
+
+One thing left: rewrite the RAID superblocks by mkraid --force
+
+To get this to work, you'll need to have an up to date /etc/raidtab - if it doesn't EXACTLY match devices and ordering of the original disks this will not work as expected, but will most likely completely obliterate whatever data you used to have on your disks.
+
+Look at the sylog produced by trying to start the array, you'll see the event count for each superblock; usually it's best to leave out the disk with the lowest event count, i.e the oldest one.
+
+If you mkraid without failed-disk, the recovery thread will kick in immediately and start rebuilding the parity blocks - not necessarily what you want at that moment.
+
+With failed-disk you can specify exactly which disks you want to be active and perhaps try different combinations for best results. BTW, only mount the filesystem read-only while trying this out... This has been successfully used by at least two guys I've been in contact with. 

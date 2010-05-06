@@ -1,0 +1,65 @@
+module-type cotrol-flag module-path arguments
+
+= module type =
+auth - uygulamaya sifre gir
+account - password eskimis mi - bu kullanici sadece 9-17 arasinda mi girebilir, kullanici su kadar kaynak kullanabilir
+session - oturum acilmadan once ve sonra isler yapar, cevre degiskenleri, loglama
+password - genellili auth ile kullanilir, sifre guncelleme gibi isler yapar
+
+= control-flag =
+required - patlasa da patlamasa da devam eder, hataya neden olmaz
+requisite - required gibi ama patlarsa diger moduller de yuklenmez
+optional - eger tek modulse uygulamayi patlatabilir
+sufficient - eger basariliysa kalan mpodullere bakmaz basarili cevabi doner, patlarsa bir sey olmaz, patlarsa ve tek modulse uygulamayi patlatir
+[val1=action1 val2=action2] - flexible
+
+= standart-arguments =
+debug - genllikle syslog uretir
+audit - daha cok log uretir
+no_warn - uygulamaya warning mesajlari iletmez
+use_first_pass - onceki modulden gelen password'u kullanir- eger sifre gelmemisse yenisini ogrenmeye calismaz (auth ve password modulleri icin)
+try_first_pass - ustteki gibi ama eger sifre hata verirse yeinsini sorar
+likeouth - ???
+
+pam_env - auth
+= pam_env (auth) arguments and defaults =
+debug
+conffile=/etc/security/pam_env.conf
+envfile=/etc/environment
+readenv=1
+
+pam_unix - auth password account session
+= pam_unix (password) arguments =
+nullok - password null ise degistirmeye izin ver, not recommended
+not_set_pass - bu modulde girilen sifreyi sonraki modullere aktarma
+use_authtok - bundan sonra onceden gelen passwordu degil bu modulde girileni kullan
+md5 - geleneksel unix password-hashing'i (crypt) yerine md5 kullan
+shadow - shadow dosyasi kullan
+nis - nis master'a sifre degisikliklerini gonder
+remember=n - eski n adet sifreyi tekrar kullanamasin
+
+
+pam_cracklib - password
+= pam_cracklib(password) arguments =
+debug
+type=
+retry=n
+difok=n
+minlen=n
+lcredit=n
+dcredit=N
+ucredit=N
+ocredit=N
+minclass=N
+use_authtok - onceden girilen sifreyi kullan
+
+pam_limits - session
+= pam_limits(session) arguments =
+change_uid
+conf=/etc/security/limits.conf /etc/security/limits.d/*
+debug
+utmp_early
+noaudit
+
+"LINUX SYSTEM SECURITY - The Administrator's Guide to Open Source Security Tools" Adli kitaptan aldim bunlari, gerisi de orada duruyor henuz
+

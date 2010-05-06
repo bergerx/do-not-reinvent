@@ -5,3 +5,8 @@ mysql
 mysqladmin processlist
 mysqladmin kill $id
 
+
+GRANT ALL PRIVILEGES ON `dbname`.* TO 'username'@'%.bdgn.net' IDENTIFIED BY 'pass';
+UPDATE mysql.user SET Password = PASSWORD('pass') WHERE User = 'username';
+FLUSH PRIVILEGES;
+
