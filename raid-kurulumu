@@ -405,3 +405,5 @@ Look at the sylog produced by trying to start the array, you'll see the event co
 If you mkraid without failed-disk, the recovery thread will kick in immediately and start rebuilding the parity blocks - not necessarily what you want at that moment.
 
 With failed-disk you can specify exactly which disks you want to be active and perhaps try different combinations for best results. BTW, only mount the filesystem read-only while trying this out... This has been successfully used by at least two guys I've been in contact with. 
+
+

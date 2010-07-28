@@ -1,3 +1,72 @@
+# Bunu Kartaca icerisinde kullanmak icin uretmistim, ama buraya koymakta da sakinca gormedim.
+
+
+* rapidssl.com'a giriyoruz.
+
+* Ana sayfada "RapidSSL Wildcard"ın yanındaki "RENEW" düğmesine bastık.
+
+* "Renew SSL Certifiçates" sayfasindayiz, "1. Renew with RapidSSL" kısmında iki grup icerisinde "BUY" düğmeleri var, biz yıldız sertifika alıyorsak alttaki gruptaki "BUY" basıyoruz.
+
+* "You have chosen to purchase RapidSSL" sayfası geldi, "Continue" değil, "Continue without Support Upgrade"i seçiyoruz.
+
+* Şimdi GeoTrust adresinde "RapidSSL Enrollment" diye bir sayfaya yönlendik, sırayla şunları seciyoruz:
+ * Validity Period - 1  year
+ * Renewal -  Renewal
+ * Server Licenses - 1 Number of Licensed Servers
+"Continue" diyerek devam ediyoruz.
+
+* Şimdi içerisinde örnek bir CSR ve büyük bir girdi kutusu olan "RapidSSL Enrollment" sayfasına geldik. Sayfadaki "Generate CSR" bağlantısı sizi uygun şekilde yönlendirecek, kullanacağınız sunucuda CSR'ınızı hazırlayıp gelip buradaki kutuya yapıştırarak "Continue" seçeceksiniz.
+
+* Apache için yaratıyorsanız aman şifresiz yaratın, ya da daha önceden imzalattığınız bir sertikayı yeniden imzalatabilirsiniz, o zaman bu adıma gerek yok.
+ openssl genrsa -out domainname.key 1024
+
+* Ürettiğimiz yada elimizde olan sertifika için yeni bir imza isteği oluşturuyoruz. (Daha önceden kullandığınız bir sertifika isteğini yeniden kullanmamaya dikkat edin)
+ openssl req -new -key domainname.key -out domainname.csr
+
+* Bu aşamada sorduğu sorulara ve cevaplara örnekler:
+ 16:37:48 bekir@hede:/tmp/c$ openssl req -new -key domainname.key -out domainname.csr
+ You are about to be asked to enter information that will be incorporated
+ into your certificate request.
+ What you are about to enter is what is called a Distinguished Name or a DN.
+ There are quite a few fields but you can leave some blank
+ For some fields there will be a default value,
+ If you enter '.', the field will be left blank.
+ -----
+ Country Name (2 letter code) [AU]:TR
+ State or Province Name (full name) [Some-State]:Istanbul
+ Locality Name (eg, city) []:Istanbul
+ Organization Name (eg, company) [Internet Widgits Pty Ltd]:Hede A.S.
+ Organizational Unit Name (eg, section) []:*.hede.com
+ Common Name (eg, YOUR name) []:*.hede.com
+ Email Address []:hostmaster@hede.com
+ 
+ Please enter the following 'extra' attributes
+ to be sent with your certificate request
+ A challenge password []:
+ An optional company name []:
+ bekir@hede:/tmp/c$
+
+* Şimdi ürettiğimiz CSR dosyasını faremizle seçip itinayla kutuya yapıştırıyoruz.
+ cat domainname.csr
+
+* Şimdi "Verify Server URL" sayfasına gelmeniz gerek, gelen sayfada küçük ve kırmızı renkli "Please use the corresponding Wildcard ordering form to request a Wildcard certificate." yazısıyla karşılaşırsanız baştaki "Renew SSL Certifiçates" sayfasında yanlış BUY düğmesine bastınız demektir, geri geri geri gidin ve o adımdan tekrar başlayın.
+Eğer hata almadıysanız, "Continue" diyerek devam edebilirsiniz.
+
+* "Contact Information" sayfasına geldik, burada Administrator ve Technical için sisyon adı ve eposta kısmına hostmaster@hede.com gibi bir liste adresi yazmaya dikkat edin. Billing kısmına da ödeme yapacağınız kredi kartında olan ismi yazın ve "Continue"ya tıklayın.
+
+* Sonraki sayfa iletişim için kullanacağı adres bilgisini ilgili Domain kaydınızdan almaya çalışacak ya da size sertifikayı aldığınız domain altında cesitli eposta adresleri sunarak birisini seçmenizi isteyecek. Burada maalesef kendiniz bir adres giremiyorsunuz.
+
+* Sonraki sayfa "Payment Information" sayfası. Kredi kartı bilgilerinizi girin.
+
+Sonraki sayfaları not almadım, ama özetleyeyim:
+
+* Size onaylama işlemi için bir telefon numarası soruyor, telefon numarasını girdikten sonra yeni bir sayfaya yönlendiriyor ve bu sırada size telefon açıyorlar.
+
+* Gelen telefonda karşınıza bir robot çıkıyor ve o sırada ekranda gördüğünüz metinleri size okuyup gene ekranda gördüğünüz kodu yazmanızı istiyor, sonra da kapatıyor, bu sırada ekranınız da yeni bir sayfaya yonleniyor ve size eposta atacaklarını söylüyor.
+
+* Daha sonra size eposta beklemek kalıyor, eposta çok çabuk gelmeyebiliyor, yani boşuna epostanızın başında heyecanla saatlerce beklemeyin.
+
+=======================
 http://devsec.org/info/ssl-cert.html
 
 ( openssl x509 -in newcert.pem; cat privkey.pem ) > server.pem

@@ -1,0 +1,10 @@
+Airties RT 205
+
+.1.3.6.1.2.1.2.2.1.10.11 PPP-InOctet OID
+.1.3.6.1.2.1.2.2.1.16.11 PPP-OutOctet OID
+
+snmpget -v 2c -c public 192.168.2.1 .1.3.6.1.2.1.2.2.1.10.11
+snmpget -v 2c -c public 192.168.2.1 .1.3.6.1.2.1.2.2.1.16.11
+
+snmpwalk -v 2c -c public 192.168.2.1 .1.3.6.1.2.1.2.2.1.10
+snmpwalk -v 2c -c public 192.168.2.1 .1.3.6.1.2.1.2.2.1.16

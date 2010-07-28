@@ -80,3 +80,8 @@ $ /etc/init.d/openvpn restart
 or
 $ sudo openvpn --daemon ovpn-client --cd /etc/openvpn/ --config /etc/openvpn/client.conf
 
+
+
+
+on tektonic: http://www.tektonic.net/forum/archive/index.php/t-1394.html
+http://wiki.cacert.org/openVPN

@@ -1,4 +1,6 @@
 Surada bu konuda guzel bir kaynak var: http://www.stat.ufl.edu/system/mailtesting.html 
+Su da imap komutlarini guzel anlatmis: http://bobpeers.com/technical/telnet_imap
+
 
 nc imap.domain.com 143
 1 LOGIN username password

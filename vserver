@@ -86,3 +86,39 @@ $ aptitude install sudo openssh-server bash-completion ccze screen vim
 
 
 
+
+debian-vserver:~# aptitude install sudo
+debian-vserver:~# visudo
+bekir@debian-vserver:~$ sudo aptitude install ssh less bash-completion vim ccze
+bekir@debian-vserver:~$ sudo vi /etc/hosts
+bekir@debian-vserver:~$ sudo vi /etc/ssh/sshd_config 
+bekir@debian-vserver:~$ sudo update-alternatives --config vim
+bekir@debian-vserver:~$ sudo aptitude install linux-image-vserver-686 util-vserver vserver-debiantools
+
+
+
+bekir@debian-vserver:/$ sudo vserver debian build -m debootstrap --context 15 --hostname debian.laptop.bdgn.net --interface eth0:192.168.172.15/24 -- -d lenny -m http://ftp.de.debian.org/debian
+bekir@debian-vserver:/$ sudo vserver debian start
+bekir@debian-vserver:/$ sudo vserver debian enter
+root@debian:/# apt-get clean
+root@debian:/# logout
+bekir@debian-vserver:/$ sudo vserver debian stop
+bekir@debian-vserver:/$ sudo tar --numeric-owner --preserve -zcvSf /debian-lenny-$(date +%F).tar.gz /var/lib/vservers/debian
+bekir@debian-vserver:/vservers/debian$ sudo tar --numeric-owner --preserve -zcvSf /debian-lenny-template.tar.gz bin boot dev etc home initrd lib media mnt opt proc root sbin selinux srv sys tmp usr var
+
+
+
+
+bekir@debian-vserver:/$ sudo vserver hede build -m clone --hostname hede.laptop.bdgn.net --interface eth0:192.168.172.16/24 -- --source /var/lib/vservers/debian
+sudo vserver hede start
+echo "default" | sudo tee /etc/vservers/$VSERVERNAME/apps/init/mark
+sudo vserver hede exec bash -c 'rm /etc/ssh/ssh_host_*'
+sudo vserver hede exec bash -c 'dpkg-reconfigure openssh-server'
+
+
+
+
+
+##########################
+/tmp alaninin boyutunu degistirmek icin
+udo vnamespace -e vservername mount -n -t tmpfs -o remount,size=512m tmpfs /vservers/vservername/tmp

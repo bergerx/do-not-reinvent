@@ -1,3 +1,11 @@
+summary
+
+mkisofs -r -o cd_image.iso files_and_directories
+cdrecord cd_image.iso
+
+
+===================================
+
 Cdrecord does nearly everything you need, but it is not entirely intuitive. 
 Mkisofs turns a directory structure on your filesystem into the ISO9660 filesystem for CDs
 
@@ -58,4 +66,10 @@ done
 cdrecord -fix
 
 
-
+# http://www.andrews-corner.org/burning.html
+# the growisofs command to burn the iso image to DVD in a single command:
+growisofs -dvd-compat -speed=1 -Z /dev/dvd \
+          -r -J -hide-rr-moved -V "Backup `date +"%d %B %Y"`" \
+          -x /home/andrew/source -publisher "Andrew Strong" \
+         -graft-points "my_files/=/home/andrew" "configuration_files/=/etc" \
+         "cron_files/=/var/spool/cron/crontabs"

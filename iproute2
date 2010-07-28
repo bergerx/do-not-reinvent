@@ -1,0 +1,80 @@
+# from http://alper.web.tr/wp-content/uploads/sunum/SunumDolapdere03042010.pdf
+
+#statik routing
+> ip route add 9.9.9.1/32 via 2.2.2.1
+> ip route add 0.0.0.0/0 via 1.1.1.1
+> ip route change 0.0.0.0/0 via 10.70.20.1 dev wlan0
+> ip route del 9.9.9.9 via 10.70.20.100 dev wlan0 
+
+> ip link list
+#Ip adresi eklemek
+> ip link set eth0 up
+> ip address add 192.168.1.7/24 dev eth0
+> ip address add 192.168.1.8/24 dev eth0
+> ip address show eth0
+
+ip route -ile Çoklu routing tabloları,aynı ip adresine ait birden çok ağ geçidinin farklı arayüzlerle kullanımını mümkün kılar.
+> ip route show
+> ip -s route get 72.9.228.144
+
+
+ip rule - routing policie database icin, Iproute2 harici standart Unix/linux araçları muadilini içermez. policie routing Multiple Routing Tables
+
+ip neighbour - arp
+> ip neigh show
+> ip neigh add 10.0.0.3 lladdr 00:11:11:44:4e:fa dev wlan0 nud perm
+flush all arp table
+> ip neigh -s -s flush 0.0.0.0/0
+
+ip tunnel - basitçe iki veya daha fazla nokta arasında tünel oluşturur ve yönetir, gre veya ipip gibi protokollerde tünel oluşturulabilir.
+Gre örneği :
+> ip tunnel add netb mode gre remote 195.174.6.140 local 85.8.5.43 ttl 255
+> ip link set netb up
+> ip addr add 192.168.2.12/24 dev netb
+
+ss - Socket Statistics/ Soket İstatistikleri # iproute2 araci degil
+Örnekler :
+> ss -t -a # tüm TCP bağlantılarını görüntüler
+> ss -x src /tmp/.X11-unix/* # X server e bağlı tüm süreçleri listeler.
+> ss -o state established '( dport = :ssh or sport = :ssh )' # İçeriye veya dışarıya yapılan tüm ssh bağlantıları listeler.
+
+##### iproute2 araclari #####
+ctstat # Bağlantı durumu
+lnstat # network istatistikleri ( rtstat yerine )
+rtacct # /proc/net/rt_acct tarafından toplanılan routing bilgileri
+rtmon # Routing görüntüleme aracı
+
+# Iproute2 – tc Traffic Controlling Executable ( Trafik Kontrol İdaresi )
+# tc linux için QOS ( Quality Of Service / Sunulan hizmet kalitesi ) ve COS ( Class of service / Sunulan hizmet sınıflandırması ) entegrasyonlarını sağlar.
+tc qdisc
+tc class
+tc estimator
+tc filter
+tc policy
+
+QOS Hakkında Bilinen Genel Yanlışlıklar
+* QOS Özgürlüğü kısıtlar.
+* QOS gelen ve giden ( Ingress/Egress ) trafiği kontrol edebilir.
+* Bant genişliği hız demektir.
+* QOS Sadece bant genişliğini sınırlamak içindir.
+
+QOS Gerektiren Hastalık Belirtileri
+* Değişken Bant genişliği
+* Hizmetlerde Yavaşlama ve/veya Kesinti
+* Jitter ( Stress )
+
+Linux ile Çok kullanılan QOS Algoritmaları
+* First In First Out (FIFO)
+* Priority queue
+* Random Early Detection (RED)
+* Generalized RED (GRED)
+* Stochastic Fair Queuing (SFQ)
+* Token Bucket Flow (TBF)
+* Class Based Queue (CBQ) Ve Hierarchical Token Bucket (HTB )
+
+# Stochastic Fair Queuing (SFQ)
+SFQ : Stochastic Fairness Queuing tcp ve udp bağlantıları eşit olarak dağıtmaya çalışarak tek bir bağlantının tüm hattı bloke etmesini önler. “Adil Sıralama “ olarakta bilinir.
+> tc qdisc add dev wlan0 root sfq perturb 10
+# tc, wlan0 device i için qdisc ekle sfq için root olsun dağıtımı 10 saniyede bir yeniden düzenle.
+
+

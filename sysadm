@@ -1,0 +1,19 @@
+cat /proc/cpuinfo
+free -m # mem memory
+fdisk -l
+df -h .
+du -sh .
+lspci
+lsusb
+lsdev
+top
+mpstat
+ps auxf
+iostat -xtc 5 3
+mpstat -P ALL
+sar -u 2 5
+vmstat
+pstree
+vnstat
+mrt
+

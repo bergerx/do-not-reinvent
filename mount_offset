@@ -1,0 +1,24 @@
+# http://darkdust.net/writings/diskimagesminihowto
+kartaca@frontend:/var/lib/eucalyptus/volumes$ sudo fdisk -lu snap-604E0668 
+You must set cylinders.
+You can do this from the extra functions menu.
+
+Disk snap-604E0668: 0 MB, 0 bytes
+166 heads, 62 sectors/track, 0 cylinders, total 0 sectors
+Units = sectors of 1 * 512 = >>>>>512<<<<< bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x83f0a24d
+
+         Device Boot      Start         End      Blocks   Id  System
+snap-604E0668p1        >>>>>62<<<<<    10477255     5238597   83  Linux
+kartaca@frontend:/var/lib/eucalyptus/volumes$ sudo mount -o loop,offset=$((62 * 512)) snap-604E0668 /mnt
+kartaca@frontend:/var/lib/eucalyptus/volumes$ 
+
+
+
+
+# The dirty way
+for ((i=0 ; $i < 10000 ; i=$i + 1)) ; do
+    mount -o loop,offset=$(($i * 512)) image.bootable /mnt && break
+done

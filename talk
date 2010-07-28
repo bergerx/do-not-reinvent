@@ -1,0 +1,2 @@
+sudo aptitude install yatlk talkd
+sudo /etc/init.d/openbsd-inetd restart

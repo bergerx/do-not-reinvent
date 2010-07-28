@@ -1,0 +1,27 @@
+raid mdadm
+
+/etc/mdadm/mdadm.conf
+http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_:_Ch26_:_Linux_Software_RAID#RAID_1
+
+mdadm --create --verbose /dev/mdx --level=0 --raid-devices=2 /dev/sdx1 /dev/sdy1
+mdadm --assemble /dev/mdx /dev/sdx1 /dev/sdy1
+mdadm --assemble --scan
+mdadm --stop /dev/mdx
+mdadm --detail --scan --verbose > /etc/mdadm.conf
+
+
+recover superbloks
+http://www.redhat.com/archives/ext3-users/2005-October/msg00007.html
+mkfs.ext3 -S /dev/sdx1
+fsck.ext3  /dev/sdx1
+
+
+mdadm --detail /dev/mdx
+mdadm --manage --fail /dev/mdx /dev/sdx2
+mdadm /dev/mdx --remove /dev/sdx2 # if you ever want to remove a 'good' disk, you have to tell the array to put it into the 'failed' state as above
+mdadm /dev/mdx --add /dev/sdx2
+
+
+echo check > /sys/block/mdX/md/sync_action
+echo repair > /sys/block/mdX/md/sync_action
+

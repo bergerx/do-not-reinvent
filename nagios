@@ -1,0 +1,1707 @@
+Şu anki nagios kurulumumuz aşağıdaki temel ürünlerden oluşmaktadır:
+* [http://www.nagios.org/ Nagios]
+* [http://www.pnp4nagios.org/ PNP4Nagios]
+* [http://www.nagvis.org/ NagVis]
+* [http://www.nagios.org/download/addons/ NSCA]
+* [http://naplax.sourceforge.net/REL.html REL]
+* [http://www.nagioswiki.org/wiki/Addon:Birdseye Birdseye]
+
+Kullandığımız bir çok diğer nagios plugini için karmaşık kurulum adımları gerekmemekte.
+
+== Nagios3 ==
+
+<pre>
+sudo aptitude install nagios3
+</pre>
+
+[http://www.nagios.org/ Nagios]'un External Command Pipe'ını debian'da kullanabilmek için '''/usr/share/doc/nagios3-common/README.Debian''' dosyasında anlattıklarını yapıyoruz, bunları yapmazsanız arayüzden gönderdiğiniz istekler(uyarıları kapatmak, yorum eklemek gibi) çalışmıyor.
+<pre>
+sudo /etc/init.d/nagios3 stop
+sudo dpkg-statoverride --update --add nagios www-data 2710 /var/lib/nagios3/rw
+sudo dpkg-statoverride --update --add nagios nagios 751 /var/lib/nagios3
+sudo /etc/init.d/nagios3 start
+</pre>
+
+=== Apache yapılandırmaları ===
+==== /etc/apache2/sites-enabled/000-default ====
+<pre>
+<VirtualHost web-listen:80>
+	ServerAdmin webmaster@localhost
+	ServerName nagios.bdgn.net
+	
+	DocumentRoot /usr/share/nagios3/htdocs
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+	<Directory /var/www/>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride None
+		Order allow,deny
+		allow from all
+	</Directory>
+
+	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+	<Directory "/usr/lib/cgi-bin">
+		AllowOverride None
+		Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+		Order deny,allow
+		deny from all
+		allow from 123.123.123.123/255.255.255.255
+	</Directory>
+
+	ErrorLog /var/log/apache2/error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog /var/log/apache2/access.log combined
+
+    Alias /doc/ "/usr/share/doc/"
+    <Directory "/usr/share/doc/">
+        Options Indexes MultiViews FollowSymLinks
+        AllowOverride None
+        Order deny,allow
+        Deny from all
+        Allow from 127.0.0.0/255.0.0.0 ::1/128
+    </Directory>
+
+	RewriteEngine   On
+	RewriteRule   ^/w/([^-]+)-?(.*)    /nagios3/cgi-bin/statuswml.cgi?host=$1&service=$2 [R]
+
+</VirtualHost>
+
+<VirtualHost web-listen:443>
+	ServerAdmin webmaster@localhost
+	ServerName nagios.bdgn.net
+	DocumentRoot /usr/share/nagios3/htdocs
+	SSLEngine On
+	SSLCertificateFile ssl.pem/nagios.bdgn.net.pem
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+	<Directory /var/www/>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride None
+		Order allow,deny
+		allow from all
+		# This directive allows us to have apache2's default start page
+                # in /apache2-default/, but still have / go to the right place
+                RedirectMatch ^/$ /apache2-default/
+	</Directory>
+
+	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+	<Directory "/usr/lib/cgi-bin">
+		AllowOverride None
+		Options ExecCGI -MultiViews +SymLinksIfOwnerMatch
+		Order deny,allow
+		deny from all
+		allow from 123.123.123.123/255.255.255.255
+	</Directory>
+
+	ErrorLog /var/log/apache2/error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog /var/log/apache2/access.log combined
+	ServerSignature Off
+
+	RewriteEngine   On
+	RewriteRule   ^/w/([^-]+)-?(.*)    /nagios3/cgi-bin/statuswml.cgi?host=$1&service=$2 [R]
+
+	Alias /mrtg /var/www/mrtg
+
+</VirtualHost>
+</pre>
+
+==== /etc/nagios3/apache2.conf ====
+<pre>
+# apache configuration for nagios 3.x
+# note to users of nagios 1.x and 2.x:
+#	throughout this file are commented out sections which preserve
+#	backwards compatibility with bookmarks/config for older nagios versios.
+#	simply look for lines following "nagios 1.x:" and "nagios 2.x" comments.
+
+ScriptAlias /cgi-bin/nagios3 /usr/lib/cgi-bin/nagios3
+ScriptAlias /nagios3/cgi-bin /usr/lib/cgi-bin/nagios3
+# nagios 1.x:
+#ScriptAlias /cgi-bin/nagios /usr/lib/cgi-bin/nagios3
+#ScriptAlias /nagios/cgi-bin /usr/lib/cgi-bin/nagios3
+# nagios 2.x: 
+#ScriptAlias /cgi-bin/nagios2 /usr/lib/cgi-bin/nagios3
+#ScriptAlias /nagios2/cgi-bin /usr/lib/cgi-bin/nagios3
+
+# Where the stylesheets (config files) reside
+Alias /nagios3/stylesheets /etc/nagios3/stylesheets
+# nagios 1.x:
+#Alias /nagios/stylesheets /etc/nagios3/stylesheets
+# nagios 2.x:
+#Alias /nagios2/stylesheets /etc/nagios3/stylesheets
+
+# Where the HTML pages live
+Alias /nagios3 /usr/share/nagios3/htdocs
+# nagios 2.x: 
+#Alias /nagios2 /usr/share/nagios3/htdocs
+# nagios 1.x:
+#Alias /nagios /usr/share/nagios3/htdocs
+
+<DirectoryMatch (/usr/share/nagios3/htdocs|/usr/lib/cgi-bin/nagios3)>
+	Options FollowSymLinks
+
+	DirectoryIndex index.html
+
+	AllowOverride AuthConfig
+	Order Allow,Deny
+	Allow From All
+
+	AuthName "Bdgn nagios Ldap"
+	Include /etc/apache2/ldap-configs/bind-user.conf
+	Require ldap-group cn=nagios_all,ou=nagios,ou=webaccess,o=bdgn
+</DirectoryMatch>
+
+# Enable this ScriptAlias if you want to enable the grouplist patch.
+# See http://apan.sourceforge.net/download.html for more info
+# It allows you to see a clickable list of all hostgroups in the
+# left pane of the Nagios web interface
+# XXX This is not tested for nagios 2.x use at your own peril
+#ScriptAlias /nagios3/side.html /usr/lib/cgi-bin/nagios3/grouplist.cgi
+# nagios 1.x:
+#ScriptAlias /nagios/side.html /usr/lib/cgi-bin/nagios3/grouplist.cgi
+</pre>
+
+==== /etc/apache2/ldap-configs/bind-user.conf ====
+<pre>
+AuthType Basic
+AuthBasicProvider ldap
+AuthLDAPBindDN uid=binduser,ou=bindusers,o=bdgn
+AuthLDAPBindPassword xxxx
+AuthLDAPURL "ldaps://master-directory.bdgn.net secondary-directory.bdgn.net/ou=users,o=bdgn?uid?one"
+AuthLDAPGroupAttributeIsDN on
+</pre>
+
+==== ldap ====
+Ldap ağacımıza DN: ou=nagios,ou=webaccess altına aşağıdaki kayıtları ekliyoruz, apache login için yetkilendirmeyi bu kayıtlardan alıyor.
+
+<pre>
+dn: ou=nagios,ou=webaccess,o=bdgn
+objectClass: organizationalUnit
+objectClass: top
+ou: nagios
+
+dn: cn=nagios_all,ou=nagios,ou=webaccess,o=bdgn
+objectClass: groupOfNames
+objectClass: labeledURIObject
+objectClass: top
+cn: nagios_all
+labeledURI: ldaps:///ou=users,o=bdgn??one?(&(loginShell=/bin/bash)(object
+ Class=posixAccount)(|(employeeType=USY)(employeeType=MIY)))
+</pre>
+
+=== Nagios Yapılandırmaları ===
+
+==== Öntanımlı nagios yapılandırma dosyaları ====
+Nagios ile öntanımlı olarak gelen aşağıdaki dosyaları siliyoruz, bunlar yerine aşağıdaki gibi kendi yapılandırma dosyalarımı yerleştireceğiz.
+
+* /etc/nagios3/conf.d/contacts_nagios2.cfg
+* /etc/nagios3/conf.d/extinfo_nagios2.cfg
+* /etc/nagios3/conf.d/generic-host_nagios2.cfg
+* /etc/nagios3/conf.d/generic-service_nagios2.cfg
+* /etc/nagios3/conf.d/host-gateway_nagios3.cfg
+* /etc/nagios3/conf.d/hostgroups_nagios2.cfg
+* /etc/nagios3/conf.d/localhost_nagios2.cfg
+* /etc/nagios3/conf.d/timeperiods_nagios2.cfg
+
+==== /etc/nagios3/cgi.cfg ====
+Bu dosyada authorized ile başlayan satırlardaki değerleri aşağıdaki gibi "*" olacak şekilde değiştiriyoruz.
+<pre>
+authorized_for_system_information=*
+authorized_for_configuration_information=*
+authorized_for_system_commands=*
+authorized_for_all_services=*
+authorized_for_all_hosts=*
+authorized_for_all_service_commands=*
+authorized_for_all_host_commands=*
+</pre>
+
+==== /etc/nagios3/nagios.cfg ====
+Aşağıdaki satırları ekliyoruz:
+<pre>
+cfg_file=/etc/nagios3/checkcommands.cfg
+cfg_file=/etc/nagios3/misccommands.cfg
+</pre>
+Şu satırları da aşağidaki gibi düzenliyoruz
+<pre>
+check_external_commands=1
+use_syslog=0
+use_retained_scheduling_info=0
+enable_flap_detection=0
+debug_file=/var/log/nagios3/nagios.debug
+</pre>
+
+==== /etc/nagios3/checkcommands.cfg ====
+<pre>
+define command{
+	command_name	check_sms_credit
+	command_line	/usr/local/bin/check_sms_credit
+}
+
+define command {
+        command_name check_jabber
+        command_line /usr/local/bin/nagiosrun.py JabberTest testConnect testConnectSSL testSendMsgLocal
+}
+
+define command{
+        command_name    negate
+	command_line    /usr/lib/nagios/plugins/negate $ARG1$
+}
+
+define command{
+        command_name    check_http_arg
+        command_line    /usr/lib/nagios/plugins/check_http $ARG1$
+}
+
+define command{
+        command_name    check_subscription
+        command_line    /usr/lib/nagios/plugins/check_subscription $ARG1$
+}
+</pre>
+
+==== /etc/nagios3/misccommands.cfg ====
+<pre>
+define command{
+        command_name    service-notify-by-sms
+        command_line    /usr/bin/printf "%b" "Svc: $SERVICEDESC$\nHost: $HOSTNAME$\nState: $SERVICESTATE$\nTime: $DATE$-$TIME$\n$SERVICEOUTPUT$" | /usr/local/bin/nagios_sms_notify --to $CONTACTPAGER$
+}
+
+define command{
+        command_name    service-notify-by-wappush
+        command_line    /usr/bin/printf "%b" "$SERVICEDESC$ $SERVICEOUTPUT$ $SHORTDATETIME$" | /usr/local/bin/nagios_wappush_notify --to $CONTACTPAGER$ --service $SERVICEDESC$ --host $HOSTNAME$
+}
+
+define command{
+        command_name    service-notify-by-jabber-old
+        command_line    /usr/local/bin/sendjabber "$CONTACTNAME$@jabber.bdgn.net" "Svc: $SERVICEDESC$ Host: $HOSTNAME$ State: $SERVICESTATE$ Time: $DATE$-$TIME$ $SERVICEOUTPUT$"
+}
+
+define command{
+        command_name    service-notify-by-jabber
+        command_line    /usr/bin/printf "%b" "$NOTIFICATIONTYPE$: \"$SERVICEDESC$\" is in \"$SERVICESTATE$\" state\n * $SERVICEOUTPUT$ ($SHORTDATETIME$)\n$SERVICEACKCOMMENT$\n$SERVICEACKAUTHOR$" | /usr/local/bin/sendjabber_new $CONTACTNAME$@jabber.bdgn.net
+}
+
+define command{
+        command_name    passive-check-missing
+        command_line    /usr/local/bin/passivecheckmissing
+}
+</pre>
+
+==== Genel tanımlar ====
+===== /etc/nagios3/conf.d/contacts.cfg =====
+Aşağıdaki gibi bir çok kayıt olacak
+<pre>
+define contact {
+        contact_name					bekir
+        alias                           Bekir Dogan
+        service_notification_period     24x7
+        host_notification_period        24x7
+        service_notification_options    w,u,c,r
+        host_notification_options       d,u,r
+        service_notification_commands   notify-by-email,service-notify-by-sms,service-notify-by-jabber
+        host_notification_commands      host-notify-by-email
+        email                           bekir@bdgn.net
+        pager                           +905337119886
+}
+</pre>
+
+
+===== /etc/nagios3/conf.d/contactgroups.cfg =====
+Aşağıdaki gibi bir çok kayıt olacak
+<pre>
+define contactgroup{
+	contactgroup_name	sanal_makina_sorumlulari
+	alias				Sanal makina sorumlulari
+	members				bekir
+}
+
+define contactgroup{
+	contactgroup_name	makina_sorumlulari
+	alias				Makina sorumlulari
+	members				gzeynep
+}
+
+define contactgroup{
+	contactgroup_name	musteri_sorumlulari
+	alias				Musteri sorumlulari
+	members				bekir,gzeynep
+}
+</pre>
+
+
+===== /etc/nagios3/conf.d/faketamplates.cfg =====
+<pre>
+define host{
+    name                         sablon_fake_sunucu
+    alias                        sablon_fake_sunucu
+    address                      127.0.0.1
+    check_period                 24x7
+    contact_groups               sanal_makina_sorumlulari
+    max_check_attempts           1
+    checks_enabled               0
+    notifications_enabled        0
+    event_handler_enabled        0
+    flap_detection_enabled       0
+    active_checks_enabled        0
+    passive_checks_enabled       0
+    process_perf_data            0
+    retain_status_information    0
+    retain_nonstatus_information 0
+    notification_interval        30
+    notification_period          24x7
+    notification_options         n
+    register                     0
+}
+</pre>
+
+
+===== /etc/nagios3/conf.d/servertemplates.cfg =====
+<pre>
+define host {
+    name                              generic_host
+    action_url /pnp4nagios/graph?host=$HOSTNAME$&srv=_HOST_' class='tips' rel='/pnp4nagios/popup?host=$HOSTNAME$&srv=_HOST_
+    register                          0
+}
+
+define host {
+    use                               generic_host
+    checks_enabled                    1
+    passive_checks_enabled            1
+    name                              sablon_fiziksel_sunucu
+    notification_interval             30
+    notification_period               24x7
+    retain_nonstatus_information      1
+    notifications_enabled             1
+    retain_status_information         1
+    alias                             sablon_fiziksel_sunucu
+    event_handler_enabled             1
+    process_perf_data                 1
+    max_check_attempts                5
+    flap_detection_enabled            0
+    notification_options              d,u,r
+    register                          0
+    check_command                     check-host-alive_4
+    icon_image                        cook/server.gif
+    statusmap_image                   cook/server.png
+}
+
+define host {
+    use                               sablon_fiziksel_sunucu
+    active_checks_enabled             0
+    check_command                     passive-check-missing
+    name                              sablon_fiziksel_sunucu_passive
+    alias                             sablon_fiziksel_sunucu_passive
+    address                           127.0.0.1
+}
+
+
+define host {
+    use                               generic_host
+    checks_enabled                    1
+    passive_checks_enabled            1
+    name                              sablon_vserver
+    notification_interval             30
+    notification_period               24x7
+    retain_nonstatus_information      1
+    notifications_enabled             1
+    retain_status_information         1
+    alias                             sablon_vserver
+    event_handler_enabled             1
+    process_perf_data                 1
+    max_check_attempts                5
+    flap_detection_enabled            0
+    notification_options              d,u,r
+    register                          0
+    check_command                     check-host-alive_4
+    check_freshness                   1
+    freshness_threshold               7200
+}
+
+define host {
+    use                               sablon_vserver
+    check_command                     passive-check-missing
+    active_checks_enabled             0
+    name                              sablon_vserver_passive
+    alias                             sablon_vserver_passive
+    address                           127.0.0.1
+}
+
+</pre>
+
+
+===== /etc/nagios3/conf.d/servicetemplates.cfg =====
+<pre>
+define service {
+    register                          0
+    name                              generic-service
+    notification_interval             0
+    obsess_over_service               0
+    retain_nonstatus_information      1
+    notifications_enabled             1
+    retain_status_information         1
+    parallelize_check                 1
+    event_handler_enabled             1
+    is_volatile                       0
+    passive_checks_enabled            0
+    process_perf_data                 1
+    check_freshness                   0
+    flap_detection_enabled            0
+    active_checks_enabled             1
+    action_url /pnp4nagios/graph?host=$HOSTNAME$&srv=$SERVICEDESC$' class='tips' rel='/pnp4nagios/popup?host=$HOSTNAME$&srv=$SERVICEDESC$
+}
+
+
+define service {
+    register                          0
+    name                              passive-check-template
+    use                               generic-service
+    check_freshness                   1
+    check_period                      none
+    passive_checks_enabled            1
+    #max_check_attempts                1
+    max_check_attempts                3
+    check_command                     passive-check-missing
+    #freshness_threshold               600
+    freshness_threshold               7200
+
+    check_period                      24x7
+    notification_period               24x7
+    retry_check_interval              5
+    notification_options              w,u,c,r
+    normal_check_interval             10
+    active_checks_enabled             0
+    check_freshness                   1
+}
+
+
+define service {
+    check_period                      24x7
+    use                               generic-service
+    check_command                     passive-check-missing
+    name                              passive-3minute
+    notification_period               24x7
+    retry_check_interval              1
+    register                          0
+    contact_groups                    musteri_sorumlulari
+    freshness_threshold               7200
+    notification_options              w,u,c,r
+    passive_checks_enabled            1
+    normal_check_interval             3
+    max_check_attempts                3
+    active_checks_enabled             0
+    check_freshness                   1
+}
+
+
+define service {
+    check_period                      24x7
+    use                               generic-service
+    check_command                     passive-check-missing
+    name                              passive-10minute
+    notification_period               24x7
+    retry_check_interval              5
+    register                          0
+    contact_groups                    musteri_sorumlulari
+    freshness_threshold               7200
+    notification_options              w,u,c,r
+    passive_checks_enabled            1
+    normal_check_interval             10
+    max_check_attempts                3
+    active_checks_enabled             0
+    check_freshness                   1
+}
+
+
+define service {
+    check_period                      24x7
+    use                               generic-service
+    check_command                     passive-check-missing
+    name                              passive-10minute-ext
+    notification_period               24x7
+    retry_check_interval              3
+    register                          0
+    contact_groups                    musteri_sorumlulari
+    freshness_threshold               7200
+    notification_options              w,u,c,r
+    passive_checks_enabled            1
+    normal_check_interval             10
+    max_check_attempts                3
+    active_checks_enabled             0
+    check_freshness                   1
+}
+
+
+define service {
+    register                          0
+    name                              generic-smtp-service
+    obsess_over_service               0
+    retain_nonstatus_information      1
+    notifications_enabled             1
+    retain_status_information         1
+    parallelize_check                 1
+    event_handler_enabled             1
+    is_volatile                       0
+    passive_checks_enabled            0
+    process_perf_data                 1
+    check_freshness                   0
+    flap_detection_enabled            0
+    active_checks_enabled             1
+}
+</pre>
+
+===== /etc/nagios3/conf.d/timeperiods.cfg =====
+<pre>
+# '24x7' timeperiod definition
+define timeperiod{
+	timeperiod_name	24x7
+	alias		24 Hours A Day, 7 Days A Week
+	sunday		00:00-24:00
+	monday		00:00-24:00
+	tuesday		00:00-24:00
+	wednesday	00:00-24:00
+	thursday	00:00-24:00
+	friday		00:00-24:00
+	saturday	00:00-24:00
+	}
+
+
+# 'workhours' timeperiod definition
+define timeperiod{
+	timeperiod_name	workhours
+	alias		"Normal" Working Hours
+	monday		09:00-17:00
+	tuesday		09:00-17:00
+	wednesday	09:00-17:00
+	thursday	09:00-17:00
+	friday		09:00-17:00
+	}
+
+# 'nonworkhours' timeperiod definition
+define timeperiod{
+	timeperiod_name	nonworkhours
+	alias		Non-Work Hours
+	sunday		00:00-24:00
+	monday		00:00-09:00,17:00-24:00
+	tuesday		00:00-09:00,17:00-24:00
+	wednesday	00:00-09:00,17:00-24:00
+	thursday	00:00-09:00,17:00-24:00
+	friday		00:00-09:00,17:00-24:00
+	saturday	00:00-24:00
+	}
+
+
+# 'nonworkhours' timeperiod definition
+define timeperiod{
+	timeperiod_name	whileawake
+	alias		Hours While Recipient Supposed To Be Awake
+	sunday		06:30-23:00
+	monday		06:30-23:00
+	tuesday		06:30-23:00
+	wednesday	06:30-23:00
+	thursday	06:30-23:00
+	friday		06:30-23:00
+	saturday	06:30-23:00
+	}
+
+# 'nonnaptime' timeperiod definition
+define timeperiod{
+        timeperiod_name nonnaptime
+        alias           Hours While Recipient Supposed To Be Awake for a short time
+        sunday          06:30-23:00
+        monday          06:30-23:00
+        tuesday         06:30-23:00
+        wednesday       06:30-23:00
+        thursday        06:30-23:00
+        friday          06:30-23:00
+        saturday        06:30-23:00
+        }
+
+# 'closedtime' timeperiod definition	
+define timeperiod{
+	timeperiod_name closedtime
+	alias Hours while toplugnderim ports should be closed
+	sunday		00:00-08:00,21:00-24:00
+	monday          00:00-08:00,21:00-24:00
+	tuesday         00:00-08:00,21:00-24:00
+	wednesday       00:00-08:00,21:00-24:00
+	thursday        00:00-08:00,21:00-24:00
+	friday          00:00-08:00,21:00-24:00
+	saturday        00:00-08:00,21:00-24:00
+}
+
+# 'none' timeperiod definition
+define timeperiod{
+	timeperiod_name	none
+	alias		No Time Is A Good Time
+}
+</pre>
+==== Makinalara ait tanımlar ====
+
+===== /etc/nagios3/conf.d/datacenters/datacenter-group-<datacenteradı>.cfg =====
+Her datacenter (fiziksel makinaların bulundugu yer) için iki adet dosyaan bulunuyor.
+
+Örnek olarak '''/etc/nagios3/conf.d/datacenters/datacenter-group-amazon.cfg''' dosyası aşağıdaki şekilde
+<pre>
+define hostgroup {
+    hostgroup_name                    datacenter_amazon
+    alias                             Datacenter: amazon
+}
+</pre>
+
+Örnek olarak '''/etc/nagios3/conf.d/datacenters/amazon.cfg''' dosyası aşağıdaki şekilde
+<pre>
+define host {
+    use                               sablon_fake_sunucu
+    host_name                         amazon
+}
+</pre>
+
+===== /etc/nagios3/conf.d/machines/machine-group-<fiziksel_makinaadı>.cfg ve /etc/nagios3/conf.d/machines/<fiziksel_makinaadı>.cfg =====
+Her fiziksel makina (vserver barındıran makina) kurulumumuz için bir adet bu dosyadan bulunuyor.
+
+Örnek olarak '''/etc/nagios3/conf.d/machines/machine-group-hede.cfg''' dosyası aşağıdaki şekilde
+<pre>
+define hostgroup {
+    hostgroup_name                    machine_hede
+    alias                             Physical Machine: hede
+}
+</pre>
+
+===== /etc/nagios3/conf.d/hosts/<makinaadı>.cfg =====
+Host, service ve servicedependency nesneleri bu dosyalarda tanımlanıyor, denetlediğimiz her makina için bir adet dosya bulunuyor.
+
+Örnek olarak '''/etc/nagios3/conf.d/hosts/hodo.cfg''' dosyası aşağıdaki şekilde
+<pre>
+define host {
+    use                               sablon_vserver
+    notification_interval             30
+    notification_period               24x7
+    check_command                     check-host-alive_4
+    hostgroups                        machine_hede
+    contact_groups                    musteri_sorumlulari
+    alias                             hodo
+    parents                           hede
+    host_name                         hodo
+    address                           123.123.123.123
+    max_check_attempts                5
+    notification_options              d,u,r
+}
+
+
+define service {
+    service_description               Parkyeri-hodo-squid
+    use                               passive-10minute
+    host_name                         
+    contact_groups                    parkyeri.eposta,ccdesteksorumlusu,parkyeri.musteridestek
+}
+</pre>
+
+==== NDOUtils kurulumu ====
+<pre>
+sudo aptitude install ndoutils
+</pre>
+
+'''ndoutils-nagios3-mysql''' paketi aşağıdaki gibi çeşitli sorular soracak, cevaplarını da hemen yanlarına yazdım:
+<pre>
+Connection method for MySQL database of ndoutils-mysql: unix socket
+Name of your database's administrative user: root
+Password of your database's administrative user: *** (mysql root şifresi)
+MySQL username for ndoutils-mysql: ndoutils
+MySQL database name for ndoutils-mysql: ndoutils
+</pre>
+
+[http://www.nagios.org/download/addons/ NDOUtils] yardım dosyasını okuyarak nasıl çalıştığına dair fikir edinebilirsiniz:
+'''/usr/share/doc/ndoutils-nagios3-mysql/README.Debian'''
+
+ndoutils nagios'un tüm verilerini bir mysql veritabanına aktaran, nagios'u geliştiren grubun resmi olarak desteklerdikleri bir araç. Nagvis ve Birdseye gibi diğer araçlar nagios hakkındaki verileri bu veritabanına sorgu çekerek alıyorlar.
+
+ndoutils için nagios yapılandırmasını değiştirelim ki nagios tüm verilerini mysql veritabanına aktarsın.
+
+===== /etc/nagios3/nagios.cfg =====
+<pre>
+broker_module=/usr/lib/ndoutils/ndomod-mysql-3x.o config_file=/etc/nagios3/ndomod.cfg
+</pre>
+
+===== /etc/default/ndoutils =====
+NDO utils paketi öntanımli olarak kapalı geliyor, bu dosyayı aşağıdaki gibi değiştirerek başlangıç betiklerinin ndoutils'i başlatmasını sağlıyoruz:
+<pre>
+ENABLE_NDOUTILS=1
+</pre>
+
+Şimdi ndoutils'i dürtelim:
+<pre>
+invoke-rc.d ndoutils start
+</pre>
+
+Şimdi nagios'u yeniden başlatalım(syslog'u izleyerek kurlumun doğru olup olmadığını görebilirsiniz):
+<pre>
+invoke-rc.d nagios3 restart
+</pre>
+
+Bu aşamada artık mysql'de ndoutils veritabanında "nagios_" ile başlayan tablolar görmeniz gerekiyor. Tablolarıon boş olmaması da gerekiyor. Aksi halde ndoutils kurulumunda hata var demektir.
+
+== pnp4nagios ==
+
+Nagios denetim betiklerinden gelen [http://nagiosplug.sourceforge.net/developer-guidelines.html#AEN201 performance data]ları işleyerek bize [http://oss.oetiker.ch/rrdtool/ rrdtool] kullanarak grafik üreten yazılım. Ancak bir çok nagios denetimimiz [http://nagiosplug.sourceforge.net/developer-guidelines.html#AEN201 performance data] göndermediği için grafikleri maalesef yok, bu tür servis ve hostlar için ikonun üzerine geldiğinizde '''"sorry, the contents could not be loaded"''' uyarısı görürsünüz ve üzerine tıkladığınızda da korkutucu bir "'''PNP Error'''" sayfası ile karşılaşırsınız. Eğer denetlediğiniz servis ya da host performance data göndermiyorsa bunlar normal durumlar.
+
+Nagios denetim betiğinin gönderdiği performance data alanının http://nagiosplug.sourceforge.net/developer-guidelines.html#AEN201 sayfasında belirtilen kurallara tam olarak uyması büyük önem taşıyor. Özellikle ölçüm yapılan değerin birimleri ile ilgili esneklik sunmaması zaman zaman sıkıntıya neden olabiliyor. İlgili sayfaya bakarsanız sadece bir kaç birim kullanabildiğiniz görürsünüz.
+
+'''Not:''' Eğer deb paketini alttaki adresten çekemezseniz buyrun buradan alın [[Media:pnp4nagios_0.6.0-4_i386.deb.gz]]
+<pre>
+wget http://repo.coolcold.org/pool/main/p/pnp4nagios/pnp4nagios_0.6.0-4_i386.deb
+# Bu dosya hedeften silinirse diye bu wiki sayfasına da eklesek fena olmaz.
+sudo aptitude install rrdtool librrds-perl php5 php5-gd
+sudo dpkg -i ~/pnp4nagios_0.6.0-4_i386.deb
+</pre>
+
+[http://www.pnp4nagios.org/ PNP4Nagios] kurulumu ile ilgili daha ayrıntılı bilgi için '''/usr/share/doc/pnp4nagios/README.Debian.gz''' dosyasına bakabilirsiniz.
+
+Apache yapılandırmaları:
+=== /etc/apache2/conf.d/pnp4nagios.conf ===
+<pre>
+Alias /pnp4nagios /usr/share/pnp4nagios/html
+
+<Directory /usr/share/pnp4nagios/html>
+	Options None
+
+	DirectoryIndex index.php
+
+	AllowOverride AuthConfig
+	Order Allow,Deny
+	Allow From All
+
+	AuthName "Bdgn nagios Ldap"
+	Include /etc/apache2/ldap-configs/bind-user.conf
+	Require ldap-group cn=nagios_all,ou=nagios,ou=webaccess,o=bdgn
+	<IfModule mod_rewrite.c>
+		# Turn on URL rewriting
+		RewriteEngine On
+		Options FollowSymLinks
+		# Installation directory
+		RewriteBase /pnp4nagios/
+		# Protect application and system files from being viewed
+		RewriteRule ^(application|modules|system) - [F,L]
+		# Allow any files or directories that exist to be displayed directly
+		RewriteCond %{REQUEST_FILENAME} !-f
+		RewriteCond %{REQUEST_FILENAME} !-d
+		# Rewrite all other URLs to index.php/URL
+		RewriteRule .* index.php/$0 [PT,L]
+	</IfModule>
+</Directory>
+</pre>
+
+PNP4Nagios apache modrewrite kullandığı için etkinleştirmemiz gerekiyor:
+<pre>
+sudo a2enmod rewrite
+sudo invoke-rc.d apache2 reload
+</pre>
+
+Şimdi http://nagios.bdgn.net/pnp4nagios/ adresine girerek kurulumun duruman bakın. Eğer bir sorun yoksa dosyayı silmemiz gerekiyor. (Ben yalnızca yenıden adlandırdım)
+<pre>
+sudo mv /usr/share/pnp4nagios/html/install.php /usr/share/pnp4nagios/html/install.php-passed
+</pre>
+
+=== /etc/nagios3/nagios.cfg ===
+pnp4nagios'un hostlardan gelen [http://nagiosplug.sourceforge.net/developer-guidelines.html#AEN201 performance data]'ları işleyebilmesi için aşağıdaki değişiklikleri yapmamız gerekiyor:
+<pre>
+enable_environment_macros=1
+check_external_commands=1
+process_performance_data=1
+service_perfdata_command=perfdata-service-pnp
+host_perfdata_command=perfdata-host-pnp
+</pre>
+
+=== /etc/pnp4nagios/config.php ===
+Bu dosyada şu değişiklikleri yapmamız gerekiyor:
+<pre>
+$conf['nagios_base'] = "/nagios3/cgi-bin";
+</pre>
+
+=== /etc/nagios3/conf.d/servertemplates.cfg ===
+Bu dosyada generic_host adlı yapılandırma nesnesine ("name generic_host" olan host nesnesine) şu satırı ekliyoruz:
+<pre>
+action_url /pnp4nagios/graph?host=$HOSTNAME$&srv=_HOST_' class='tips' rel='/pnp4nagios/popup?host=$HOSTNAME$&srv=_HOST_
+</pre>
+
+=== /etc/nagios3/conf.d/servicetemplates.cfg === 
+Bu dosyada generic-service adlı yapılandırma nesnesine ("name generic-service" olan service nesnesine) şu satırı ekliyoruz:
+<pre>
+action_url /pnp4nagios/graph?host=$HOSTNAME$&srv=$SERVICEDESC$' class='tips' rel='/pnp4nagios/popup?host=$HOSTNAME$&srv=$SERVICEDESC$
+</pre>
+
+Daha sonra nagios'u baştan başlattığımızda servis ve host'ların yanına birer ikon eklendiğini görüyoruz. Üzerine geldiğimizde eğer servis ya da host'a ait [http://nagiosplug.sourceforge.net/developer-guidelines.html#AEN201 geçerli performance data] varsa grafiğin üretildiğini görebilirsiniz.
+
+== nagvis ==
+<pre>
+sudo aptitude install nagvis
+</pre>
+
+=== /etc/nagvis/nagvis.ini.php ===
+ndoutils'in öntanımlı kurulum ayarı ile uyumlu olması için, aşağıdaki ayarı yapıyoruz:
+<pre>
+dbprefix="nagios_"
+</pre>
+
+=== /usr/share/nagios3/htdocs/side.htm ===
+nagvis linkini nagios'un sol paneline ekleyelim, dosyada uygun bulduğunuz bir yere şu satırları ekleyin:
+<pre>
+  <tr>
+    <td width=13><img src="images/greendot.gif" width="13" height="14" name="comment-dot"></td>
+    <td nowrap><a href="/nagios3/nagvis/nagvis/index.php" target="main" onMouseOver="switchdot('comment-dot',1)" onMouseOut="switchdot('comment-dot',0)" class=
+  </tr>
+</pre>
+
+=== /etc/nagvis/templates/hover/tmpl.default.html ===
+Bu dosyada da şu değişiklikleri yapmak faydalı olabilir, nagvis'te servisler veya istemciler üzerine geldiğinizde açılan kutuda servisin grafiği varsa görmenizi sağlıyor, nagvisin daha güncel sürümlerinde bu kısımlar bizim kullandığımızdan oldukça daha iyi durumda.
+
+<pre>
+--- tmpl.default.html_bak	2009-11-27 17:47:20.000000000 +0200
++++ tmpl.default.html	2009-11-27 19:09:54.000000000 +0200
+@@ -5,4 +5,20 @@
+	<!-- BEGIN service --><tr><td class="label"><label>[lang_service_description]</label></td><td>[service_description]</td></tr><!-- END service -->
+	<tr><td class="label"><label>[lang_state]</label></td><td>[obj_state]</td></tr>
+	<tr><td class="label"><label>[lang_output]</label></td><td>[obj_output]</td></tr>
++	<tr><td class="spacer" colspan="2"></td></tr>
++	<tr>
++		<td class="label"><label>PNP Host Graph</label></td>
++		<td>
++			<img src="/pnp4nagios/image?host=[pnp_hostname]&srv=_HOST_&view=1&source=0">
++		</td>
++	</tr>
++	<!-- BEGIN service -->
++	<tr><td class="spacer" colspan="2"></td></tr>
++	<tr>
++		<td class="label"><label>PNP Service Graph</label></td>
++		<td>
++			<img src="/pnp4nagios/image?host=[pnp_hostname]&srv=[pnp_service_description]&view=1&source=0">
++		</td>
++	</tr>
++	<!-- END service -->
+ </table>
+
+</pre>
+
+== rel ve mx kaydı ==
+[http://naplax.sourceforge.net/REL.html REL] nagios için hazır yazılmış ve eposta ile nagios denetim sonuçları kabul etmek için yazılmış betikler topluluğu.
+
+Aşağıda gördüğünüz betikleri bu adresteki kaynaktan aldık ve zaman içinde ihtiyaçlarımıza göre ufak değişiklikler yaptık (örneğin host check yapabilmesini ekledik). Ancak tüm yapı hala paketin ilk haline uygun şekilde duruyor, anlamak için [http://naplax.sourceforge.net/REL.html sayfasındaki] grafiği kullabilirsiniz.
+
+izle.nagios.bdgn.net için gene izle.nagios.bdgn.net adresini gösterecek bir mx kaydı tanımlıyoruz.
+<pre>
+mx 10 izle.nagios.bdgn.net
+</pre>
+
+=== /etc/aliases ===
+Bu dosyaya şu satırı eklemek gerek:
+<pre>
+nagios: "|/usr/bin/perl /usr/local/bin/smtpreceiver.pl"
+</pre>
+
+Yukarıdaki dosyanın kullanacağı betik:
+=== /usr/local/bin/smtpreceiver.pl ===
+<pre>
+#!/usr/bin/perl
+#use Getopt::Std;
+#getopts("c:");
+$commandfile = "/var/lib/nagios3/rw/nagios.cmd";
+#if(defined($opt_c))
+#{
+#        $commandfile = $opt_c;
+#}
+@input=<STDIN>;
+my ($service,$state,$nagiosdate,$output,$host);
+foreach $line(@input)
+{
+        if ($line =~ /^SERVICE.*/)
+        {
+                $line =~ s/SERVICE://;
+                chomp $line;
+                $service=$line;
+                next;
+        }
+        elsif ($line =~ /^STATE.*/)
+        {
+                $line =~ s/STATE://;
+                chomp $line;
+                $state=$line;
+                next;
+        }
+        elsif ($line =~ /^DATE.*/)
+        {
+                $line =~ s/DATE://;
+                chomp $line;
+                $nagiosdate=$line;
+                next;
+        }
+        elsif ($line =~ /^OUTPUT.*/)
+        {
+                $line =~ s/OUTPUT://;
+                chomp $line;
+                $output=$line;
+                next;
+        }
+        elsif ($line =~ /^HOST.*/)
+        {
+                $line =~ s/HOST://;
+                chomp $line;
+                $host=$line;
+                next;
+        }
+
+}
+$time = time();
+if ($service) {
+	$cmd = "[$nagiosdate] PROCESS_SERVICE_CHECK_RESULT;$host;$service;$state;$output\n";
+} else {
+	$cmd = "[$nagiosdate] PROCESS_HOST_CHECK_RESULT;$host;$state;$output\n";
+}
+
+open DEBUGOUT, ">> /tmp/smtpdebug" or die "Can't open Command File: $commandfile\n";
+print DEBUGOUT $cmd;
+close DEBUGOUT;
+if( $time < ($nagiosdate + 3600))
+{
+        open CMDOUT, ">> $commandfile" or die "Can't open Command File: $commandfile\n";
+        print CMDOUT $cmd;
+        close CMDOUT;
+}
+else
+{
+        open DEBUGOUT, ">> /tmp/smtpdebug" or die "Can't open Command File: $commandfile\n";
+        print DEBUGOUT "[$nagiosdate] DISCARDING TO OLD MESSAGE;$host\n";
+        close DEBUGOUT;
+}
+exit 0;
+</pre>
+
+
+=== İstemciler üzerinde yapılandırma ===
+İnternet üzerinden erişime kapalı olan ve kendisi nsca ile doğrudan nagios'a erişemeyen makinalar için bu yapılandırmaları kullanıyoruz.
+
+==== istemci:crontab ====
+İstemciler üzerinden rel ile nagios denetimi eklemek için aşağıdaki kayıtları crontaba eklemek yeterli:
+<pre>
+*/10 * * * *	/usr/local/bin/plugin_wrapper.pl /usr/lib/nagios/plugins/check_dummy 0 >/dev/null 2>&1 # host check
+*/10 * * * *	/usr/local/bin/plugin_wrapper.pl -s service_description_in_nagios_cfg /usr/lib/nagios/plugins/check_something parameters >/dev/null 2>&1 # service check
+</pre>
+
+Gereken dosyalar:
+==== istemci:/etc/relconfig ====
+<pre>
+TARGET_HOST=127.0.0.1
+HOST=istemci
+protocol=SMTP
+SENDMAIL_COMMAND=/usr/sbin/sendmail -oi -t -f SOURCE_MAIL
+DEST_MAIL=nagios@izle.nagios.bdgn.net
+SOURCE_MAIL=root@bdgn.net
+</pre>
+
+==== istemci:/usr/local/bin/rel.pl ====
+<pre>
+#!/usr/bin/perl -w
+
+#----------------------------------------------------------------------
+#--
+#-- Autor:
+#-- ------
+#--
+#--    Martin Schmitz, net&works GmbH
+#--
+#--
+#-- Programname:
+#-- -------------
+#--
+#--    rel.pl
+#--
+#--
+#-- Description
+#-- ------------
+#--
+#--    rel (Remote Execution Layer) is a script for sending
+#--    nagios plugin data with different protocols to the nagios
+#--    maschine. the used protocol will be given in the
+#--    configuration file.
+#--
+#--    testet operating systems: Linux
+#--
+#----------------------------------------------------------------------
+
+#-- History:
+#-- --------
+#--
+#--    26.06.2002 - Initial Version
+#--
+#----------------------------------------------------------------------
+
+use Getopt::Std;
+
+$RELPATH="/usr/local/bin";
+
+sub trim
+{
+    $_ = shift;
+    chomp $_; # Remove Linefeeds
+    s/#.*//; # Remove Comments
+    s/^\s+//; # Remove Spaces from Beginning
+    s/\s+$//; # Remove Space from End
+    return $_;
+}
+
+getopts("c:r:s:o:");
+if(!defined($opt_c) || !defined($opt_o) || !defined($opt_r))
+{
+    print "Usage: rel.pl -c <configfile> [-s <SERVICE>] -r <pluginstate> -o <pluginoutputfile>\n";
+    exit(1);
+}
+
+#Parse configuration file
+%config = ();
+open(CONFFILE,"< $opt_c");
+@tmp = <CONFFILE>;
+close(CONFFILE);
+foreach $line (@tmp)
+{
+        $line = trim($line);
+        my @tmp2 = split(/=/,$line,2);
+        $config{uc($tmp2[0])} = $tmp2[1];
+}
+if($config{"PROTOCOL"} eq uc("SMTP"))
+{
+        require "$RELPATH/rel_smtp.pl";
+}
+#SAMPLE for enhancement
+#elsif($config{"PROTOCOL"} eq "OTHER")
+#{
+#       require "$RELPATH/rel_other.pl";
+#}
+else
+{
+        print("No valid protocol defined in config file: $opt_c");
+}
+my $tim = time();
+open(FILE,"< $opt_o");
+@output = <FILE>;
+my $cont="";
+foreach $line (@output)
+{
+    $cont = $cont . $line;
+}
+my $service;
+if (defined($opt_s)) {
+    $service = $opt_s;
+} else {
+    $service = "";
+}
+#This function is imported from the protocol specific rel file.
+sendStatus($config{"TARGET_HOST"},$config{"HOST"},$service,$opt_r,$cont,$tim);
+exit 0;
+</pre>
+==== istemci:/usr/local/bin/rel_smtp.pl ====
+<pre>
+#
+# This is the SMTP implementation of sendStatus.
+# This file will never be called directly!
+# It is included by rel.pl if the SMTP protocol
+# was defined.
+#
+
+sub sendStatus
+{
+    my ($target_host,$host,$service,$state,$output,$tim) = @_;
+    my $subject;
+    my $mailbody;
+    if ($service) {
+        $subject = "Passive Service Check for $service";
+        $mailbody = "data\nHOST:$host\nSERVICE:$service\nSTATE:$state\nDATE:$tim\nOUTPUT:$output";
+    } else {
+        $subject = "Passive Host Check for $host";
+        $mailbody = "data\nHOST:$host\nSTATE:$state\nDATE:$tim\nOUTPUT:$output";
+    }
+
+    my $cmd = $config{"SENDMAIL_COMMAND"};
+    my $src = $config{"SOURCE_MAIL"};
+    my $dest = $config{"DEST_MAIL"};
+    if( !defined($cmd) || !defined($src) || !defined($dest))
+    {
+        print("Incomplete configuration. Please specify SENDMAIL_COMMAND, SOURCE_MAIL and DEST_MAIL");
+        return;
+    }
+    $_ = $cmd;
+    $cmd =~ s/SOURCE_MAIL/$src/;
+    open (SENDMAIL,"| $cmd") or die "Cant send Mail with given Sendmail Command: $cmd";
+    print $mailbody ."\n";
+    print SENDMAIL << "EOF";
+From: <$src>
+To: $dest
+Subject: $subject
+$mailbody
+EOF
+    close SENDMAIL;
+}
+1;
+</pre>
+==== istemci:/usr/local/bin/plugin_wrapper.pl ====
+<pre>
+#! /usr/bin/perl -w
+# system "/usr/local/bin/nsca_wrapper.sh @ARGV";
+
+#----------------------------------------------------------------------
+#--
+#-- Autor:
+#-- ------
+#--
+#--    Martin Schmitz, net&works GmbH
+#--
+#--
+#-- Programname:
+#-- -------------
+#--
+#--    plugin_wrapper.pl
+#--
+#--
+#-- Description
+#-- ------------
+#--
+#--    This wrapper is used to call Nagios Plugins, get their return
+#--    code and output and send it with 'rel'
+#--    (Remote Execution Layer) to the nagios host.
+#--
+#--    testet Operating Systems: Linux
+#--
+#----------------------------------------------------------------------
+
+#-- History:
+#-- --------
+#--
+#--    26.06.2002 - Initial Version
+#--
+#----------------------------------------------------------------------
+
+use Getopt::Std;
+
+sub trim
+{
+    $_ = shift;
+    chomp $_; # Remove Linefeeds
+    s/#.*//; # Remove Comments
+    s/^\s+//; # Remove Spaces from Beginning
+    s/\s+$//; # Remove Space from End
+    return $_;
+}
+
+$RELPATH="/usr/local/bin";
+
+getopts("c:s:");
+if(!@ARGV)
+{
+    print("\nUsage: plugin_wrapper.pl [-c relconfig] -s SERVICE plugin plugin_arguments\n");
+    print "relconfig = Configuration File for rel. Defaults to /etc/relconfig\n";
+    print "SERVICE = The Nagios Service to associate the Plugin results with.\n\n";
+    exit 1;
+}
+
+$relconfig = "/etc/relconfig";
+
+#build commandline for plugin call
+$command = "";
+foreach $arg (@ARGV)
+{
+    $command = $command . " " . $arg;
+}
+$tmpfile = "/tmp/pw" . time();
+$command = $command . " > " . $tmpfile;
+print $command;
+
+#call plugin and store its return value
+$retvalue = system($command)/256; # /256 um den tatsaechlichen return wert zu erhalten.
+
+#build commandline for rel call
+if( defined($opt_c))
+{
+    $relconfig = $opt_c;
+}
+my $service;
+if (defined($opt_s)) {
+    $service = $opt_s;
+} else {
+    $service = "";
+}
+
+$command = "perl $RELPATH/rel.pl -c $relconfig -s \"" . $service .  "\" -r " . $retvalue . " -o " . $tmpfile;
+print "$command \n";
+system ($command);
+unlink($tmpfile);
+exit 0;
+</pre>
+
+== nsca ==
+
+<pre>
+sudo aptitude install nsca
+</pre>
+
+[http://www.nagios.org/download/addons/ NSCA] ile ilgili ayrıntılı bilgi için '''/usr/share/doc/nsca/README.Debian''' dosyasına bakabilirsiniz.
+
+Yapılandırma dosyasını ayarlayalım:
+=== /etc/nsca.cfg ===
+Sadece şu iki satırı değiştirmek yeterli, burada şifre ve yöntem tüm clientlarda aynı olmak zorunda.
+<pre>
+password=xxxx
+encryption_method=#
+</pre>
+
+Şimdi nsca'yı açılışta kendiliğinden açılacak şekilde yapılandıralım.
+<pre>
+sudo dpkg-reconfigure nsca
+</pre>
+
+=== izle.nagios.bdgn.net ===
+nagios.bdgn.net ssh üzerinden çalışıyor. Dolayısıyla alan adı kaydı yıldız sertifikamızın bulunduğu secure.bdgn.net alan aldına alias. Dogrudan nagios makinasına göndereceğimiz istekler için bu adresi kullanamıyoruz. nsca istemcilerinin nagios makinalarına dogrudan erişebilmesi için dns sunucularımızda bir de izle.nagios.bdgn.net alan adı kayıtlı ve doğrudan nagios makinasını gösteriyor.
+
+=== İstemciler üzerindeki yapılandırma ===
+<pre>
+sudo aptitude install nsca
+</pre>
+
+==== istemci:crontab ====
+İstemciler üzerinden nsca ile nagios denetimi eklemek için aşağıdaki kayıtları crontaba eklemek yeterli:
+<pre>
+*/10 * * * *	/usr/local/bin/nsca_wrapper.sh /usr/lib/nagios/plugins/check_dummy 0 >/dev/null 2>&1 # host check
+*/10 * * * *	/usr/local/bin/nsca_wrapper.sh -s service_description_in_nagios_cfg /usr/lib/nagios/plugins/check_something parameters >/dev/null 2>&1 # service check
+</pre>
+
+==== istemci:/etc/send_nsca.cfg ====
+Sadece şu iki satırı nagios sunucusunda kurulu olan /etc/nsca.cfg ile aynı olacak şekilde düzenlemek yeterli.
+<pre>
+password=xxxx
+encryption_method=#
+</pre>
+
+==== istemci:/usr/local/bin/nsca_wrapper.sh ====
+Cron satırlarında kullanacağımız betik.
+<pre>
+#!/bin/bash
+NAGIOS_SERVER="izle.nagios.bdgn.net"
+HOSTNAME=$(hostname -s)
+usage(){
+    echo "usage: ${0##*/} [-s <SERVICENAME>] <COMMAND>"
+    echo
+    echo '<SERVICENAME>      The name of the service (if omitted I will send HOST status)'
+	echo
+    echo '<COMMAND>          The command line to run the plugin (should be quoted)'
+	echo '                   Like: /usr/lib/nagios/plugins/check_smth arg1 arg2 ...'
+    exit 3
+}
+
+if [ "$1" == "-s" ]; then
+	shift
+	SERVICE="$1";
+	shift
+fi
+
+if [ $# -eq 0 ]; then
+    usage
+fi
+
+CMD=$@
+
+OUTPUT="`$CMD 2>&1`"
+RESULT=$?
+
+
+if [ -n "$SERVICE" ]; then
+	REQUEST="$HOSTNAME\t$SERVICE\t$RESULT\t$OUTPUT"
+else
+	REQUEST="$HOSTNAME\t$RESULT\t$OUTPUT"
+fi
+
+send_output=`echo -e "$REQUEST" | /usr/sbin/send_nsca -H $NAGIOS_SERVER 2>&1`
+send_result=$?
+
+echo "Request: $REQUEST"
+echo "Output: $send_output"
+
+exit "$send_result"
+</pre>
+
+== Birdseye ==
+[http://www.nagioswiki.org/wiki/Addon:Birdseye Birdseye] projectorden anlık olarak izlemek için kullandığımız yazılım. Servislerin durumlarını ve durumlarındaki değişiklikleri anında görebilmemizi sağlıyor.
+
+Amcaların sitelerinde sağladıkları paket baya hatalıydı (sonradan lisans bilgisi koymuşlar ve php dosyalarının yapısı bozulmuş v.s.) düzeltmeler yaptık. Düzgün haline bu [[Resim:birsdeye.tar.gz]] bağlantıdan ulaşabilirsiniz.
+
+[[Resim:birsdeye.tar.gz]] paketindeki modified/birdseye/ dizinini nagios.bdgn.net:/var/www/birdseye dizinine açıyoruz:
+
+ sudo aptitude install php-db
+ sudo tar zxvf birdseye.tar.gz --directory /var/www/ --strip 2 birdseye/modified/birdseye/
+
+SQL için gerekenler şöyle:
+<pre>
+bekir@nagios.bdgn.net:~$ mysql -u root -p 
+mysql> create database events;
+mysql> use events;
+mysql> create table e (object_id int(11) not null, status_update_time datetime, primary key(object_id));
+mysql> grant select on events.e to 'ndoutils'@'localhost'; 
+mysql> use ndoutils;
+mysql> delimiter |
+mysql> create trigger chu after update on nagios_hoststatus for each row BEGIN replace into events.e select new.host_object_id, now(); end|
+mysql> create trigger csu after update on nagios_servicestatus for each row begin replace into events.e select new.service_object_id, now(); end|
+mysql> delimiter ;
+bekir@nagios.bdgn.net:~$ 
+</pre>
+
+=== /var/www/birdseye/connection.php ===
+Veritabanı bilgilerini güncelliyoruz
+ vi /var/www/birdseye/connection.php
+
+== Bilgilendirme betikleri ==
+
+nagios makinasında /usr/local/bin dizininde bulunan bir grup betik nagiosnin gönderdiği uyarı mesajları için gerekli.
+
+=== SMS uyarıları - Clickatell ===
+[http://www.clickatell.com Clickatell] nagiosnin telefonlara attığı mesajları ilettiği webservisi.
+
+Kullanıcı adı ve şifrelerini sistem yöneticilerine danışabilirsiniz. SMS atan makinanın (nagios makinası) ip adresinin daha önceden clickatell hesabı ile tanımlanmış olması gerekiyor.
+
+nagiosye eklediğimiz '''service-notify-by-sms''' command tanımı bu betiği kullanarak mesaj gönderiyor.
+
+==== /usr/local/bin/nagios_sms_notify ====
+Bu betiği çalıştırabilmek için öncelikle php5-cli paketini kurmamız gerekiyor, betiğin son halini mevcut nagios makinasından edinebilirsiniz:
+<pre>
+sudo aptitude install php5-cli
+</pre>
+
+/usr/local/bin/nagios_sms_notify
+<pre>
+#!/usr/bin/php
+<?php
+//exit;
+$from="905331234567";
+$user="smsaticisi";
+$password="xxx";
+$api_id="123456";
+$url="https://api.clickatell.com/http/sendmsg";
+
+
+
+define_syslog_variables();
+// open syslog, include the process ID and also send
+// the log to standard error, and use a user defined
+// logging mechanism
+openlog("SendSMS", LOG_PID | LOG_PERROR, LOG_LOCAL0);
+
+if (file_exists("/etc/sendnosms")) {
+	syslog(LOG_WARNING,"sendnosms is active");
+	closelog();
+	exit;
+}
+
+
+function mygetopt($opts) {
+	global $argv;
+	$opts_array = explode(':', $opts);
+	foreach($opts_array as $opt) {
+        $key = array_search($opt, $argv);
+        if($key && !in_array($argv[$key+1], $opts_array)) {
+            $result[$opt] = trim($argv[$key+1]);
+        } elseif($key) {
+            $result[$opt] = true;
+        }
+    }
+    return $result;
+}
+
+$usage = "Usage: echo \"message to send\" | {$argv[0]} <--to PHONENUMBER1[,PHONENUMBER2]> [--from FROMNAME]\n";
+
+$opts=mygetopt("--service:--to:--from:--host");
+
+$host = $opts["--host"];
+$service = $opts["--service"];
+$from = $opts["--from"]? $opts["--from"]:$from;
+$to = str_replace("+","",$opts["--to"]);
+$tos = explode(",",$to);
+
+if (!$to) {
+	echo "Error: Missing parameters\n";
+	syslog(LOG_WARNING,"Missing parameters");
+	echo $usage;
+	exit(2);
+}
+
+/* Define STDIN if not already done so */
+if(!defined("STDIN")) {
+	define("STDIN", fopen('php://stdin','r'));
+}
+
+$text = trim(fread(STDIN, 1024)); // Read up to 1024 characters or a newline
+
+
+if (strlen($text) > 0) {
+	$text = substr($text,0,160);
+	foreach ($tos as $to_num) {
+	        syslog(LOG_WARNING, "to : $to_num message : $text");
+                $submiturl = "$url?api_id=$api_id&user=$user&password=$password&from=$from&to=$to_num&text=".rawurlencode($text);
+                $result = file_get_contents($submiturl);
+                syslog(LOG_WARNING, "result  : $to_num\t$result");
+	}
+	closelog();
+	exit(0);
+} else {
+	syslog(LOG_WARNING, "Text is empty");
+	closelog();
+	exit(2);
+}
+
+?>
+</pre>
+
+==== /usr/local/bin/check_sms_credit ====
+Bu betik clickatel'de kaç kredi kaldığını denetliyor, çalışabilmesi için öncelikle lynx paketinin kurulu olması gerekiyor, betiğin son halini mevcut nagios makinasından edinebilirsiniz.
+<pre>
+sudo aptitude install lynx
+</pre>
+
+/usr/local/bin/check_sms_credit
+<pre>
+#!/bin/bash
+credit=`lynx -dump "http://api.clickatell.com/http/getbalance?api_id=123456&user=smsaticisi&password=xxx" | tr -d "\r\n" | sed "s/Credit: \(.*\)\..*/\1/"`
+
+code=0
+desc="OK"
+
+if [ "$credit" -lt 100 ]; then code=2; elif [ "$credit" -lt 250 ]; then code=1; else code=0; fi
+
+credit=`echo $credit`
+echo "$credit kredi kaldi"
+
+exit $code
+</pre>
+
+=== Jabber Uyarıları ===
+Jabber ile uyarı gönderen betiğin çalışabilmesi için öncelikle jabber sunucusunda nagios için bir hesap açmak ve aşağıdaki paketleri nagios makinasına kurmak gerekiyor, betiğin son halini mevcut nagios makinasından edinebilirsiniz.
+
+==== /usr/local/bin/sendjabber_new ====
+<pre>
+sudo aptitude install python-jabber python-xmpp
+</pre>
+
+/usr/local/bin/sendjabber_new
+<pre>
+#!/usr/bin/python
+
+# (C) 2007 Revolution Linux
+# Julien Desfossez <jd@revolutionlinux.com>
+# This code is being made available under
+# the terms of the GNU GPL, version 2 and above.
+
+import jabber.xmlstream
+from jabber import jabber
+from sys import argv
+from sys import exit
+from sys import stdin
+from string import strip
+
+# User configuration
+login = "nagios"
+passwd = "123456"
+server = "jabber.bdgn.net"
+ssl = 1
+res = "Home"
+
+# Argument parsing
+if len(argv) != 2 or argv[1] == "-h" or argv[1] == "--help":
+    print "Usage : echo message | "+argv[0]+" user@server"
+    exit(1)
+else:
+        to = argv[1]
+
+jid = login + '@' + server + '/' + res
+
+# connect on SSL or not
+if ssl == 1:
+    connex = jabber.Client(host=server, debug=[], port=5223, connection=jabber.xmlstream.TCP_SSL)
+else:
+    connex = jabber.Client(host=server,debug=[])
+
+# connect and authenticate
+connex.connect()
+connex.auth(login, passwd, res)
+
+# create the message
+#msg = jabber.Message(to, '\n' + strip(stdin.read()))
+msg = jabber.Message(to, strip(stdin.read()))
+msg.setType('chat')
+#print `msg.asNode._xmlnode2str()`
+
+# send the message
+connex.send(msg)
+
+# disconnect
+try:
+    connex.disconnect()
+except:
+    pass
+</pre>
+
+== Nagios'un kendi denetimleri ==
+Nagios'un kendisinin çalıştığını denetlemek için şu crontab içerisindeki denetimleri kullanıyoruz:
+
+=== crontab ===
+nagios makinası üzerindeki crontab kaydı
+<pre>
+*/10 * * * * /usr/local/bin/check_nagios_notify 2>&1 > /dev/null
+</pre>
+
+=== /usr/local/bin/check_nagios_notify ===
+<pre>
+#!/bin/bash
+#  throw away output of check_nagios, since we only check return code. 
+# stderror includes "Unknown Hz Value" error for hosts with long uptimes
+# This problem has been solved with Ih bilmemkac. (procps updated)
+
+#mesaj="Host:nagios.bdgn.net - nagios logunda 600 saniyedir hareket yok. Calismiyor olabilir."
+sisyonler="+905331234567 +905337119886"
+eposta="sysadmin@bdgn.net"
+SERVICEDESC="nagios"
+HOSTNAME="nagios.bdgn.net"
+SERVICESTATE="There is no activity in nagios.log more than 600 seconds. Nagios possibly stopped."
+DATE=`date`
+
+/usr/lib/nagios/plugins/check_logdate  /var/log/nagios3/nagios.log 600 > /dev/null 2>&1
+
+#/usr/lib/nagios/plugins/check_nagios -F /var/log/nagios2/nagios.log -e 600 -C /usr/sbin/nagios2 > /dev/null 2>&1
+if [ $? -ne 0 ]
+then
+	for sisyon in $sisyonler; do
+#		/usr/local/bin/sendsms "$sisyon" "$mesaj"
+		echo -e "Svc: $SERVICEDESC\nHost: $HOSTNAME\nState: $SERVICESTATE\nTime: $DATE" | /usr/local/bin/nagios_sms_notify --to $sisyon
+	done
+	/usr/bin/mailx -s "$SERVICESTATE" "$eposta" < /dev/null > /dev/null
+fi
+</pre>
+
+=== hodo:crontab ===
+nagiosnin erisilir olup olmadığını denetlemek için hodo makinası üzerinde crontab dosyasında aşağıdaki girdi bu betiği düzenli olarak çağırıyor, başarısız olması durumunda sysadmin@bdgn.net adresine eposta ile bildiriyor.
+<pre>
+*/10 * * * * /usr/lib/nagios/plugins/check_nagios  > /dev/null  2>&1
+</pre>
+
+=== hodo:/usr/lib/nagios/plugins/check_nagios ===
+<pre>
+#!/bin/bash
+result=`/usr/lib/nagios/plugins/check_http -H nagios.bdgn.net -e 302 | cut -d" " -f2`
+d=`date`
+if [ "$result" = "OK" ];then
+	echo "$date nagios Calisiyor"
+else
+	echo "$d nagios Yatiyor"
+	echo "$d tarihinde hodo uzerinde yapilan nagios http baglantisi basarisiz oldu." | mail -s "nagios Yatiyor" sysadmin@bdgn.net
+fi
+</pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+BU DA DAHA ESKI BIR KURULUMDAN KALAN NOTLAR
+
+
+
+
+==check_by_ssh==
+# http://ranf.wordpress.com/2009/06/15/nagios-with-check_by_ssh-on-debian/
+host(nagios machine): sudo aptitude install nagios3
+client(watched machine): sudo aptitude install nagios-plugins-basic
+
+1. create key pair in host (ssh-keygen) for nagios user
+2. create nagios home dir in client
+3. copy host's public key to our client's authorized keys for nagios user
+
+
+==Nagios NRPE Addon Installation and Configuration==
+# http://debianclusters.cs.uni.edu/index.php/Nagios_NRPE_Addon_Installation_and_Configuration
+host:
+     apt-get install nagios-nrpe-plugin 
+
+client:
+    apt-get install nagios-nrpe-server 
+    apt-get install nagios-plugins 
+    /etc/nagios/nrpe.cfg:
+      add allowed_hosts=<Nagios host IP>
+      add command[<command name>]=<full path to plugin and any arguments>
+    /etc/init.d/nagios-nrpe-server restart
+
+
+
+== yeni fiziksel makina ekleme adimlari ==
+$ sudo aptitude install nsca nagios-plugins-basic
+$ sudo vi /etc/send_nsca.cfg # => password'u gir
+$ sudo chmod o-r /etc/send_nsca.cfg
+$ sudo mkdir /usr/lib/nagios/scripts
+$ sudo vi /usr/lib/nagios/scripts/checks
+#!/bin/bash
+HOST=$(hostname -s)
+NSCAHOST=rago.bdgn.net
+
+service=load
+output=$(/usr/lib/nagios/plugins/check_load -w 1.5,1.3,1.0 -c 4.0,3.0,2.0)
+result=$?
+echo -e "$HOST\t$service\t$result\t$output"  | sudo send_nsca -H $NSCAHOST 1>/dev/null 2>&1
+
+service=disk
+output=$(/usr/lib/nagios/plugins/check_disk -w 20% -c 10%)
+result=$?
+echo -e "$HOST\t$service\t$result\t$output" | sudo send_nsca -H $NSCAHOST 1>/dev/null 2>&1
+
+exit 0
+^D
+$ sudo chmod +x /usr/lib/nagios/scripts/checks
+$ sudo crontab -e
+*/5 * * * * /usr/lib/nagios/scripts/checksh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

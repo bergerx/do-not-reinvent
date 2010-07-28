@@ -1,0 +1,4 @@
+# ssh x11 X11 forwarding xforwarding
+# bunu eklemek gerekiyor
+X11UseLocalhost no
+
