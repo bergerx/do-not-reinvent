@@ -1,6 +1,9 @@
 # install something from experimental repo
 # http://wiki.debian.org/DebianExperimental
 
+# create this file /etc/apt/apt.conf.d/default 
+APT::Default-Release "testing";
+
 #add this to your sources.list
 deb ftp://ftp.debian.org/debian experimental main
 
