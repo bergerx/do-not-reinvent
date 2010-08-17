@@ -1,0 +1,10 @@
+# how to see non-printable characters
+
+sed -n l /tmp/hede
+vi -b /tmp/hede
+#in "vim /tmp/hede" use ":set list"
+cat -vet /tmp/hede
+od -c /tmp/hede
+hexdump -C -n 1000 /tmp/hede
+
+
