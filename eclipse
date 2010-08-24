@@ -1,0 +1,6 @@
+sudo apt-get install xulrunner
+
+append to eclipse.ini
+-Dorg.eclipse.swt.browser.XULRunnerPath=/usr/lib/xulrunner/xulrunner
+
+

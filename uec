@@ -1,0 +1,137 @@
+https://help.ubuntu.com/community/UEC/PackageInstall
+
+    * the cloud controller (clc)
+    * the cluster controller (cc)
+    * walrus (the S3-like storage service)
+    * the storage controller (sc) 
+
+frontend = clc cc walrus sc
+node1 = nc
+
+frontend:
+# Install Ubuntu 10.04 Server
+$ sudo apt-get update
+$ sudo apt-get dist-upgrade
+$ sudo apt-get install eucalyptus-cloud eucalyptus-cc eucalyptus-walrus eucalyptus-sc
+> Configure postfix for "internet delivery"
+
+node: 
+# Install Ubuntu 10.04 Server
+$ sudo apt-get update
+$ sudo apt-get dist-upgrade
+$ sudo apt-get install eucalyptus-nc
+# this can help: http://doc.ubuntu.com/ubuntu/serverguide/C/network-configuration.html
+$ interface=eth0
+$ bridge=br0
+$ sudo sed -i "s/^iface $interface inet \(.*\)$/iface $interface inet manual\n\nauto br0\niface $bridge inet \1/" /etc/network/interfaces
+$ sudo tee -a /etc/network/interfaces <<EOF
+        bridge_ports $interface
+        bridge_fd 9
+        bridge_hello 2
+        bridge_maxage 12
+        bridge_stp off
+EOF
+$ sudo /etc/init.d/networking restart
+$ vi /etc/eucalyptus/eucalyptus.conf
+$ sudo sed -i "s/^VNET_BRIDGE=.*$/VNET_BRIDGE=$bridge/" /etc/eucalyptus/eucalyptus.conf
+$ sudo /etc/init.d/eucalyptus-nc restart
+$ sudo passwd eucalyptus
+$ sudo euca_conf --register-cluster cluster1 <IP_OF_FRONTEND>
+$ sudo euca_conf --register-sc cluster1 <IP_OF_FRONTEND>
+$ sudo euca_conf --register-walrus <IP_OF_FRONTEND>
+
+
+node:
+$ sudo passwd eucalyptus # karatca
+frontend:
+$ sudo -u eucalyptus ssh-copy-id -i ~eucalyptus/.ssh/id_rsa.pub eucalyptus@<IP_OF_NODE>
+$ sudo su - eucalyptus -c 'ssh <IP_OF_NODE>'
+node:
+
+
+frontend:
+$ #sudo vi /etc/eucalyptus/eucalyptus-cc.conf # define CC_NAME
+$ #sudo vi /etc/eucalyptus/eucalyptus-ipaddr.conf # CC_IP_ADDR (space separated list)
+$ #sudo vi /etc/eucalyptus/eucalyptus-ipaddr.conf # WALRUS_IP_ADDR (single ip), SC_IP_ADDR (space seperated ip list)
+$ sudo start eucalyptus-walrus-publication
+$ sudo start eucalyptus-cc-publication
+$ sudo start eucalyptus-cc-publication
+
+node:
+$ sudo start eucalyptus-nc-publication
+
+frontend:
+$ sudo start uec-component-listener
+$ cat /var/log/eucalyptus/registration.log
+
+
+
+browser:
+https://<cloud-controller-ip-address>:8443/ admin:admin -> credentials -> Download Credentials (mycreds.zip)
+$ unzip -d ~/.euca mycreds.zip
+
+frontend:
+$ mkdir -p ~/.euca
+$ chmod 700 ~/.euca
+$ cd ~/.euca
+$ sudo euca_conf --get-credentials mycreds.zip
+$ unzip mycreds.zip
+$ ln -s ~/.euca/eucarc ~/.eucarc
+$ cd -
+
+client:
+$ sudo apt-get install euca2ools
+$ . ~/.euca/eucarc
+$ sudo euca_conf --discover-nodes
+$ euca-describe-availability-zones verbose
+
+browser:
+https://<cloud-controller-ip-address>:8443/ -> Store -> install
+
+client:
+$ if [ ! -e ~/.euca/mykey.priv ]; then
+    mkdir -p -m 700 ~/.euca
+    touch ~/.euca/mykey.priv
+    chmod 0600 ~/.euca/mykey.priv
+    euca-add-keypair mykey > ~/.euca/mykey.priv
+fi
+$ euca-authorize default -P tcp -p 22 -s 0.0.0.0/0
+$ EMI=emi-DE91106C
+$ euca-run-instances $EMI -k mykey -t m1.small
+$ watch -n5 euca-describe-instances # see if running
+$ IPADDR=$(euca-describe-instances | grep $EMI | grep running | tail -n1 | awk '{print $4}')
+$ ssh -i ~/.euca/mykey.priv ubuntu@$IPADDR
+$ INSTANCEID=$(euca-describe-instances | grep $EMI | grep running | tail -n1 | awk '{print $2}')
+$ euca-terminate-instances $INSTANCEID
+
+
+from: http://www.smop.co.uk/mediawiki/index.php/Eucalyptus
+    *  error: insufficient disk capacity remaining (2040MB) in VM Type of instance i-465E0756 for component disk
+    *  this means that the disk image (AMI) you are trying to use is larger than the disk for the VMtype (e.g. m1.small)
+    * FIX: login to cloudcontroller:8443, increase disk size for the appropriate VMtype in "Configuration" 
+
+Log files: /var/log/eucalyptus
+Configuration files: /etc/eucalyptus
+Database: /var/lib/eucalyptus/db
+Keys: /var/lib/eucalyptus /var/lib/eucalyptus/.ssh
+rc: . ~/.euca/eucarc
+
+
+Recommended topologies: https://help.ubuntu.com/community/UEC/Topologies
+
+
+
+some commands:
+euca-describe-availability-zones verbose
+euca-describe-instances
+euca-run-instances emi-DE91106C -t m1.large
+
+
+
+
+
+
+
+out-of-date-ec2-api - uec api is an old version of EC2:
+http://rbtcollins.wordpress.com/2010/02/11/using-uec-instead-of-ec2/
+

@@ -1,0 +1,43 @@
+emulator -avd nexus -http-proxy http://localhost:3128
+cat /system/etc/resolv.conf
+getprop net.dns1
+getprop dhcp.eth0.dns1
+getprop dhcp.eth0.gateway
+cat /proc/net/route
+cat /proc/net/nf_conntrack
+
+
+### Using ASE from debian # http://forum.xda-developers.com/showpost.php?s=a6dd9291991d8fcd9a512764d0bf00bb&p=3957997&postcount=8
+apt-get install python
+apt-get install python-simplejson
+cp /data/data/com.google.ase/python/lib/python2.6/android.py /usr/lib/python2.5/site-packages/android.py
+cd /
+patch -p0 <<EOF
+--- /data/data/com.google.ase/python/lib/python2.6/android.py   2009-06-14 22:48:06.000000000 +0000
++++ /usr/lib/python2.5/site-packages/android.py 2009-06-15 00:58:31.000000000 +0000
+@@ -14,7 +14,7 @@
+ 
+ __author__ = 'Damon Kohler <damonkohler@gmail.com>'
+ 
+-import json
++import simplejson as json
+ import os
+ import socket
+ import sys
+@@ -25,7 +25,8 @@
+ class Android(object):
+ 
+   def __init__(self):
+-    self.conn = socket.create_connection(('localhost', PORT))
++    self.conn = socket.socket()
++    self.conn.connect(('localhost', int(PORT)))
+     self.client = self.conn.makefile()
+     self.id = 0
+ 
+EOF
+
+# for using:
+# activate ASE on your phone and then on your computer
+export AP_PORT=$(netstat -napt|sed -n 's/^tcp.*127.0.0.1:\([0-9]*\).*LISTEN.*ase$/\1/gp')
+python
+>>> import android

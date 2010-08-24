@@ -1,0 +1,11 @@
+http://www.mail-archive.com/lxc-devel@lists.sourceforge.net/msg00346.html
+
+buna gore yapsam guzel olur
+http://blog.bodhizazen.net/linux/lxc-configure-debian-lenny-containers/
+
+for lenny system:
+## hahah this is a total fail
+echo 'APT::Default-Release "stable";' > /etc/apt/apt.conf.d/default 
+echo 'deb ftp://ftp.de.debian.org/debian/ squeeze main contrib non-free' >> /etc/apt/sources.list
+sudo aptitude install lxc
+sudo aptitude install linux-image-2.6.32-5-vserver-686

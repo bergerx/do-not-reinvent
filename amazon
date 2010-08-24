@@ -1,0 +1,12 @@
+ec2-modify-instance-attribute --disable-api-termination true $INSTANCE_ID
+ec2-modify-instance-attribute --instance-initiated-shutdown-behavior stop $INSTANCE_ID
+ec2-modify-instance-attribute --block-device-mapping  /dev/sda1=$VOLUME_ID:false $INSTANCE_ID
+ec2-describe-instance-attribute --block-device-mapping -v $INSTANCE_ID
+
+http://alestic.com/2010/01/ec2-instance-locking
+
+
+
+
+cc kapanip acilinca instance'lara nasil ulasacagiz:
+http://community.eucalyptus.com/forum/stop-gaps-until-16-release

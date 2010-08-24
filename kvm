@@ -18,14 +18,17 @@ kvm vdisk.img -m 384
 
 
 
-sudo aptitude install kvm libvirt-bin -R
-sudo aptitude install qemu
+#sudo aptitude install kvm libvirt-bin -R
+#sudo aptitude install qemu
+#sudo aptitude install -R kvm libvirt-bin qemu  virtinst
+#sudo aptitude install bridge-utils
 
+sudo aptitude install -R kvm libvirt-bin qemu virtinst bridge-utils
 
-sudo aptitude install -R kvm libvirt-bin qemu  virtinst
-
-sudo aptitude install bridge-utils
 /etc/network/interfaces
+auto eth0
+iface eth0 inet manual
+
 auto br0
 iface br0 inet static
         # bu kismi eth0 tanimindan aynen kopyalayabilirsiniz
@@ -41,5 +44,5 @@ iface br0 inet static
         bridge_maxage 12
         bridge_stp off
 
-sudo virt-install -n test -r 1000 -vcpus=2 -f /userdata/test.qcow2 -s 10 --network bridge:br0 --vnc --accelerate -v -c /userdata/debian-505-amd64-netinst.iso --os-type=linux --os-variant=debianLenny --hvm
+sudo virt-install --name test --ram 1000 --vcpus 2 --file /userdata/test.qcow2 --file-size 10 --network bridge:br0 --vnc --accelerate --hvm --cdrom /userdata/debian-505-amd64-netinst.iso --os-type linux --os-variant debianLenny 
 

@@ -2,3 +2,9 @@ $ debconf-show --listowners
 $ debconf-show <package_name>
 $ DEBCONF_DEBUG="developer" aptitude install hede
 
+# unattandent installation/update/upgrade
+debconf_frontend="$(echo get debconf/frontend | debconf-communicate | awk '{print $2}')"
+echo set debconf/frontend noninteractive | debconf-communicate
+aptitude install --assume-yes --without-recommends --allow-untrusted package
+echo set debconf/frontend $debconf_frontend | debconf-communicate
+

@@ -1,0 +1,13 @@
+bekir@skycaptain:~$ sudo vserver zortran stop
+
+
+bekir@skycaptain:/vservers$ date;sudo tar zcvSf zortran.tar.gz --numeric-owner --preserve --atime-preserve  /vservers/zortran/ 2>/tmp/err;date
+Thu Apr 15 11:33:44 EEST 2010
+tar: Removing leading `/' from member names
+tar: Removing leading `/' from hard link targets
+Thu Apr 15 11:38:00 EEST 2010
+
+bekir@skycaptain:/vservers$ sudo tar zcSf zortran.tar.gz --numeric-owner --preserve --atime-preserve zortran/
+
+bekir@skycaptain:/vservers$ sudo tar zcvf zortran_etc.tar.gz  /etc/vservers/zortran/
+

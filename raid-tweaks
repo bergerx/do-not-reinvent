@@ -1,0 +1,12 @@
+/proc/sys/dev/raid/{speed_limit_max,speed_limit_min}
+> sysctl dev.raid.speed_limit_min # default 1000 for lenny
+> sysctl dev.raid.speed_limit_max # default 200000 for lenny
+> #sudo sysctl -a | grep raid
+
+> echo 50000 > /proc/sys/dev/raid/speed_limit_min
+> sysctl -w dev.raid.speed_limit_min=50000
+
+If you want to override the defaults you could add these two lines to /etc/sysctl.conf:
+> dev.raid.speed_limit_min = 50000
+> dev.raid.speed_limit_max = 200000
+
