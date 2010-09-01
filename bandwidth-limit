@@ -1,0 +1,4 @@
+keywords: bandwidth tcp limit upload donwload
+
+> trickle -vvv -s  -d 100 -u 10  nc -l -p5000 >/dev/null
+
