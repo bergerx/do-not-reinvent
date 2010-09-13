@@ -2,3 +2,5 @@
 # bunu eklemek gerekiyor
 X11UseLocalhost no
 
+# must be installed on remote machine
+xauth
