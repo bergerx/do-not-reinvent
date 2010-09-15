@@ -1,0 +1,7 @@
+# http://www.logicalwebhost.com/cheatsheet/index.php/Postfix_hacks
+mailq
+postsuper -d ALL # removes all mail in the queue 
+postsuper -d ALL deferred # removes all mail in the deferred queue 
+postqueue -f # attempt to deliver all the mail in the queue 
+postcat -q C95D57032E # see details of that e-mail 
+
