@@ -1,1 +1,32 @@
-exim -qff
+# http://bradthemad.org/tech/notes/exim_cheatsheet.php
+sudo exim4 -bpc # queue count
+sudo exim4 -qff -d9 # force all queue
+sudo exim4 -bpru|awk {'print $3'} | sudo xargs exim4 -Mrm  # clean frozen messages
+sudo exim4 -Mrm <message-id> [<message-id> ... ] # Remove a message
+sudo exim4 -Mf <message-id> [ <message-id> ... ] # Freeze a message
+sudo exim4 -Mt <message-id> [ <message-id> ... ] # Thaw a messag
+sudo exim4 -M <message-id> [ <message-id> ... ] # Deliver a message
+sudo exim4 -Mg <message-id> [ <message-id> ... ] # fail and bounce as "cancelled by administrator" 
+
+sudo exim4 -bpru|awk {'print $3'} | grep frozen | sudo xargs exim4 -Mrm  # clean frozen messages
+sudo exiqgrep -z -i | xargs sudo exim4 -Mrm # Remove all frozen messages
+
+sudo exim4 -bt alias@localdomain.com # Test how exim will route a given address
+sudo exiwhat
+sudo exim4 -bp | sudo exiqsumm # summary of messages in the queue (count, volume, oldest, newest, domain, and totals)
+
+sudo exiqgrep -f [luser]@domain # search "from" in queue
+sudo exiqgrep -r [luser]@domain # search recipient in queue
+sudo exiqgrep -o 86400 # messages older than 1 day in queue
+sudo exiqgrep -y 3600 # messages younger than one hour
+sudo exiqgrep -i [-r|-f] ... # print only messageid
+sudo exiqgrep -c [-r|-f] ... # print only message count
+
+sudo exim4 -Mvh <message-id> # View a message's headers
+sudo exim4 -Mvb <message-id> # View a message's body
+sudo exim4 -Mvl <message-id> # View a message's logs
+sudo exim4 -Mar <message-id> <address> [ <address> ... ] # Add a recipient to a message
+
+To delete all queued messages containing a certain string in the body:
+grep -lr 'a certain string' /var/spool/exim/input/ | sed -e 's/^.*\/\([a-zA-Z0-9-]*\)-[DH]$/\1/g' | xargs exim -Mrm
+
