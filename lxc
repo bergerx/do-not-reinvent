@@ -16,6 +16,7 @@ http://blog.bodhizazen.net/linux/lxc-configure-debian-lenny-containers/
 mkdir /lxc /cgroup
 sudo mount -t cgroup cgroup /cgroup
 sudo brctl addbr br0
+sudo ifconfig br0 up
 sudo brctl setfd  br0 0
 sudo brctl addif br0 eth0
 debootstrap --variant=minbase --arch i386 lenny /lxc/rootfs.lenny
@@ -72,6 +73,7 @@ bekir@lxc:/lxc$
 
 sudo lxc-create -f /lxc/config.lenny -n test1
 sudo lxc-start -n test1
+lxc-ps auxf
 sudo lxc-console -n test1 # Type <Ctrl+a q> to exit the console
 sudo lxc-stop -n test1
 
