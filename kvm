@@ -46,3 +46,12 @@ iface br0 inet static
 
 sudo virt-install --name test --ram 1000 --vcpus 2 --file /userdata/test.qcow2 --file-size 10 --network bridge:br0 --vnc --accelerate --hvm --cdrom /userdata/debian-505-amd64-netinst.iso --os-type linux --os-variant debianLenny 
 
+
+
+
+#enlarging a qcow2
+qemu-img convert -f qcow2 small-img.qcow2 -O raw raw-image.raw
+dd if=/dev/zero of=raw-image.raw bs=1M count=0 seek=[desired-size in M]
+sudo kvm -cdrom gparted-live-0.6.3-3.iso -hda raw-image.raw
+qemu-img convert -f raw raw-image.raw -O qcow2 larger-image.qcow2
+
