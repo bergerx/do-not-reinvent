@@ -1,0 +1,10 @@
+sudo aptitude install smartmontools
+sudo smartctl --all /dev/[sh]d[a-z]
+
+
+# on scsi disks
+sudo smartctl -H -d cciss,0 /dev/cciss/c0d0
+
+
+sudo smartctl -q errorsonly -H -l selftest -d cciss,0 /dev/cciss/c0d0
+
