@@ -1,7 +1,17 @@
 # http://www.logicalwebhost.com/cheatsheet/index.php/Postfix_hacks
 mailq
 postsuper -d ALL # removes all mail in the queue 
+postsuper -d [queue_id]
 postsuper -d ALL deferred # removes all mail in the deferred queue 
 postqueue -f # attempt to deliver all the mail in the queue 
 postcat -q C95D57032E # see details of that e-mail 
 
+
+# http://blog.gtuhl.com/2008/08/14/basic-postfix-queue-management/
+1 - postsuper -h ALL # hold all messages
+2 - mailq | grep theEnemyHostName > bad_messages.txt # look into queue
+3 - postsuper -d - < list_of_queue_ids.txt # delete bad mails from queue
+4 - postsuper -r ALL # requeue all of the remaining mails
+
+
+mailq | awk ‘/theEnemyHostName/ {print $1}’ | postsuper -d -
