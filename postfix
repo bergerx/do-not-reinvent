@@ -14,4 +14,9 @@ postcat -q C95D57032E # see details of that e-mail
 4 - postsuper -r ALL # requeue all of the remaining mails
 
 
-mailq | awk ‘/theEnemyHostName/ {print $1}’ | postsuper -d -
+mailq | awk '/theEnemyHostName/ {print $1}' | postsuper -d -
+
+# one queue item per line 
+mailq | sed ':a;N;$!ba;s/\n\([ (]\)\+/ \1/g' | grep -v '^$'
+mailq | sed ':a;N;$!ba;s/\n\([ (]\)\+/ \1/g' | grep -v '^$' | grep ${expr-theEnemyHostName} | cut -d" " -f1 | cut -d'*' -f1 | sudo postsuper -d -
+

@@ -1,0 +1,242 @@
+disk scsi sas sata ide bencmark
+
+http://www.acnc.com/benchmarks.html
+
+hdparm: hdparm -t -T /dev/sda
+fio: http://freshmeat.net/projects/fio/ http://git.kernel.dk/?p=fio.git;a=summary http://www.linux.com/archive/feature/131063
+bonnie++: http://www.coker.com.au/bonnie++/
+bonnie: http://www.garloff.de/kurt/linux/bonnie/
+seeker: http://www.linuxinsight.com/how_fast_is_your_disk.html with various results in page
+orion: http://www.oracle.com/technetwork/topics/index-089595.html http://www.oracle.com/technetwork/indexes/downloads/index.html
+iozone: http://www.iozone.org/
+iostone: http://archvlsi.ics.forth.gr/html_papers/TR226/node20.html
+iobench: http://dimitrik.free.fr/IObench.html
+unixbench: http://www.tux.org/pub/tux/benchmarks/System/unixbench/
+postmark: http://www.netapp.com/tech_library/3022.html http://www.shub-internet.org/brad/FreeBSD/postmark.html
+
+
+You can find some outputs down:
+
+
+bekir@hede:/tmp22$ sudo hdparm -t -T /dev/sda
+
+/dev/sda:
+ Timing cached reads:   6886 MB in  1.99 seconds = 3459.81 MB/sec
+ Timing buffered disk reads:  192 MB in  3.01 seconds =  63.86 MB/sec
+bekir@hede:/tmp$ 
+
+
+
+
+hede:~# bonnie -u 0:0
+Using uid:0, gid:0.
+Writing with putc()...done
+Writing intelligently...done
+Rewriting...done
+Reading with getc()...done
+Reading intelligently...done
+start 'em...done...done...done...
+Create files in sequential order...done.
+Stat files in sequential order...done.
+Delete files in sequential order...done.
+Create files in random order...done.
+Stat files in random order...done.
+Delete files in random order...done.
+Version 1.03d       ------Sequential Output------ --Sequential Input- --Random-
+                    -Per Chr- --Block-- -Rewrite- -Per Chr- --Block-- --Seeks--
+Machine        Size K/sec %CP K/sec %CP K/sec %CP K/sec %CP K/sec %CP  /sec %CP
+hede         14480M 38651  83 55640  21 31944   8 33730  89 67248   8 322.4   1
+                    ------Sequential Create------ --------Random Create--------
+                    -Create-- --Read--- -Delete-- -Create-- --Read--- -Delete--
+              files  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP  /sec %CP
+                 16 +++++ +++ +++++ +++ +++++ +++ +++++ +++ +++++ +++ +++++ +++
+hede,14480M,38651,83,55640,21,31944,8,33730,89,67248,8,322.4,1,16,+++++,+++,+++++,+++,+++++,+++,+++++,+++,+++++,+++,+++++,+++
+hede:~# 
+
+
+
+$ sudo seeker /dev/hda
+Seeker v2.0, 2007-01-15, http://www.linuxinsight.com/how_fast_is_your_disk.html
+Benchmarking /dev/sda [17501MB], wait 30 seconds..............................
+Results: 167 seeks/second, 5.95 ms random access time
+
+
+
+
+$ cat random-read-test.fio 
+; random read of 128mb of data
+
+[random-read]
+rw=randread
+size=128m
+directory=/tmp/fio-testing/data
+
+$ fio random-read-test.fio
+random-read: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=sync, iodepth=1
+Starting 1 process
+random-read: Laying out IO file(s) (1 file(s) / 128MiB)
+Jobs: 1 (f=1): [r] [100.0% done] [  3588/     0 kb/s] [eta 00m:00s]
+random-read: (groupid=0, jobs=1): err= 0: pid=30598
+  read : io=128MiB, bw=864KiB/s, iops=211, runt=155282msec
+    clat (usec): min=139, max=148K, avg=4736.28, stdev=6001.02
+    bw (KiB/s) : min=  227, max= 5275, per=100.12%, avg=865.00, stdev=362.99
+  cpu          : usr=0.07%, sys=1.27%, ctx=32783, majf=0, minf=10
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     issued r/w: total=32768/0, short=0/0
+     lat (usec): 250=34.92%, 500=0.36%, 750=0.02%, 1000=0.05%
+     lat (msec): 2=0.41%, 4=12.80%, 10=44.96%, 20=5.16%, 50=0.94%
+     lat (msec): 100=0.37%, 250=0.01%
+
+Run status group 0 (all jobs):
+   READ: io=128MiB, aggrb=864KiB/s, minb=864KiB/s, maxb=864KiB/s, mint=155282msec, maxt=155282msec
+
+Disk stats (read/write):
+  dm-6: ios=32768/148, merge=0/0, ticks=154728/12490, in_queue=167218, util=99.59%
+
+
+
+
+$ cat four-threads-randio.fio
+; Four threads, two query, two writers.
+
+[global]
+rw=randread
+size=256m
+directory=/tmp/fio-testing/data
+ioengine=libaio
+iodepth=4
+invalidate=1
+direct=1
+
+[bgwriter]
+rw=randwrite
+iodepth=32
+
+[queryA]
+iodepth=1
+ioengine=mmap
+direct=0
+thinktime=3
+
+[queryB]
+iodepth=1
+ioengine=mmap
+direct=0
+thinktime=5
+
+[bgupdater]
+rw=randrw
+iodepth=16
+thinktime=40
+size=32m
+
+$ fio four-threads-randio.fio
+bgwriter: (g=0): rw=randwrite, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=32
+queryA: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=mmap, iodepth=1
+queryB: (g=0): rw=randread, bs=4K-4K/4K-4K, ioengine=mmap, iodepth=1
+bgupdater: (g=0): rw=randrw, bs=4K-4K/4K-4K, ioengine=libaio, iodepth=16
+Starting 4 processes
+
+bgwriter: (groupid=0, jobs=1): err= 0: pid=3241
+  write: io=256MiB, bw=7,480KiB/s, iops=1,826, runt= 35886msec
+    slat (usec): min=9, max=106K, avg=35.29, stdev=583.45
+    clat (usec): min=117, max=224K, avg=17365.99, stdev=24002.00
+    bw (KiB/s) : min=    0, max=14636, per=72.30%, avg=5746.62, stdev=5225.44
+  cpu          : usr=0.40%, sys=4.13%, ctx=18254, majf=0, minf=9
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.4%, 8=3.3%, 16=59.7%, 32=36.5%, >=64=0.0%
+     issued r/w: total=0/65536, short=0/0
+     lat (usec): 250=0.05%, 500=0.33%, 750=0.70%, 1000=1.11%
+     lat (msec): 2=7.06%, 4=14.91%, 10=27.10%, 20=21.82%, 50=20.32%
+     lat (msec): 100=4.74%, 250=1.86%
+queryA: (groupid=0, jobs=1): err= 0: pid=3242
+  read : io=256MiB, bw=589MiB/s, iops=147K, runt=   445msec
+    clat (usec): min=2, max=165, avg= 3.48, stdev= 2.38
+  cpu          : usr=70.05%, sys=30.41%, ctx=91, majf=0, minf=65545
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     issued r/w: total=65536/0, short=0/0
+     lat (usec): 4=76.20%, 10=22.51%, 20=1.17%, 50=0.05%, 100=0.05%
+     lat (usec): 250=0.01%
+
+queryB: (groupid=0, jobs=1): err= 0: pid=3243
+  read : io=256MiB, bw=455MiB/s, iops=114K, runt=   576msec
+    clat (usec): min=2, max=303, avg= 3.48, stdev= 2.31
+    bw (KiB/s) : min=464158, max=464158, per=1383.48%, avg=464158.00, stdev= 0.00
+  cpu          : usr=73.22%, sys=26.43%, ctx=69, majf=0, minf=65545
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     issued r/w: total=65536/0, short=0/0
+     lat (usec): 4=76.81%, 10=21.61%, 20=1.53%, 50=0.02%, 100=0.03%
+     lat (usec): 250=0.01%, 500=0.01%
+
+bgupdater: (groupid=0, jobs=1): err= 0: pid=3244
+  read : io=16,348KiB, bw=1,014KiB/s, iops=247, runt= 16501msec
+    slat (usec): min=7, max=42,515, avg=47.01, stdev=665.19
+    clat (usec): min=1, max=137K, avg=14215.23, stdev=20611.53
+    bw (KiB/s) : min=    0, max= 1957, per=2.37%, avg=794.90, stdev=495.94
+  write: io=16,420KiB, bw=1,018KiB/s, iops=248, runt= 16501msec
+    slat (usec): min=9, max=42,510, avg=38.73, stdev=663.37
+    clat (usec): min=202, max=229K, avg=49803.02, stdev=34393.32
+    bw (KiB/s) : min=    0, max= 1840, per=10.89%, avg=865.54, stdev=411.66
+  cpu          : usr=0.53%, sys=1.39%, ctx=12089, majf=0, minf=9
+  IO depths    : 1=0.1%, 2=0.1%, 4=0.3%, 8=22.8%, 16=76.8%, 32=0.0%, >=64=0.0%
+     issued r/w: total=4087/4105, short=0/0
+     lat (usec): 2=0.02%, 4=0.04%, 20=0.01%, 50=0.06%, 100=1.44%
+     lat (usec): 250=8.81%, 500=4.24%, 750=2.56%, 1000=1.17%
+     lat (msec): 2=2.36%, 4=2.62%, 10=9.47%, 20=13.57%, 50=29.82%
+     lat (msec): 100=19.07%, 250=4.72%
+
+Run status group 0 (all jobs):
+   READ: io=528MiB, aggrb=33,550KiB/s, minb=1,014KiB/s, maxb=589MiB/s, mint=445msec, maxt=16501msec
+  WRITE: io=272MiB, aggrb=7,948KiB/s, minb=1,018KiB/s, maxb=7,480KiB/s, mint=16501msec, maxt=35886msec
+
+Disk stats (read/write):
+  dm-6: ios=4087/69722, merge=0/0, ticks=58049/1345695, in_queue=1403777, util=99.74%
+
+
+
+
+unixbench: p120-1.3.45-AMD-SCSI.gz
+  BYTE UNIX Benchmarks (Version 4.0 BETA)
+  System -- wssc0
+  Start Benchmark Run: Thu Dec 14 18:08:51 EST 1995
+   1 interactive users.
+    6:08pm  up 4 min,  1 user,  load average: 0.27, 0.13, 0.05
+  lrwxrwxrwx   1 root     root            4 Aug  1 10:21 /bin/sh -> bash
+  /bin/sh: symbolic link to bash
+  /dev/sdb2             277542   75947   185723     29%   /
+Arithmetic Test (type = double)           21272.5 lps   (10 secs, 1 samples)
+Dhrystone 2 using register variables     154609.7 lps   (10 secs, 1 samples)
+Execl Throughput                            198.7 lps   (29 secs, 1 samples)
+File Read 1024 bufsize 2000 maxblocks     18220.0 KBps  (30 secs, 1 samples)
+File Write 1024 bufsize 2000 maxblocks     1733.0 KBps  (30 secs, 1 samples)
+File Copy 1024 bufsize 2000 maxblocks      9199.0 KBps  (30 secs, 1 samples)
+File Read 256 bufsize 500 maxblocks        8931.0 KBps  (30 secs, 1 samples)
+File Write 256 bufsize 500 maxblocks       9100.0 KBps  (30 secs, 1 samples)
+File Copy 256 bufsize 500 maxblocks        4517.0 KBps  (30 secs, 1 samples)
+File Read 4096 bufsize 8000 maxblocks     19612.0 KBps  (30 secs, 1 samples)
+File Write 4096 bufsize 8000 maxblocks     1866.0 KBps  (30 secs, 1 samples)
+File Copy 4096 bufsize 8000 maxblocks      1918.0 KBps  (30 secs, 1 samples)
+Process Creation                            983.4 lps   (30 secs, 1 samples)
+Pipe-based Context Switching              27064.5 lps   (10 secs, 1 samples)
+Pipe Throughput Test                      75191.7 lps   (10 secs, 1 samples)
+Shell Scripts (8 concurrent)                 33.0 lpm   (60 secs, 1 samples)
+System Call Overhead                      93634.8 lps   (10 secs, 1 samples)
+
+
+                     INDEX VALUES            
+TEST                                        BASELINE     RESULT      INDEX
+
+Arithmetic Test (type = double)              29820.0    21272.5        7.1
+Dhrystone 2 using register variables        116700.0   154609.7       13.2
+Execl Throughput                                43.0      198.7       46.2
+File Copy 1024 bufsize 2000 maxblocks         3960.0     9199.0       23.2
+File Copy 256 bufsize 500 maxblocks           1655.0     4517.0       27.3
+File Copy 4096 bufsize 8000 maxblocks         5800.0     1918.0        3.3
+Pipe Throughput Test                         12440.0    75191.7       60.4
+Pipe-based Context Switching                  4000.0    27064.5       67.7
+Process Creation                               126.0      983.4       78.0
+Shell Scripts (8 concurrent)                     6.0       33.0       55.0
+System Call Overhead                         15000.0    93634.8       62.4
+                                                                 =========
+     FINAL SCORE                                                      28.5
+
+

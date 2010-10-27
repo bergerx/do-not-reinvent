@@ -79,4 +79,8 @@ sed -e '1d' -e '$d' -e '/^$/d' thegeekstuff.txt # Delete the first,last and all 
 
 
 
+#### multileine sed http://stackoverflow.com/questions/1251999/sed-how-can-i-replace-a-newline-n
+sed ':a;N;$!ba;s/\n/ /g'
+printf "a\nb\nc\nd\ne\nf" | sed -E -e :a -e '$!N; s/\n/ /g; ta'
 
+perl -i -p -e 's/\n//' file
