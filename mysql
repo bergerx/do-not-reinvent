@@ -1,12 +1,132 @@
-mysql
-> SHOW PROCESSLIST
-> KILL 27
-
-mysqladmin processlist
-mysqladmin kill $id
-
-
+# http://forge.mysql.com/wiki/Top10SQLPerformanceTips
 GRANT ALL PRIVILEGES ON `dbname`.* TO 'username'@'%.bdgn.net' IDENTIFIED BY 'pass';
 UPDATE mysql.user SET Password = PASSWORD('pass') WHERE User = 'username';
 FLUSH PRIVILEGES;
+
+SHOW STATUS; # mysqladmin extended-status
+SHOW VARIABLES; (GLOBAL|SESSION) # mysqladmin variables
+mysql> SHOW PROCESSLIST # mysqladmin processlist
+mysql> KILL 27 # mysqladmin kill 27
+
+SHOW CREATE TABLE tbl\G -- engine, indexes
+SHOW TABLE STATUS LIKE 'tbl'\G -- sizes
+EXPLAIN SELECT ...\G -- clues of inefficiencies
+SHOW VARIABLES LIKE '%buffer%'; -- cache size 
+
+
+##### performance #####
+# http://www.mysqlperformanceblog.com/2006/09/29/what-to-tune-in-mysql-server-after-installation/
+# http://docs.cellblue.nl/2007/03/17/easy-mysql-performance-tweaks/
+max_heap_table_size, default 16Mb
+mysql> SHOW VARIABLES LIKE ‘key%’
+key_buffer_size - important if you use myisam, holds the indexes of tables in memory, Bigger is better, but prevent swapping at all costs. generally 1/4 of system memory.
+sort_buffer_size - used for grouping and sorting and is a per-thread buffer. there is no reason to increase sort_buffer_size even if you have 64GB of memory to waste. Furthermore doing so may decrease performance.
+table_cache - number of tables a thread can keep open at the same time, 1024 is good value for applications with couple hundreds tables (remember each connection needs its own entry) if you have many connections or many tables increase it larger.
+thread_cache - normally set this value to at least 16. If application has large jumps in amount of concurrent connections and I see fast growth of Threads_Created variable I boost it higher. The goal is not to have threads created in normal operation.
+query_cache_size - Generally 32M to 512M.
+query_cache_limit - do not cache queries smaller than this (4MB)
+tmp_table_size - used for sorting and grouping (64MB)
+delay_key_write - be careful, on power failure you fail too
+wait_timeout - ist default is 1 hour, but in practice 1 minute(60) is enough
+
+innodb_buffer_pool_size
+innodb_additional_mem_pool_size
+innodb_log_file_size
+innodb_log_buffer_size
+innodb_flush_log_at_trx_commit
+
+# Use Slow Query Log (always have it on!) 
+# Use SQL_NO_CACHE when you are SELECTing frequently updated data or large sets of data 
+● log_slow_queries=/var/lib/mysql/slowqueries.log
+long_query_time=2
+Use mysqldumpslow
+
+
+# use MERGE tables ARCHIVE tables for logs 
+
+
+
+== replication ==
+#from http://aciddrop.com/2008/01/10/step-by-step-how-to-setup-mysql-database-replication/
+#from http://www.gra2.com/article.php/setting-up-database-replication-on-mysql
+=== master ===
+master-mysql> CREATE USER ‘slave_user’@ ‘X.X.X.X’ IDENTIFIED BY ‘password’; # X.X.X.X is the slave
+master-mysql> GRANT REPLICATION SLAVE ON *.* TO 'slave_user'@'X.X.X.X' IDENTIFIED BY 'your_password';
+master-mysql> FLUSH PRIVILEGES;
+user@master:~$$ vim my.cnf # in [mysqld] section
+ log-bin = /home/mysql/logs/mysql-bin.log
+ binlog-do-db=my_database
+ server-id=1
+ #You should also make sure skip-networking has not been enabled.
+ # If you use innodb add the next lines
+ innodb_flush_log_at_trx_commit=1
+ sync_binlog=1
+user@master:~$ /etc/rc.d/init.d/mysqld restart
+=== slave ===
+user@slave:~$ vim my.cnf # in [mysqld] section
+ server-id=2
+ master-host=128.0.0.1
+ master-connect-retry=60
+ master-user=slave_user
+ master-password=slave_password
+ replicate-do-db=my_database
+ 
+ relay-log = /var/lib/mysql/slave-relay.log
+ relay-log-index = /var/lib/mysql/slave-relay-log.index
+ #You should also make sure skip-networking has not been enabled.
+user@slave:~$ /etc/rc.d/init.d/mysqld restart
+
+=== get data to slave ===
+master-mysql> FLUSH TABLES WITH READ LOCK; -- Don't close the mysql client
+ Query OK, 0 rows affected (0.00 sec)
+master-mysql> show master status\G;
+ *************************** 1. row ***************************
+ File: mysql-bin.00002
+ Position: 230
+ Binlog_Do_DB: database_to_be_replicated
+ Binlog_Ignore_DB:
+ 
+ 1 row in set (0.00 sec)
+user@master:~$ mysqldump my_database -u root -p > /home/user/database.sql;
+user@slave:~$ scp root@128.0.0.1:/home/user/database.sql.gz /home/user/
+slave-mysql> CREATE DATABASE `my_database`;
+user@slave:~$ mysql -u root -p my_database  </home/user/database.sql
+
+=== start ===
+master-mysql> SHOW MASTER STATUS;
+ +---------------------+----------+-------------------------------+------------------+
+ | File                | Position | Binlog_Do_DB                  | Binlog_Ignore_DB |
+ +---------------------+----------+-------------------------------+------------------+
+ | mysql-bin.000001    | 21197930 | my_database,my_database       |                  |
+ +---------------------+----------+-------------------------------+------------------+
+slave-mysql> slave stop;
+ Query OK, 0 rows affected (0.00 sec)
+slave-mysql> CHANGE MASTER TO
++> MASTER_HOST='128.0.0.1',
++> MASTER_USER='slave_user',
++> MASTER_PASSWORD='slave_password',
++> MASTER_LOG_FILE='mysql-bin.000001',
++> MASTER_LOG_POS=21197930,
++> MASTER_CONNECT_RETRY=10;
+ Query OK, 0 rows affected (0.01 sec)
+slave-mysql> slave start;
+ Query OK, 0 rows affected (0.01 sec)
+slave-mysql> show slave status\G;
+ ... #  these twu must be "Yes"
+ Slave_IO_Running: Yes
+ Slave_SQL_Running: Yes
+ ...
+ # If you have Slave_IO_Running set to No, you haven't probably locked correctly the database prior to dumping it. You will have to repeat the dumping process locking correctly the database.
+master-mysql> unlock tables; -- if you previously ran FLUSH TABLES WITH READ LOCK;
+slave-mysql> show processlist;
+master-mysql> show processlist;
+
+== recovery ==
+user@slave:~$ rm /var/lib/mysql/*relay*
+user@slave:~$ rm /var/lib/mysql/master.info
+user@master:~$ rm -f /home/mysql/logs/*
+# re-get data to slave
+
+
+
 

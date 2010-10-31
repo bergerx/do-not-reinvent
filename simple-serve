@@ -1,4 +1,3 @@
 #!/bin/bash
 python -m SimpleHTTPServer
-python -m smtpd -n -c DebuggingServer localhost 1025
-
+python -m smtpd -n -d -c DebuggingServer -h
