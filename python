@@ -1,0 +1,92 @@
+# from http://pycon.blip.tv/file/3261277
+winpdb - debug
+code.interact - import code; code.interact(local=locals())
+pdb - import pdb; pdb.set_trace()
+ipython -
+ from IPython.shell import IPShellEmbed
+ shell = IPShellEmbed()
+ shell()
+pycharm - django avare ide
+scrape.py - parse html file http://scrapy.org/
+paramiko - ssh connections
+lxml - libxml2 and libxslt
+
+
+
+
+http://docs.python.org/library/subprocess.html#subprocess-replacements
+import subprocess
+from subprocessimport call, PIPE, STDOUT
+retcode = call(["ls", "-l"])
+output = subprocess.check_output(["/bin/ls", stderr=STDOUT) # in version 2.7
+--------------------------------------------------------------------------------
+sh: output=`mycmd myarg`
+==>
+output = Popen(["mycmd", "myarg"], stdout=PIPE).communicate()[0]
+--------------------------------------------------------------------------------
+sh: output=`dmesg | grep hda`
+==>
+p1 = Popen(["dmesg"], stdout=PIPE)
+p2 = Popen(["grep", "hda"], stdin=p1.stdout, stdout=PIPE)
+output = p2.communicate()[0]
+--------------------------------------------------------------------------------
+sts = os.system("mycmd" + " myarg")
+==>
+p = Popen("mycmd" + " myarg", shell=True)
+sts = os.waitpid(p.pid, 0)[1]
+--------------------------------------------------------------------------------
+(child_stdout, child_stdin) = popen2.popen2("somestring", bufsize, mode)
+==>
+p = Popen(["somestring"], shell=True, bufsize=bufsize, stdin=PIPE, stdout=PIPE, close_fds=True)
+(child_stdout, child_stdin) = (p.stdout, p.stdin)
+--------------------------------------------------------------------------------
+pid = os.spawnlp(os.P_NOWAIT, "/bin/mycmd", "mycmd", "myarg")
+==>
+pid = Popen(["/bin/mycmd", "myarg"]).pid
+--------------------------------------------------------------------------------
+retcode = os.spawnlp(os.P_WAIT, "/bin/mycmd", "mycmd", "myarg")
+==>
+retcode = call(["/bin/mycmd", "myarg"])
+--------------------------------------------------------------------------------
+s.spawnvp(os.P_NOWAIT, path, args)
+==>
+Popen([path] + args[1:])
+--------------------------------------------------------------------------------
+os.spawnlpe(os.P_NOWAIT, "/bin/mycmd", "mycmd", "myarg", env)
+==>
+Popen(["/bin/mycmd", "myarg"], env={"PATH": "/usr/bin"})
+--------------------------------------------------------------------------------
+pipe = os.popen("cmd", 'r', bufsize)
+==>
+pipe = Popen("cmd", shell=True, bufsize=bufsize, stdout=PIPE).stdout
+--------------------------------------------------------------------------------
+pipe = os.popen("cmd", 'w', bufsize)
+==>
+pipe = Popen("cmd", shell=True, bufsize=bufsize, stdin=PIPE).stdin
+--------------------------------------------------------------------------------
+(child_stdin, child_stdout) = os.popen2("cmd", mode, bufsize)
+==>
+p = Popen("cmd", shell=True, bufsize=bufsize, stdin=PIPE, stdout=PIPE, close_fds=True)
+(child_stdin, child_stdout) = (p.stdin, p.stdout)
+--------------------------------------------------------------------------------
+(child_stdin, child_stdout, child_stderr) = os.popen3("cmd", mode, bufsize)
+==>
+p = Popen("cmd", shell=True, bufsize=bufsize, stdin=PIPE, stdout=PIPE, stderr=PIPE, close_fds=True)
+(child_stdin, child_stdout, child_stderr) = (p.stdin, p.stdout, p.stderr)
+--------------------------------------------------------------------------------
+(child_stdin, child_stdout_and_stderr) = os.popen4("cmd", mode, bufsize)
+==>
+p = Popen("cmd", shell=True, bufsize=bufsize, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
+(child_stdin, child_stdout_and_stderr) = (p.stdin, p.stdout)
+--------------------------------------------------------------------------------
+(child_stdin, child_stdout) = os.popen2(["/bin/ls", "-l"], mode, bufsize)
+==>
+p = Popen(["/bin/ls", "-l"], bufsize=bufsize, stdin=PIPE, stdout=PIPE)
+(child_stdin, child_stdout) = (p.stdin, p.stdout)
+--------------------------------------------------------------------------------
+(child_stdout, child_stdin) = popen2.popen2("somestring", bufsize, mode)
+==>
+p = Popen(["somestring"], shell=True, bufsize=bufsize, stdin=PIPE, stdout=PIPE, close_fds=True)
+(child_stdout, child_stdin) = (p.stdout, p.stdin)
+--------------------------------------------------------------------------------
+

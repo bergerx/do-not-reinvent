@@ -55,3 +55,10 @@ dd if=/dev/zero of=raw-image.raw bs=1M count=0 seek=[desired-size in M]
 sudo kvm -cdrom gparted-live-0.6.3-3.iso -hda raw-image.raw
 qemu-img convert -f raw raw-image.raw -O qcow2 larger-image.qcow2
 
+
+
+
+#hvm flags
+egrep '^flags.*(vmx|svm)' /proc/cpuinfo
+grep flags /proc/cpuinfo | egrep --color 'vmx|svm'
+

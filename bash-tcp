@@ -1,0 +1,7 @@
+# fully internal bash commands - but cat is not en internal
+function h {
+	exec 3<>/dev/tcp/bdgn.net/80
+	echo -e "GET / HTTP/1.1\r\nHost: bdgn.net\r\n\r\n" >&3
+	cat <&3
+}
+

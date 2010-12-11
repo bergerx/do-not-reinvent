@@ -1,0 +1,4 @@
+#disable in debian:
+vi /etc/modprobe.d/00local
+alias net-pfp-10 off
+alias ipv6 off

@@ -1,0 +1,3 @@
+# tidy - prettify
+tidy -xml -i -m [file]
+xmllint --format

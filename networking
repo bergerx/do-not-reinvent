@@ -1,0 +1,257 @@
+sudo hping3 -S -p 80 bdgn.net
+ping -c10 bdgn.net
+fping bdgn.net
+fping -c1 -sdg 192.168.2.0/28 # -s=summary -g=address-range
+sudo nmap -sP 192.168.2.* # faster than fping
+sudo nmap -sS -O 192.168.2.* # os probe
+sudo arping -c5 -D 192.168.2.1 # find duplicate ip addresses (cakisma)
+httping -c4 -g http://bdgn.net # HEAD response time
+httping -c4 -Gg http://bdgn.net # GET responce time 
+httping -c4 -lGg https://www.cisco.com/ # -l -> secure pages
+httping -c4 -slGg https://www.cisco.com/ # -s -> also show return codes
+traceroute
+mtr -r -c2 bdgn.net
+sudo tcptraceroute bdgn.net
+
+
+bekir@hede:/tmp$ sudo hping3 -S -p 80 bdgn.net
+HPING bdgn.net (ath0 72.9.228.144): S set, 40 headers + 0 data bytes
+len=44 ip=72.9.228.144 ttl=54 DF id=0 sport=80 flags=SA seq=0 win=5840 rtt=156.8 ms
+len=44 ip=72.9.228.144 ttl=54 DF id=0 sport=80 flags=SA seq=1 win=5840 rtt=153.8 ms
+len=44 ip=72.9.228.144 ttl=54 DF id=0 sport=80 flags=SA seq=2 win=5840 rtt=157.7 ms
+len=44 ip=72.9.228.144 ttl=54 DF id=0 sport=80 flags=SA seq=3 win=5840 rtt=153.8 ms
+^C
+--- bdgn.net hping statistic ---
+5 packets transmitted, 4 packets received, 20% packet loss
+round-trip min/avg/max = 153.8/155.5/157.7 ms
+bekir@hede:/tmp$ 
+
+
+
+bekir@hede:/tmp$ ping -c10 bdgn.net
+PING bdgn.net (72.9.228.144) 56(84) bytes of data.
+64 bytes from bdgn.net (72.9.228.144): icmp_req=1 ttl=54 time=158 ms
+64 bytes from bdgn.net (72.9.228.144): icmp_req=2 ttl=54 time=158 ms
+64 bytes from bdgn.net (72.9.228.144): icmp_req=3 ttl=54 time=159 ms
+64 bytes from bdgn.net (72.9.228.144): icmp_req=4 ttl=54 time=157 ms
+64 bytes from bdgn.net (72.9.228.144): icmp_req=5 ttl=54 time=157 ms
+64 bytes from bdgn.net (72.9.228.144): icmp_req=6 ttl=54 time=158 ms
+64 bytes from bdgn.net (72.9.228.144): icmp_req=7 ttl=54 time=158 ms
+64 bytes from bdgn.net (72.9.228.144): icmp_req=8 ttl=54 time=160 ms
+64 bytes from bdgn.net (72.9.228.144): icmp_req=9 ttl=54 time=161 ms
+64 bytes from bdgn.net (72.9.228.144): icmp_req=10 ttl=54 time=157 ms
+
+--- bdgn.net ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 9011ms
+rtt min/avg/max/mdev = 157.460/158.781/161.626/1.425 ms
+bekir@hede:/tmp$ 
+
+
+bekir@hede:/tmp$ fping bdgn.net
+bdgn.net is alive
+bekir@hede:/tmp$ 
+
+
+bekir@hede:/tmp$ fping -c1 -sdg 192.168.2.0/28
+192.168.2.4  : [0], 84 bytes, 0.05 ms (0.05 avg, 0% loss)
+192.168.2.1  : [0], 84 bytes, 2.19 ms (2.19 avg, 0% loss)
+
+192.168.2.0  : xmt/rcv/%loss = 0/0/0%
+192.168.2.1  : xmt/rcv/%loss = 1/1/0%, min/avg/max = 2.19/2.19/2.19
+192.168.2.2  : xmt/rcv/%loss = 1/0/100%
+192.168.2.3  : xmt/rcv/%loss = 1/0/100%
+192.168.2.4  : xmt/rcv/%loss = 1/1/0%, min/avg/max = 0.05/0.05/0.05
+192.168.2.5  : xmt/rcv/%loss = 1/0/100%
+192.168.2.6  : xmt/rcv/%loss = 1/0/100%
+192.168.2.7  : xmt/rcv/%loss = 1/0/100%
+192.168.2.8  : xmt/rcv/%loss = 1/0/100%
+192.168.2.9  : xmt/rcv/%loss = 1/0/100%
+192.168.2.10 : xmt/rcv/%loss = 1/0/100%
+192.168.2.11 : xmt/rcv/%loss = 1/0/100%
+192.168.2.12 : xmt/rcv/%loss = 1/0/100%
+192.168.2.13 : xmt/rcv/%loss = 1/0/100%
+192.168.2.14 : xmt/rcv/%loss = 1/0/100%
+192.168.2.15 : xmt/rcv/%loss = 1/0/100%
+
+      16 targets
+       2 alive
+      15 unreachable
+       0 unknown addresses
+
+       0 timeouts (waiting for response)
+      15 ICMP Echos sent
+       2 ICMP Echo Replies received
+       0 other ICMP received
+
+ 0.05 ms (min round trip time)
+ 1.12 ms (avg round trip time)
+ 2.19 ms (max round trip time)
+        0.955 sec (elapsed real time)
+
+bekir@hede:/tmp1$ 
+
+
+
+
+
+
+bekir@hede:/tmp$ sudo nmap -sP 192.168.2.*
+
+Starting Nmap 5.00 ( http://nmap.org ) at 2010-11-01 09:22 EET
+Host 192.168.2.1 is up (0.0057s latency).
+MAC Address: 00:1C:A8:4A:B8:74 (AirTies Wireless Networks)
+Host 192.168.2.4 is up.
+Host 192.168.2.8 is up (0.35s latency).
+MAC Address: F4:0B:93:B1:8B:E4 (Unknown)
+Nmap done: 256 IP addresses (3 hosts up) scanned in 37.89 seconds
+bekir@hede:/tmp$ 
+
+
+
+
+
+
+bekir@hede:/tmp1$ sudo nmap -sS -O 192.168.2.*
+
+Starting Nmap 5.00 ( http://nmap.org ) at 2010-11-01 09:21 EET
+Interesting ports on 192.168.2.1:
+Not shown: 995 closed ports
+PORT     STATE SERVICE
+21/tcp   open  ftp
+22/tcp   open  ssh
+23/tcp   open  telnet
+80/tcp   open  http
+1050/tcp open  java-or-OTGfileshare
+MAC Address: 00:1C:A8:4A:B8:74 (AirTies Wireless Networks)
+Device type: general purpose
+Running: MontaVista Linux 2.4.X
+OS details: MontaVista embedded Linux 2.4.17
+Network Distance: 1 hop
+
+Interesting ports on 192.168.2.4:
+Not shown: 998 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+5901/tcp open  vnc-1
+Device type: general purpose
+Running: Linux 2.6.X
+OS details: Linux 2.6.17 - 2.6.28
+Network Distance: 0 hops
+
+All 1000 scanned ports on 192.168.2.8 are closed
+MAC Address: F4:0B:93:B1:8B:E4 (Unknown)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: power-device|general purpose|print server|printer|specialized|webcam
+Running (JUST GUESSING) : APC AOS 2.X (96%), Bluebird SuperDOS (96%), Brother embedded (96%), Digi NET+OS 7 (96%), DVTel embedded (96%), Lexmark embedded (96%), MGE embedded (96%), Phar Lap ETS 13 (96%)
+Aggressive OS guesses: APC AP9606 Network Management Card (AOS 2.5.4 - 3.2.6) (96%), APC MasterSwitch power distribution unit (AOS 3.0.3) (96%), Bluebird SuperDOS (96%), Brother NC-3100h print server (96%), Brother DCP-540CN printer (96%), Brother DCP-8045D printer (96%), Brother HL-1270N printer (96%), Brother HL-2070N printer (96%), Brother HL-5070N printer (96%), Brother HL-5170DN printer (96%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 1 hop
+
+OS detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+Nmap done: 256 IP addresses (3 hosts up) scanned in 46.31 seconds
+bekir@hede:/tmp$ 
+
+
+
+
+
+bekir@hede:/tmp$ sudo arping -c5 -D 192.168.2.1
+!!!!!	  0% packet loss
+bekir@hede:/tmp$ sudo arping -c5 -D 192.168.2.2
+.....	100% packet loss
+bekir@hede:/tmp$ 
+
+
+
+
+
+bekir@hede:/tmp$ httping -c4 -g http://bdgn.net
+PING bdgn.net:80 (http://bdgn.net):
+connected to bdgn.net:80, seq=0 time=2093.74 ms 
+connected to bdgn.net:80, seq=1 time=326.44 ms 
+connected to bdgn.net:80, seq=2 time=324.35 ms 
+connected to bdgn.net:80, seq=3 time=322.29 ms 
+--- http://bdgn.net ping statistics ---
+4 connects, 4 ok, 0.00% failed
+round-trip min/avg/max = 322.3/766.7/2093.7 ms
+bekir@hede:/tmp$ httping -c4 -Gg http://bdgn.net
+PING bdgn.net:80 (http://bdgn.net):
+connected to bdgn.net:80, seq=0 time=553.06 ms 
+connected to bdgn.net:80, seq=1 time=1497.52 ms 
+connected to bdgn.net:80, seq=2 time=535.24 ms 
+connected to bdgn.net:80, seq=3 time=541.40 ms 
+--- http://bdgn.net ping statistics ---
+4 connects, 4 ok, 0.00% failed
+round-trip min/avg/max = 535.2/781.8/1497.5 ms
+bekir@hede:/tmp1$ httping -c4 -lGg https://www.cisco.com/
+PING www.cisco.com:443 (https://www.cisco.com/):
+error shutting down ssl
+connected to www.cisco.com:443, seq=0 time=831.65 ms 
+error shutting down ssl
+connected to www.cisco.com:443, seq=1 time=841.17 ms 
+error shutting down ssl
+connected to www.cisco.com:443, seq=2 time=854.55 ms 
+error shutting down ssl
+connected to www.cisco.com:443, seq=3 time=819.97 ms 
+--- https://www.cisco.com/ ping statistics ---
+4 connects, 4 ok, 0.00% failed
+round-trip min/avg/max = 820.0/836.8/854.6 ms
+bekir@hede:/tmp$ httping -c4 -slGg https://www.cisco.com/
+PING www.cisco.com:443 (https://www.cisco.com/):
+error shutting down ssl
+connected to www.cisco.com:443, seq=0 time=816.53 ms 200 OK
+error shutting down ssl
+connected to www.cisco.com:443, seq=1 time=867.05 ms 200 OK
+error shutting down ssl
+connected to www.cisco.com:443, seq=2 time=828.60 ms 200 OK
+error shutting down ssl
+connected to www.cisco.com:443, seq=3 time=827.19 ms 200 OK
+--- https://www.cisco.com/ ping statistics ---
+4 connects, 4 ok, 0.00% failed
+round-trip min/avg/max = 816.5/834.8/867.1 ms
+bekir@hede:/tmp$ 
+
+
+
+
+
+bekir@hede:/tmp2$ sudo tcptraceroute bdgn.net
+traceroute to bdgn.net (72.9.228.144), 30 hops max, 60 byte packets
+ 1  192.168.2.1 (192.168.2.1)  6.835 ms  7.272 ms  8.548 ms
+ 2  88.239.132.1 (88.239.132.1)  93.367 ms  94.458 ms  98.499 ms
+ 3  * * *
+ 4  81.212.30.193 (81.212.30.193)  98.948 ms  101.337 ms  101.805 ms
+ 5  static.turktelekom.com.tr (212.156.103.33)  119.011 ms  120.711 ms  125.128 ms
+ 6  xe-3-0-0.cr1.lhr1.uk.nlayer.net (195.66.226.37)  129.435 ms  66.029 ms  71.138 ms
+ 7  xe-7-2-0.cr1.nyc2.us.nlayer.net (69.22.142.62)  145.054 ms  136.653 ms  141.586 ms
+ 8  * * *
+ 9  * * *
+10  as3595.xe-2-0-5-101.ar1.atl1.us.nlayer.net (69.31.135.42)  194.480 ms  200.689 ms  204.285 ms
+11  l3-atl-12-g0-1.gnax.net (63.247.69.182)  211.029 ms  200.780 ms  155.433 ms
+12  72.9.251.141 (72.9.251.141)  157.486 ms  156.290 ms  157.057 ms
+13  72.9.242.101 (72.9.242.101)  157.718 ms  155.797 ms  157.189 ms
+14  bdgn.net (72.9.228.144)  156.460 ms  159.211 ms  157.924 ms
+bekir@hede:/tmp$ 
+
+
+
+
+bekir@hede:/tmp$ mtr -r -c2 bdgn.net
+HOST: hede                        Loss%   Snt   Last   Avg  Best  Wrst StDev
+  1. 192.168.2.1                   0.0%     2    2.0   2.9   2.0   3.8   1.3
+  2. 88.239.132.1                  0.0%     2   15.1  13.9  12.8  15.1   1.6
+  3. 81.212.78.17                 50.0%     2   12.3  12.3  12.3  12.3   0.0
+  4. ???                          100.0     2    0.0   0.0   0.0   0.0   0.0
+  5. static.turktelekom.com.tr     0.0%     2   67.4  67.4  67.4  67.5   0.1
+  6. xe-3-0-0.cr1.lhr1.uk.nlayer.  0.0%     2   68.3  67.5  66.7  68.3   1.1
+  7. xe-7-2-0.cr1.nyc2.us.nlayer.  0.0%     2  135.7 136.4 135.7 137.1   1.0
+  8. xe-4-3-1.cr1.atl1.us.nlayer.  0.0%     2  154.3 153.8 153.4 154.3   0.6
+  9. ae1-40g.ar1.atl1.us.nlayer.n  0.0%     2  154.2 153.7 153.2 154.2   0.7
+ 10. as3595.xe-2-0-5-101.ar1.atl1  0.0%     2  196.4 194.6 192.9 196.4   2.5
+ 11. l3-atl-12-g0-1.gnax.net       0.0%     2  155.1 155.7 155.1 156.2   0.8
+ 12. 72.9.251.141                  0.0%     2  157.2 156.6 156.1 157.2   0.8
+ 13. 72.9.242.101                 50.0%     2  157.6 157.6 157.6 157.6   0.0
+ 14. bdgn.net                     50.0%     2  157.7 157.7 157.7 157.7   0.0
+bekir@hede:/tmp$ 
+
+
