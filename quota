@@ -1,0 +1,94 @@
+== summary ==
+sudo vi /etc/fstab
+sudo mount -o remount /mnt/disk/
+sudo quotacheck -vagum
+sudo quotaon -avug
+sudo repquota /mnt/disk/
+sudo quotatool -u bekir -b -l 10G /mnt/disk/
+#sudo setquota -u bekir 0 10000000 0 0 0 /mnt/disk/ # 10G
+sudo repquota -sa
+
+== with outputs ==
+bekir@hede:~$ cat /etc/fstab 
+...
+/dev/md3        /mnt/disk      ext3    defaults,usrquota        0       2
+...
+bekir@hede:~$ sudo mount -o remount /mnt/disk/
+bekir@hede:~$ mount
+...
+/dev/md3 on /mnt/disk type ext3 (rw,usrquota)
+...
+bekir@hede:~$ sudo repquota /mnt/disk/
+repquota: Quota file not found or has wrong format.
+repquota: Not all specified mountpoints are using quota.
+bekir@hede:~$ sudo  quotacheck -vagum
+quotacheck: Your kernel probably supports journaled quota but you are not using it. Consider switching to journaled quota to avoid running quotacheck after an unclean shutdown.
+quotacheck: Scanning /dev/md3 [/mnt/disk] 
+done 
+quotacheck: Cannot stat old user quota file: No such file or directory
+quotacheck: Old group file not found. Usage will not be substracted.
+quotacheck: Checked 77426 directories and 275055 files
+quotacheck: Old file not found.
+bekir@hede:~$ 
+bekir@hede:~$ sudo quotaon -avug
+/dev/md3 [/mnt/disk]: user quotas turned on
+bekir@hede:~$ 
+bekir@hede:~$ sudo  repquota /mnt/disk/
+*** Report for user quotas on device /dev/md3
+Block grace time: 7days; Inode grace time: 7days
+                        Block limits                File limits
+User            used    soft    hard  grace    used  soft  hard  grace
+----------------------------------------------------------------------
+root      --  202380       0       0              8     0     0       
+bekir     --    7788       0       0            360     0     0       
+dincer    --      28       0       0              7     0     0       
+ahmet     --    1060       0       0             72     0     0       
+#1152     -- 1054080       0       0            797     0     0       
+#1218     --  876344       0       0          14805     0     0       
+#1186     -- 1338276       0       0          57395     0     0       
+#1187     --  568156       0       0          10546     0     0       
+#1059     --   32436       0       0            474     0     0       
+#1193     -- 6538912       0       0         102954     0     0       
+#1095     --  700956       0       0          12917     0     0       
+#1200     --  670140       0       0          10964     0     0       
+#1201     --   17876       0       0            345     0     0       
+#1203     -- 2469468       0       0          79286     0     0       
+#1207     --  367076       0       0           7438     0     0       
+#1208     --   12876       0       0            276     0     0       
+#1211     --  699592       0       0          12193     0     0       
+#1212     -- 1395348       0       0          40772     0     0       
+#1213     --   10532       0       0            412     0     0       
+#1216     --   25992       0       0            459     0     0       
+
+
+bekir@hede:/mnt/disk/home$ sudo bash -c 'cd /mnt/disk/home; LC_ALL=C /bin/ls -n | while read a b uid gid c d e f user ; do [ -z "$uid" ] || echo "$uid 0 10000000 0 0"; done | /usr/sbin/setquota -b /mnt/disk'
+bekir@hede:/mnt/disk/home$ sudo  repquota -sa
+*** Report for user quotas on device /dev/md3
+Block grace time: 7days; Inode grace time: 7days
+                        Block limits                File limits
+User            used    soft    hard  grace    used  soft  hard  grace
+----------------------------------------------------------------------
+root      --    198M       0       0              8     0     0       
+bekir     --    7788       0   9766M            360     0     0       
+dincer    --      28       0   9766M              7     0     0       
+ahmet     --    1060       0   9766M             72     0     0       
+#1152     --   1030M       0   9766M            797     0     0       
+#1218     --    856M       0   9766M          14805     0     0       
+#1186     --   1308M       0   9766M          57313     0     0       
+#1187     --    555M       0   9766M          10546     0     0       
+#1059     --   32436       0   9766M            474     0     0       
+#1193     --   6386M       0   9766M           103k     0     0       
+#1095     --    685M       0   9766M          12917     0     0       
+#1200     --    655M       0   9766M          10964     0     0       
+#1201     --   17876       0   9766M            345     0     0       
+#1203     --   2412M       0   9766M          79277     0     0       
+#1207     --    359M       0   9766M           7438     0     0       
+#1208     --   12876       0   9766M            276     0     0       
+#1211     --    684M       0   9766M          12193     0     0       
+#1212     --   1363M       0   9766M          40772     0     0       
+#1213     --   10532       0   9766M            412     0     0       
+#1216     --   25992       0   9766M            459     0     0       
+
+
+bekir@hede:/mnt/disk/home$ 
+
