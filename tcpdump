@@ -1,0 +1,13 @@
+tcpdump eth1 tcp port 6881
+tcpdump -i eth1 tcp port 6881 or udp \( 33210 or 33220 \)
+
+tcpdump -s 1550 dst 10.168.28.22 and tcp port 22
+tcpdump tcp portrange 20-24
+
+
+me=$(echo $SSH_CONNECTION | cut -d' ' -f1); sudo tcpdump -n -vvv "not dst $me and not src $me and not tcp port 25 and not tcp port 53 and not udp port 53 and not tcp port 587 and not tcp port 636 and not tcp port 8140 and not tcp port  5667 and not tcp port 514 and not udp port 514 and not arp"
+
+
+alitori
+me=$(echo $SSH_CONNECTION | cut -d' ' -f1); sudo tcpdump -n -vvv "not dst $me and not src $me and not tcp port 25 and not tcp port 53 and not udp port 53 and not tcp port 587 and not tcp port 636 and not tcp port 8140 and not tcp port  5667 and not tcp port 514 and not udp port 514 and ( src 195.226.196.80  or dst 195.226.196.80 )"
+

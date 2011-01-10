@@ -1,0 +1,16 @@
+#http://ubuntuforums.org/showthread.php?t=1309072
+svn checkout http://svn.madwifi-project.org/madwifi/trunk/ madwifi-ng
+cd madwifi-ng
+sudo su -c 'echo blacklist ath9k >> /etc/modprobe.d/blacklist.conf'
+sudo su -c 'echo blacklist ath5k >> /etc/modprobe.d/blacklist.conf'
+sudo su -c 'echo ath_pci >> /etc/modules'
+sudo cat >> /etc/sysctl.conf <<EOS
+dev.wifi0.ledpin=1
+dev.wifi0.softled=1
+EOS
+# make sure to switch to rigth kernel before running
+bekir@hede:.../madwifi-ng$ sudo make && sudo make install
+# or
+bekir@hede:.../madwifi-ng$ sudo make KERNELPATH=/usr/src/linux-headers-2.6.32-5-686 && sudo make KERNELPATH=/usr/src/linux-headers-2.6.32-5-686 install
+
+

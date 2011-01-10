@@ -62,3 +62,16 @@ qemu-img convert -f raw raw-image.raw -O qcow2 larger-image.qcow2
 egrep '^flags.*(vmx|svm)' /proc/cpuinfo
 grep flags /proc/cpuinfo | egrep --color 'vmx|svm'
 
+
+
+
+# for windows 
+http://www.spinics.net/linux/lists/kvm-devel/msg05813.html
+# The Installation went through without any errors and I was able to boot the  
+# installed Windows with the  -no-kvm switch.
+
+# install win # 512MB ram may not be enaugh
+qemu-system-x86_64 -no-kvm -hda xp.img -cdrom /iso/xp.iso -boot d -m 1000
+# run win
+qemu-system-x86_64 xp.img -no-acpi -usb -usbdevice tablet -monitor stdio -m 512 -net nic,vlan=0 -net tap,vlan=0,ifname=tap0,script=/etc/qemu-ifup
+

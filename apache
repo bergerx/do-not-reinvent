@@ -1,0 +1,60 @@
+ldap apache auth
+
+# using pam module
+<IfModule mod_userdir.c>
+        UserDir public_html
+        UserDir disabled root
+
+        <Directory /home/*/public_html>
+            AllowOverride FileInfo Options
+            Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec
+
+            AuthType Basic
+            AuthPAM_Enabled on
+            AuthBasicAuthoritative Off
+            AuthUserFile /dev/null
+            AuthName "host login"
+            require valid-user
+
+            <Limit GET POST OPTIONS PROPFIND>
+                Order allow,deny
+                Allow from all
+            </Limit>
+            <Limit PUT DELETE PATCH PROPPATCH MKCOL COPY MOVE LOCK UNLOCK>
+                Order deny,allow
+                Deny from all
+            </Limit>
+
+        </Directory>
+</IfModule>
+
+# second way 
+AuthName "bdgn ldap"
+AuthType Basic
+AuthBasicProvider ldap
+AuthLDAPBindDN uid=binduser,ou=bdgn
+AuthLDAPBindPassword binderpass
+AuthLDAPURL "ldaps://dir1.bdgn.net dir2.bdgn.net/ou=users,o=bdgn?uid?one"
+AuthLDAPGroupAttributeIsDN on
+Require ldap-group cn=system_all,ou=system,ou=webaccess,o=bdgn # which includes member
+#maybe
+Require ldap-attribute host=hostname
+
+#permanent redirect
+<VirtualHost *:80>
+        ServerName bekirdogan.net
+        ServerAlias *.bekirdogan.net
+        ServerAdmin bekirdo@gmail.com
+        Redirect permanent / http://bdgn.net/
+</VirtualHost>
+
+#reverse proxy
+<VirtualHost web-listen:80>
+        ServerName c.bdgn.com
+        ServerAlias conf.bdgn.com
+        ServerAlias config.bdgn.com
+        RewriteEngine on
+        RewriteCond     %{HTTPS}        ^off$
+        RewriteRule     ^(.*)$  https://%{HTTP_HOST}$1  [NE,R]
+</VirtualHost>
+

@@ -1,0 +1,8 @@
+
+# save a select result as csv file
+echo ".mode csv
+.headers on
+.output output.csv
+select id as trac_id,type,datetime(time,'unixepoch') as time,datetime(changetime,'unixepoch') as changetime,component,severity,priority,owner,reporter,cc,version,milestone,status,resolution,summary,description,keywords from ticket;
+.quit" | sqlite3 hede.db
+

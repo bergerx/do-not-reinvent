@@ -130,3 +130,8 @@ user@master:~$ rm -f /home/mysql/logs/*
 
 
 
+== create database ==
+create database `dbname` character set 'utf8' COLLATE 'utf8_turkish_ci';
+GRANT ALL PRIVILEGES ON `dbname`.* TO 'username'@'%.bdgn.net' IDENTIFIED BY 'pass';
+FLUSH PRIVILEGES;
+

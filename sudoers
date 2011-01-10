@@ -3,11 +3,8 @@ bekir   ALL=(ALL) ALL
 Defaults mail_always
 Defaults mailto="bekirdo@gmail.com"
 
-
-
-
-
 Defaults        env_reset,mail_always,tty_tickets,!set_logname
+Defaults:vmail !syslog,!mail_always
 root	ALL=(ALL) ALL
 %a_group_sudofull ALL=(ALL) ALL
 %m_machine_sudofull	ALL=(ALL) ALL
