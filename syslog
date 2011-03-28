@@ -1,0 +1,31 @@
+#In syslog source 
+...
+###############
+#### RULES ####
+###############
+
+*.* @logserver-turcom.bdgn.net
+*.* @1.2.3.137:514
+...
+
+
+#In syslog receiver /etc/rsyslog.conf
+...
+$template DynFile,"/var/log/remote-logs/%HOSTNAME%/%syslogfacility-text%-%timegenerated:1:10:date-rfc3339%"
+
+###############
+#### RULES ####
+###############
+...
+
+This creates files like these:
+/var/log/mail-server-logs/hedemachine/auth-2011-03-26
+/var/log/mail-server-logs/hedemachine/cron-2011-03-26
+/var/log/mail-server-logs/hedemachine/mail-2011-03-28
+/var/log/mail-server-logs/hedemachine/syslog-2011-03-27
+/var/log/mail-server-logs/hedemachine/user-2011-03-28
+
+# and then isntall install loganalyzer # php
+
+
+
