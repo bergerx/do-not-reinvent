@@ -129,3 +129,7 @@ udo vnamespace -e vservername mount -n -t tmpfs -o remount,size=512m tmpfs /vser
 ##########################
 sanal makinalarin 15 dakikalik load'larini ogrenmek icin:
 egrep "NodeName|loadavg" /proc/virtual/*/*  | sed 'N;s/\n/ /'  | awk '{print $4" "$6}' | sort -nr
+
+
+# sysctl
+sudo vspace -e vservername --ipc sysctl -w kernel.shmmax=536870912

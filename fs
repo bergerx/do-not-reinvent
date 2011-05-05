@@ -5,3 +5,5 @@ mogilefs -> pilli kullaniyormus
 hiz icin - raid 6
 ocfs2 -> 3'den az sunucu olursa bir sunucu gidince patlar
 
+#  bu da dosya sistemi hakkinda bilgileri almak icin
+sudo  dumpe2fs -h /dev/sda6

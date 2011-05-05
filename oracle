@@ -1,3 +1,4 @@
+http://www.fairtec.at/en/it-blog-mainmenu-16/169-oracle-11g-installation-on-debian-squeeze 
 
 # Oracle DB kullanıcı şeması, nasıl temizlenir from Caner Kömürlü
 Begin
@@ -6,3 +7,9 @@ execute immediate ('drop table "'||c.table_name||'" cascade constraints');
 end loop;
 End;
 
+# drop all tables in a database
+select 'Drop ' || object_type || ' ' || object_name || ';' from user_objects
+where object_type in ('TABLE','VIEW')
+# where object_type in ('TABLE','VIEW','INDEX'.....) 
+ORDER BY object_type DESC, object_name;
+spool off

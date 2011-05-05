@@ -1,0 +1,15 @@
+# Apache Basic Auth LDAP Parolasını Gizlemek
+
+bekir@hede:~$ cat /etc/php5/apache2/auto_prepend_file_remove_PHP_AUTH_PW.php
+<?php unset($_SERVER["PHP_AUTH_PW"]); ?>
+
+bekir@hede:~$ cat /etc/apache2/conf.d/remove_PHP_AUTH_PW.php
+php_admin_value auto_prepend_file /etc/php5/apache2/auto_prepend_file_remove_PHP_AUTH_PW.php
+
+bekir@hede:~$ sudo a2enmod headers
+bekir@hede:~$ sudo vi /etc/apache2/mods-enabled/userdir.conf # add this line after "Require valid-user"
+>>> RequestHeader set Authorization "Basic Tm90SW5EZXZFbnZpcm9ubWVudA=="
+bekir@hede:~$ sudo /etc/init.d/apache2 restart
+Restarting web server: apache2 ... waiting .
+
+
