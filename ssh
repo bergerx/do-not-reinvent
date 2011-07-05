@@ -1,0 +1,10 @@
+# http://ahmet.kurukose.net/post/6107622334/ssh-reverse-ters-tunel-ac-yorsan-z-ve-0-0-0-0
+sshd_config:
+GatewayPorts yes
+
+# http://ahmet.kurukose.net/post/5827782281/daha-h-zl-ssh
+vim ~/.ssh/config
+Host *
+	ControlPath ~/.ssh/master-%l-%h-%p-%r.sock
+	Compression yes
+	ControlMaster yes

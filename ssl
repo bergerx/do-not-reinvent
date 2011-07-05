@@ -71,3 +71,10 @@ http://devsec.org/info/ssl-cert.html
 
 ( openssl x509 -in newcert.pem; cat privkey.pem ) > server.pem
 ( openssl x509 -in newcert.crt; cat privkey.key ) > server.pem
+
+
+
+
+
+==============================
+keytool -v -importkeystore -srckeystore mydomain_wildcard.p12 -srcstoretype PKCS12 -destkeystore mydomain.keystore -deststoretype JKS

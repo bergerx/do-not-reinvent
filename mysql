@@ -13,6 +13,10 @@ SHOW TABLE STATUS LIKE 'tbl'\G -- sizes
 EXPLAIN SELECT ...\G -- clues of inefficiencies
 SHOW VARIABLES LIKE '%buffer%'; -- cache size 
 
+CREATE DATABASE dbname CHARACTER SET 'utf8' COLLATE 'utf8_turkish_ci';
+
+GRANT ALL PRIVILEGES ON `dbname`.* TO 'username'@'%.bdgn.net' IDENTIFIED BY 'pass';
+FLUSH PRIVILEGES;
 
 ##### performance #####
 # http://www.mysqlperformanceblog.com/2006/09/29/what-to-tune-in-mysql-server-after-installation/
@@ -128,10 +132,5 @@ user@master:~$ rm -f /home/mysql/logs/*
 # re-get data to slave
 
 
-
-
 == create database ==
 create database `dbname` character set 'utf8' COLLATE 'utf8_turkish_ci';
-GRANT ALL PRIVILEGES ON `dbname`.* TO 'username'@'%.bdgn.net' IDENTIFIED BY 'pass';
-FLUSH PRIVILEGES;
-
