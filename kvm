@@ -75,3 +75,27 @@ qemu-system-x86_64 -no-kvm -hda xp.img -cdrom /iso/xp.iso -boot d -m 1000
 # run win
 qemu-system-x86_64 xp.img -no-acpi -usb -usbdevice tablet -monitor stdio -m 512 -net nic,vlan=0 -net tap,vlan=0,ifname=tap0,script=/etc/qemu-ifup
 
+
+
+
+
+
+
+
+# mounting a raw kvm image
+bekir@hede:/tmp$ sudo disktype /media/free/lxc_test_hda | grep -A1 "sectors from"
+Partition 1: 2.724 GiB (2924478464 bytes, 5711872 sectors from 2048, bootable)
+  Type 0x83 (Linux)
+--
+Partition 2: 282 MiB (295698432 bytes, 577536 sectors from 5713920)
+  Type 0x05 (Extended)
+  Partition 5: 281 MiB (294649856 bytes, 575488 sectors from 5713920+2048)
+    Type 0x82 (Linux swap / Solaris)
+bekir@hede:/tmp$ 
+#  get the number n from "sectors from n"; multiply n with 512
+bekir@hede:/tmp$ n=2048
+bekir@hede:/tmp$ sudo mount -t ext3 /media/free/lxc_test_hda /tmp/test -o loop,offset=$(( ($n) * 512 ))
+bekir@hede:/tmp$ mount -l | grep /tmp/test
+/media/free/lxc_test_hda on /tmp/test type ext3 (rw,offset=1048576)
+
+
