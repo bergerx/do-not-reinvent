@@ -1,0 +1,32 @@
+bekir@ltsp180:/tmp$ cat<<EOF > /tmp/hede.sh
+#!/bin/bash
+sleep 30000 &
+echo $! > /tmp/hede.pid
+EOF
+
+# baslatmak için
+bekir@ltsp180:/tmp$ start-stop-daemon --start --pidfile /tmp/hede.pid --startas /tmp/hede.sh --exec /bin/sleep
+bekir@ltsp180:/tmp$ echo $?
+0
+bekir@ltsp180:/tmp$ start-stop-daemon --start --pidfile /tmp/hede.pid --startas /tmp/hede.sh --exec /bin/sleep
+/bin/sleep already running.
+bekir@ltsp180:/tmp$ echo $?
+1
+bekir@ltsp180:/tmp$ start-stop-daemon --test --start --pidfile /tmp/hede.pid --startas /tmp/hede.sh --exec /bin/sleep
+/bin/sleep already running.
+bekir@ltsp180:/tmp$ echo $?
+1
+bekir@ltsp180:/tmp$ ps axf
+> ...
+>  4896 pts/0    S      0:00 sleep 30000 
+> ...
+
+bekir@ltsp180:/tmp$ start-stop-daemon --stop --pidfile /tmp/hede.pid --exec /bin/sleep
+bekir@ltsp180:/tmp$ echo $?
+0
+bekir@ltsp180:/tmp$ start-stop-daemon --stop --pidfile /tmp/hede.pid --exec /bin/sleep
+No /bin/sleep found running; none killed.
+bekir@ltsp180:/tmp$ echo $?
+1
+bekir@ltsp180:/tmp$ 
+
