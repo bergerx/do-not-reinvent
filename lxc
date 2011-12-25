@@ -1,3 +1,52 @@
+sudo aptitude install lxc bridge-utils debootstrap
+
+sudo mkdir /cgroup
+
+sudo vi /etc/fstab
+>> cgroup /cgroup cgroup defaults 0 0
+#sudo mount -t cgroup cgroup /cgroup
+sudo mount cgroup
+
+sudo vi /etc/network/interfaces
+>> #allow-hotplug eth0
+>> #iface eth0 inet dhcp
+>> 
+>> auto br0
+>> iface br0 inet dhcp
+>>         bridge_ports eth0
+>>         bridge_fd 0
+>>         bridge_maxwait 0
+
+sudo /etc/init.d/networking start
+sudo mkdir -p /var/lib/lxc/vm0
+sudo /usr/lib/lxc/templates/lxc-debian -p /var/lib/lxc/vm0
+
+sudo vi /var/lib/lxc/vm0/config
+# <<<< ADD THOSE LINES
+lxc.utsname = vm0
+lxc.network.type = veth
+lxc.network.flags = up
+lxc.network.link = br0
+lxc.network.name = eth0
+lxc.network.hwaddr = 00:FF:12:34:56:78
+#lxc.network.ipv4 = 10.0.0.110/24
+
+# start
+sudo lxc-start -n vm0
+
+DEBIAN_VERSION=squeeze lxc-debian -p /var/lib/lxc/vm0
+
+
+sudo invoke-rc.d 
+
+
+
+
+
+
+
+# for lenny
+
 http://www.mail-archive.com/lxc-devel@lists.sourceforge.net/msg00346.html
 
 directories:

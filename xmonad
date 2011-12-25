@@ -1,0 +1,26 @@
+# learn class for a window
+while /bin/true; do xprop | grep WM_CLASS; done
+
+
+#xmonad java freemind
+# from http://freemind.sourceforge.net/wiki/index.php/FreeMind_on_Linux#When_resizing_the_FreeMind_window.2C_the_inner_field_doesn.27t_resize_properly_.28or_other_GUI_strangeness.29
+wmname LG3D
+#export AWT_TOOLKIT=MToolkit
+
+
+#for trayer
+trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 15 --height 12 --transparent true --tint 0x000000
+
+
+# locks
+xlock # only blank screen
+xtrlock # mouse cursor becomes a lock
+
+
+# X property of program
+xprop | grep CLASS
+
+# mouse and keypress events
+xev
+xev | sed -ne '/^KeyPress/,/^$/p'
+

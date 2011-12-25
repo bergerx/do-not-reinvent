@@ -11,9 +11,9 @@ sonra sunu yapiyoruz
 
 x icin
 ======
-xmodmap -e "clear lock"
-xmodmap -e "add control = Caps_Lock"
-
+xmodmap -e 'remove Lock = Caps_Lock'
+xmodmap -e 'keysym Caps_Lock = Control_L'
+xmodmap -e 'add Control = Control_L'
 
 
 # bunlar da eskiden kalma

@@ -1,2 +1,5 @@
 search patterns
 http://algebraicthunk.net/~dburrows/projects/aptitude/doc/en/ch02s03s05.html
+
+
+aptitude search '~i!~M!~pstandard!~pimportant!~prequired'

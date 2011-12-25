@@ -9,3 +9,48 @@ deb ftp://ftp.debian.org/debian experimental main
 
 #run like this
 aptitude -t experimental install amarok
+
+
+
+
+
+
+#http://qref.sourceforge.net/quick/ch-package.en.html
+dpkg {-S|--search} pattern
+dlocate filename
+     # apt-get   check           # update cache and check for broken packages
+     $ apt-cache search  pattern # search package from text description
+     $ apt-cache policy  package # package priority/dists information
+     $ apt-cache show -a package # show description of package in all dists
+     $ apt-cache showsrc package # show description of matching source package
+     $ apt-cache showpkg package # package information for debugging
+     # dpkg  --audit|-C          # search for partially installed packages
+     $ dpkg {-s|--status} package ... # description of installed package
+     $ dpkg -l package ...       # status of installed package (1 line each)
+     $ dpkg -L package ...       # list filenames installed by the package
+
+
+     $ apt-show-versions | fgrep /testing | wc
+     ... how many packages you have from testing
+     $ apt-show-versions -u
+     ... list of upgradeable packages
+     $ aptitude install `apt-show-versions -u -b | fgrep /unstable`
+     ... upgrade all unstable packages to their newest versions
+
+
+
+
+record
+     # dpkg --get-selections "*" >myselections   # or use \*
+     # debconf-get-selections > debconfsel.txt
+reload
+     # dselect update
+     # debconf-set-selections < debconfsel.txt
+     # dpkg --set-selections <myselections
+     # apt-get -u dselect-upgrade    # or dselect install
+
+
+
+
+
+

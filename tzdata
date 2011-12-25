@@ -1,0 +1,2 @@
+sudo dpkg-reconfigure tzdata
+zdump -v Europe/Istanbul | grep 2011

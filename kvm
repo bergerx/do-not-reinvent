@@ -76,6 +76,14 @@ qemu-system-x86_64 -no-kvm -hda xp.img -cdrom /iso/xp.iso -boot d -m 1000
 qemu-system-x86_64 xp.img -no-acpi -usb -usbdevice tablet -monitor stdio -m 512 -net nic,vlan=0 -net tap,vlan=0,ifname=tap0,script=/etc/qemu-ifup
 
 
+# from http://sysadmin-cookbook.rot13.org/#kvm
+#!/bin/sh
+sudo apt-get install mkisofs
+wget -m -nd -nH http://sourceforge.net/projects/kvm/files/kvm-guest-drivers-windows/2/kvm-guest-drivers-windows-2.zip/download
+unzip kvm-guest-drivers-windows-2.zip -d iso
+mkisofs -J -R -o kvm-guest-drivers-windows-2.iso iso/
+
+
 
 
 

@@ -1,0 +1,8 @@
+xrandr -q 
+
+
+xrandr --output LVDS --off
+xrandr --output HDMI-0 --off
+xrandr --output VGA-0 --auto --output DVI-0 --auto --primary --right-of VGA-0
+
+xrandr --output VGA1 --mode 1024x768 --left-of LVDS1 --output LVDS1 --mode 1366x768
