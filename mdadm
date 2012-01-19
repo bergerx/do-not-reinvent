@@ -1,27 +1,69 @@
 raid mdadm
 
+cat /proc/mdstat
 /etc/mdadm/mdadm.conf
 http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_:_Ch26_:_Linux_Software_RAID#RAID_1
 
-mdadm --create --verbose /dev/mdx --level=0 --raid-devices=2 /dev/sdx1 /dev/sdy1
-mdadm --assemble /dev/mdx /dev/sdx1 /dev/sdy1
-mdadm --assemble --scan
-mdadm --stop /dev/mdx
-mdadm --detail --scan --verbose > /etc/mdadm.conf
+sudo mdadm --create --verbose /dev/mdx --level=0 --raid-devices=2 /dev/sdx1 /dev/sdy1
+sudo mdadm --assemble /dev/mdx /dev/sdx1 /dev/sdy1
+sudo mdadm --assemble --scan
+sudo mdadm --stop /dev/mdx
+sudo mdadm --detail --scan --verbose > /etc/mdadm.conf
 
 
 recover superbloks
 http://www.redhat.com/archives/ext3-users/2005-October/msg00007.html
-mkfs.ext3 -S /dev/sdx1
-fsck.ext3  /dev/sdx1
+sudo mkfs.ext3 -S /dev/sdx1
+sudo fsck.ext3  /dev/sdx1
+
+sudo mdadm --detail /dev/mdx
+cat /proc/mdstat
+
+# remove a device from raid1
+# if you ever want to remove a 'good' disk, you have to tell the array to put it into the 'failed' state before removing it
+sudo mdadm /dev/mdx --fail /dev/sdx2 --remove /dev/sdx2
+cat /proc/mdstat
+
+# adding a device to an array
+sudo mdadm /dev/mdx --add /dev/sdx2
+cat /proc/mdstat
+
+# http://www.howtoforge.com/how-to-set-up-software-raid1-on-a-running-system-incl-grub2-configuration-ubuntu-10.04-p4
+# if a partition fails (ie. sdx2 with bad blocks)
+# copy the partition table of whole disk, if you have a second disk with same
+# partition table you can skip this step
+sudo sfdisk -d /dev/sdx > partition-table
+# remove (mdadm --fail + mdadm --remove) each partition supplied by the failed
+# disk of related partition from any raid
+# ie. if sdx2 failed remove sdx1, sdx2, ..., sdx{n} from any raid array
+sudo mdadm /dev/mdx --fail /dev/sdx1 --remove /dev/sdx1
+sudo mdadm /dev/mdy --fail /dev/sdx2 --remove /dev/sdx2
+sudo mdadm /dev/mdz --fail /dev/sdx3 --remove /dev/sdx3
+# then change disk with a new one with the same size and prefably same speed
+# then copy the old partition table to new disk
+cat partition-table | sudo sfdisk /dev/sdx
+# if you have two disks with each partition raid1'ed (/dev/sdx and /dev/sdy)
+# just copy the partition table of the working disk (ie /dev/sdy) to our new
+# disk
+sudo sfdisk -d /dev/sdy | sudo sfdisk /dev/sdx
+# if your new disk if used before
+sudo mdadm --zero-superblock /dev/sdx1
+sudo mdadm --zero-superblock /dev/sdx2
+sudo mdadm --zero-superblock /dev/sdx3
+# add (madadm --add) each partition to arrays
+sudo mdadm --add /dev/mdx /dev/sdx1
+sudo mdadm --add /dev/mdy /dev/sdx2
+sudo mdadm --add /dev/mdz /dev/sdx3
+# wait until sync has finished
+cat /proc/mdstat
+# if the broken disk (/dev/sdx) is one of the disks with mbr record (has grub)
+sudo grub-install /dev/sdx
 
 
-mdadm --detail /dev/mdx
-mdadm --manage --fail /dev/mdx /dev/sdx2
-mdadm /dev/mdx --remove /dev/sdx2 # if you ever want to remove a 'good' disk, you have to tell the array to put it into the 'failed' state as above
-mdadm /dev/mdx --add /dev/sdx2
 
+sudo su -c 'echo check > /sys/block/mdX/md/sync_action'
+cat /proc/mdstat
+sudo su -c 'echo repair > /sys/block/mdX/md/sync_action'
+cat /proc/mdstat
 
-echo check > /sys/block/mdX/md/sync_action
-echo repair > /sys/block/mdX/md/sync_action
 

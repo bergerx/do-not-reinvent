@@ -1,0 +1,3 @@
+rlwrap - rlwrap is a 'readline wrapper', a small utility that uses the GNU
+readline library to allow the editing of keyboard input for any
+command.

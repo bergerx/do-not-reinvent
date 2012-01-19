@@ -49,3 +49,10 @@ $ exp DBUSER/dandikpass owner=DBUSER file=~/DBUSER.exp
 
 # imp
 $ imp system/systempass FROMUSER=DBUSER TOUSER=rbt FILE=/home/username/DBUSER.exp
+
+
+
+# stopping oracle
+$ sqlplus / as sysdba
+SQL> shutdown immediately
+

@@ -182,3 +182,38 @@ Partition of a set of 3 objects. Total size = 176 bytes.
  0: h.Root.i0_modules['__main__'].__dict__['x']
 >>>
 
+
+
+
+bekir@ltsp222:/tmp$ ipython hede hodo -i dosya
+In [1]: from optparse import OptionParser
+In [2]: parser = OptionParser(usage="%prog -i FILE")
+In [3]: parser.add_option('-i', '--ini', dest='ini',help='Configuration file to user',metavar='FILE', default=None)
+Out[3]: <Option at 0x2a0c8c0: -i/--ini>
+
+In [4]: (options, args) = parser.parse_args()
+
+In [5]: args
+Out[5]: ['hodo']
+
+In [6]: options.ini
+Out[6]: 'dosya'
+
+In [7]: parser.print_help()
+Usage: hede -i FILE
+
+Options:
+  -h, --help           show this help message and exit
+  -i FILE, --ini=FILE  Configuration file to user
+
+In [8]: 
+
+Summary:
+from optparse import OptionParser
+parser = OptionParser(usage="%prog -i FILE")
+parser.add_option('-i', '--ini', dest='ini',help='Configuration file to user',metavar='FILE', default=None)
+(options, args) = parser.parse_args()
+options.ini
+parser.print_help()
+
+
