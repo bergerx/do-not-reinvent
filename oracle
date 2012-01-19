@@ -1,3 +1,6 @@
+http://www.shutdownabort.com/
+
+
 http://www.fairtec.at/en/it-blog-mainmenu-16/169-oracle-11g-installation-on-debian-squeeze 
 
 # Oracle DB kullanıcı şeması, nasıl temizlenir from Caner Kömürlü
@@ -13,3 +16,36 @@ where object_type in ('TABLE','VIEW')
 # where object_type in ('TABLE','VIEW','INDEX'.....) 
 ORDER BY object_type DESC, object_name;
 spool off
+
+
+
+
+
+# oracle xe
+export ORACLE_HOME=/usr/lib/oracle/xe/app/oracle/product/10.2.0/server/
+export ORACLE_SID=XE
+PATH=$PATH:$ORACLE_HOME/bin
+
+# list all objects
+SELECT owner, object_type, object_name FROM dba_objects WHERE owner='DBNAME';
+
+
+# for a usable sqlplus
+rlwrap sqlplus / as sysdba
+SET PAGESIZE  0
+SET LINESIZE 10000
+SET LONG 999999
+
+ln -s ~/.sqlplus_history  ~/.sqlplus_completions
+
+change password
+SQL> select * from user$; # 376412DF0FF247E5
+SQL> alter user DBUSER identified by "dandikpass";
+# to revert our change
+SQL> alter user DBUSER identified by value 376412DF0FF247E5;
+
+# exp
+$ exp DBUSER/dandikpass owner=DBUSER file=~/DBUSER.exp
+
+# imp
+$ imp system/systempass FROMUSER=DBUSER TOUSER=rbt FILE=/home/username/DBUSER.exp
