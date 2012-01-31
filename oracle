@@ -51,8 +51,49 @@ $ exp DBUSER/dandikpass owner=DBUSER file=~/DBUSER.exp
 $ imp system/systempass FROMUSER=DBUSER TOUSER=rbt FILE=/home/username/DBUSER.exp
 
 
-
 # stopping oracle
 $ sqlplus / as sysdba
 SQL> shutdown immediately
+
+SQL> DROP USER schema_owner CASCADE;
+
+
+
+DROP USER username CASCADE;
+ALTER TABLESPACE tbs_name OFFLINE;
+DROP TABLESPACE tbs_name INCLUDING CONTENTS AND DATAFILES;
+
+
+
+
+
+
+
+Some examples:
+
+
+Begin
+  for c in (select index_name from dba_indexes where TABLESPACE_NAME='<OLD_TABLESPACE>' and INDEX_TYPE='NORMAL')
+  loop
+    EXECUTE IMMEDIATE 'alter index <USERNAME>.'||c.index_name||' rebuild tablespace <NEW_TABLESPACE>';
+  end loop;
+End;
+/
+
+Begin
+  for c in (select table_name from dba_tables where TABLESPACE_NAME='<OLD_TABLESPACE>' and INDEX_TYPE='NORMAL')
+  loop
+    EXECUTE IMMEDIATE 'alter table <USERNAME>.'||c.table_name||' move tablespace <NEW_TABLESPACE>';
+  end loop;
+End;
+/
+
+Begin
+  for c in (select TABLE_NAME,column_NAME from dba_lobs where TABLESPACE_NAME='<OLD_TABLESPACE>')
+  loop
+    EXECUTE IMMEDIATE 'alter table <USERNAME>.'|| c.table_name ||' move lob ("'||c.column_name||'") store as (tablespace <NEW_TABLESPACE>)';
+  end loop;
+End;
+/
+
 
