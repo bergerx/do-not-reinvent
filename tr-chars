@@ -1,0 +1,51 @@
+http://www.rishida.net/tools/conversion/
+
+# This file is utf-8
+
+ü	Ü	ö	Ö	ç	Ç	ı	İ	ş	Ş	ğ	Ğ	
+Ã¼	Ãœ	Ã¶	Ã–	Ã§	Ã‡	Ä±	Ä°	ÅŸ	Å	ÄŸ	Ä	
+ü	Ü	ö	Ö	ç	Ç	ý	Ý	þ	Þ	ð	Ð	
+
+# Characters which are same in utf-8 and iso-8859-9
+  URIs    HexNCR    DecNCR  0x     Hex   Oct  Dec  UTF-8    UTF-16  JS      PY         U+hex   Name
+ü %C3%BC  &#x00FC;  &#252;  0xFC   00FC  374  252  "C3 BC"  FC      \u00FC  u"\u00FC"  U+00FC  LATIN SMALL LETTER U WITH DIAERESIS
+Ü %C3%9C  &#x00DC;  &#220;  0xDC   00DC  334  220  "C3 9C"  DC      \u00DC  u"\u00DC"  U+00DC  LATIN CAPITAL LETTER U WITH DIAERESIS
+ö %C3%B6  &#x00F6;  &#246;  0xF6   00F6  366  246  "C3 B6"  F6      \u00F6  u"\u00F6"  U+00F6  LATIN SMALL LETTER O WITH DIAERESIS
+Ö %C3%96  &#x00D6;  &#214;  0xD6   00D6  326  214  "C3 96"  D6      \u00D6  u"\u00D6"  U+00D6  LATIN CAPITAL LETTER O WITH DIAERESIS
+ç %C3%A7  &#x00E7;  &#231;  0xE7   00E7  347  231  "C3 A7"  E7      \u00E7  u"\u00E7"  U+00E7  LATIN SMALL LETTER C WITH CEDILLA
+Ç %C3%87  &#x00C7;  &#199;  0xC7   00C7  307  199  "C3 87"  C7      \u00C7  u"\u00C7"  U+00C7  LATIN CAPITAL LETTER C WITH CEDILLA
+
+# utf-8
+  URIs    HexNCR    DecNCR  0x     Hex   Oct  Dec  UTF-8    UTF-16  JS      PY         U+hex   Name
+ı %C4%B1  &#x0131;  &#305;  0x131  0131  305  305  "C4 B1"  131     \u0131  u"\u0131"  U+0131  LATIN SMALL LETTER DOTLESS I
+İ %C4%B0  &#x0130;  &#304;  0x130  0130  460  304  "C4 B0"  130     \u0130  u"\u0130"  U+0130  LATIN CAPITAL LETTER I WITH DOT ABOVE
+ş %C5%9F  &#x015F;  &#351;  0x15F  015F  537  351  "C5 9F"  15F     \u015F  u"\u015F"  U+015F  LATIN SMALL LETTER S WITH CEDILLA
+Ş %C5%9E  &#x015E;  &#350;  0x15E  015E  536  350  "C5 9E"  15E     \u015E  u"\u015E"  U+015E  LATIN CAPITAL LETTER S WITH CEDILLA
+ğ %C4%9F  &#x011F;  &#287;  0x11F  011F  437  287  "C4 9F"  11F     \u011F  u"\u011F"  U+011F  LATIN SMALL LETTER G WITH BREVE
+Ğ %C4%9E  &#x011E;  &#286;  0x11E  011E  436  286  "C4 9E"  11E     \u011E  u"\u011E"  U+011E  LATIN CAPITAL LETTER G WITH BREVE
+
+#iso-8859-9 interpreted as utf-8
+  URIs    HexNCR    DecNCR  0x     Hex   Oct  Dec  UTF-8    UTF-16  JS      PY         U+hex   Name
+ý %C3%BD  &#x00FD;  &#253;  0xFD   00FD  375  253  "C3 BD"  FD      \u00FD  u"\u00FD"  U+00FD  LATIN SMALL LETTER Y WITH ACUTE
+Ý %C3%9D  &#x00DD;  &#221;  0xDD   00DD  335  221  "C3 9D"  DD      \u00DD  u"\u00DD"  U+00DD  LATIN CAPITAL LETTER Y WITH ACUTE
+þ %C3%BE  &#x00FE;  &#254;  0xFE   00FE  376  254  "C3 BE"  FE      \u00FE  u"\u00FE"  U+00FE  LATIN SMALL LETTER THORN
+Þ %C3%9E  &#x00DE;  &#222;  0xDE   00DE  336  222  "C3 9E"  DE      \u00DE  u"\u00DE"  U+00DE  LATIN CAPITAL LETTER THORN
+ð %C3%B0  &#x00F0;  &#240;  0xF0   00F0  360  240  "C3 B0"  F0      \u00F0  u"\u00F0"  U+00F0  LATIN SMALL LETTER ETH
+Ð %C3%90  &#x00D0;  &#208;  0xD0   00D0  320  208  "C3 90"  D0      \u00D0  u"\u00D0"  U+00D0  LATIN CAPITAL LETTER ETH
+                                         
+  URIs    HexNCR    DecNCR  0x     Hex   Oct  Dec  UTF-8    UTF-16  JS      PY         U+hex   Name
+Ã %C3%83  &#x00C3;  &#195;  0xC3   00C3  303  195  "C3 83"  C3      \u00C3  u"\u00C3"  U+00C3  LATIN CAPITAL LETTER A WITH TILDE
+Ä %C3%84  &#x00C4;  &#196;  0xC4   00C4  304  196  "C3 84"  C4      \u00C4  u"\u00C4"  U+00C4  LATIN CAPITAL LETTER A WITH DIAERESIS
+Å %C3%85  &#x00C5;  &#197;  0xC5   00C5  305  197  "C3 85"  C5      \u00C5  u"\u00C5"  U+00C5  LATIN CAPITAL LETTER A WITH RING ABOVE
+
+  URIs    HexNCR    DecNCR  0x     Hex   Oct  Dec  UTF-8    UTF-16  JS      PY         U+hex   Name
+¼ %C2%BC  &#x00BC;  &#188;  0xBC   00BC  188  274  "C2 BC"  BC      \u00BC  u"\u00BC"  U+00BC  VULGAR FRACTION ONE QUARTER
+
+utf-8
+ü	Ü	ö	Ö	ç	Ç	ı	İ	ş	Ş	ğ	Ğ	
+
+iso-8859-9 interpreted as utf-8
+ü	Ü	ö	Ö	ç	Ç	ý	Ý	þ	Þ	ð	Ð	
+
+utf-8 interpreded as iso-8859-9
+Ã¼	Ãœ	Ã¶	Ã–	Ã§	Ã‡	Ä±	Ä°	ÅŸ	Å	ÄŸ	Ä	
