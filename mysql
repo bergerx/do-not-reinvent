@@ -103,7 +103,7 @@ master-mysql> SHOW MASTER STATUS;
  +---------------------+----------+-------------------------------+------------------+
  | mysql-bin.000001    | 21197930 | my_database,my_database       |                  |
  +---------------------+----------+-------------------------------+------------------+
-slave-mysql> slave stop;
+slave-mysql> SLAVE STOP;
  Query OK, 0 rows affected (0.00 sec)
 slave-mysql> CHANGE MASTER TO
 +> MASTER_HOST='128.0.0.1',
@@ -113,17 +113,17 @@ slave-mysql> CHANGE MASTER TO
 +> MASTER_LOG_POS=21197930,
 +> MASTER_CONNECT_RETRY=10;
  Query OK, 0 rows affected (0.01 sec)
-slave-mysql> slave start;
+slave-mysql> SLAVE START;
  Query OK, 0 rows affected (0.01 sec)
-slave-mysql> show slave status\G;
+slave-mysql> SHOW SLAVE STATUS\G;
  ... #  these twu must be "Yes"
  Slave_IO_Running: Yes
  Slave_SQL_Running: Yes
  ...
  # If you have Slave_IO_Running set to No, you haven't probably locked correctly the database prior to dumping it. You will have to repeat the dumping process locking correctly the database.
 master-mysql> unlock tables; -- if you previously ran FLUSH TABLES WITH READ LOCK;
-slave-mysql> show processlist;
-master-mysql> show processlist;
+slave-mysql> SHOW PROCESSLIST;
+master-mysql> SHOW PROCESSLIST;
 
 == recovery ==
 user@slave:~$ rm /var/lib/mysql/*relay*
@@ -134,3 +134,75 @@ user@master:~$ rm -f /home/mysql/logs/*
 
 == create database ==
 create database `dbname` character set 'utf8' COLLATE 'utf8_turkish_ci';
+
+
+
+
+
+
+
+
+
+
+
+root@mysqlmaster:~# sudo aptitude install mysql-server
+root@mysqlmaster:~# service mysql stop
+root@mysqlslave:~# vi /usr/share/doc/mysql-server-5.1/README.Debian.gz
+root@mysqlmaster:~# vi /etc/mysql/my.cnf 
+...
+tmpdir          = /var/tmp/mysql
+...
+server-id               = 1
+log_bin                 = /var/log/mysql/mysql-bin.log
+expire_logs_days        = 10
+max_binlog_size         = 100M
+binlog_do_db            = include_database_name
+#binlog_ignore_db       = include_database_name
+...
+root@mysqlmaster:~# service mysql start
+root@mysqlmaster:~# mysql -u root -p
+mysql> SLAVE STOP;
+mysql> CREATE USER 'slave_user'@'%' IDENTIFIED BY 'slave_pass';
+mysql> GRANT SUPER,REPLICATION CLIENT,RELOAD, REPLICATION SLAVE ON *.* TO 'slave_user'@'%' IDENTIFIED BY 'slave_pass';
+mysql> FLUSH PRIVILEGES;
+mysql> CREATE DATABASE include_database_name;
+mysql> SHOW MASTER STATUS;
++------------------+----------+-----------------------+------------------+
+| File             | Position | Binlog_Do_DB          | Binlog_Ignore_DB |
++------------------+----------+-----------------------+------------------+
+| mysql-bin.000002 |      455 | include_database_name |                  |
++------------------+----------+-----------------------+------------------+
+1 row in set (0.00 sec)
+mysql> SHOW PROCESSLIST;
+
+
+
+
+
+root@mysqlslave:~# sudo aptitude install mysql-server
+root@mysqlslave:~# service mysql stop
+root@mysqlslave:~# chown mysql. /var/tmp/mysql
+root@mysqlslave:~# mkdir /var/tmp/mysql
+root@mysqlslave:~# vi /etc/mysql/my.cnf
+...
+tmpdir          = /var/tmp/mysql
+...
+bind-address            = 0.0.0.0
+...
+server-id               = 2
+master-host             = mysqlmaster
+master-user             = slave_user
+master-password         = slave_pass
+master-connect-retry    = 60
+replicate-do-db         = include_database_name
+...
+
+root@mysqlslave:~# service mysql start
+root@mysqlslave:~# mysql -u root -p
+mysql> SLAVE STOP;
+mysql> CHANGE MASTER TO MASTER_HOST='mysqlmaster', MASTER_USER='slave_user', MASTER_PASSWORD='slave_pass', MASTER_LOG_FILE='mysql-bin.000002', MASTER_LOG_POS=455;
+mysql> START SLAVE;
+mysql> SHOW SLAVE STATUS \G
+mysql> SHOW PROCESSLIST;
+
+
