@@ -1,0 +1,215 @@
+# from http://www.funtoo.org/wiki/BTRFS_Fun#Introduction
+
+# prepare devices
+dd if=/dev/zero of=/free/btrfs-vol0.img bs=1G count=1
+dd if=/dev/zero of=/free/btrfs-vol1.img bs=1G count=1
+dd if=/dev/zero of=/free/btrfs-vol2.img bs=1G count=1
+dd if=/dev/zero of=/free/btrfs-vol3.img bs=1G count=1
+dd if=/dev/zero of=/free/btrfs-vol4.img bs=1G count=1
+
+sudo losetup /dev/loop0 /free/btrfs-vol0.img
+sudo losetup /dev/loop1 /free/btrfs-vol1.img
+sudo losetup /dev/loop2 /free/btrfs-vol2.img
+sudo losetup /dev/loop3 /free/btrfs-vol3.img
+sudo losetup /dev/loop4 /free/btrfs-vol4.img
+
+# multi device BTRFS volume, with defaults: metadata is replicated, data is spread
+sudo mkfs.btrfs /dev/loop0 /dev/loop1 /dev/loop2
+sudo btrfs-show
+sudo btrfs filesystem show
+
+# single device with a single copy of the metadata (dangerous!):
+sudo mkfs.btrfs -m single /dev/loop0
+
+# multiple devices with metadata spread amongst all of the devices
+sudo mkfs.btrfs -m raid0 /dev/loop0 /dev/loop1 /dev/loop2
+
+# metadata spread amongst all of the devices
+# data mirrored on all of the devices
+sudo mkfs.btrfs -m raid0 -d raid1 /dev/loop0 /dev/loop1 /dev/loop2
+
+# fully redundant BTRFS volume (data and metadata mirrored amongst all of the devices)
+sudo mkfs.btrfs -d raid1 /dev/loop0 /dev/loop1 /dev/loop2
+
+sudo mkfs.btrfs /dev/loop0 /dev/loop1 /dev/loop2
+
+sudo btrfs filesystem show
+> Label: none  uuid: 54bab391-f275-420d-a5b5-6d91e097ae47
+> 	Total devices 3 FS bytes used 28.00KB
+> 	devid    3 size 1000.00MB used 259.94MB path /dev/loop2
+> 	devid    2 size 1000.00MB used 108.75MB path /dev/loop1
+> 	devid    1 size 1.00GB used 271.94MB path /dev/loop0
+> 
+> Btrfs Btrfs v0.19
+
+#all three same
+sudo mount /dev/loop0 /tmp/mnt
+sudo mount /dev/loop1 /tmp/mnt
+sudo mount /dev/loop2 /tmp/mnt
+
+
+df -h /tmp/mnt
+> Filesystem      Size  Used Avail Use% Mounted on
+> /dev/loop0      3.0G  184K  1.8G   1% /tmp/mnt
+
+sudo btrfs filesystem df /tmp/mnt/
+> Data, RAID0: total=302.25MB, used=128.00KB
+> Data: total=8.00MB, used=0.00
+> System, RAID1: total=8.00MB, used=4.00KB
+> System: total=4.00MB, used=0.00
+> Metadata, RAID1: total=151.19MB, used=24.00KB
+> Metadata: total=8.00MB, used=0.00
+
+# online shrink volume, dont use the whole capacity
+btrfs filesystem resize -500m /tmp/mnt
+
+df -h /tmp/mnt
+> Filesystem      Size  Used Avail Use% Mounted on
+> /dev/loop0      2.5G  184K  1.8G   1% /tmp/mnt
+
+# Growing the volume
+sudo btrfs filesystem resize +150m /tmp/mnt
+sudo btrfs filesystem resize max /tmp/mnt
+
+# add new device to volume
+sudo btrfs device add /dev/loop4 /tmp/mnt
+
+sudo btrfs filesystem show /dev/loop4
+> Label: none  uuid: d26c3a7b-07ac-4c57-9cd0-b1ac6e120428
+> 	Total devices 4 FS bytes used 156.00KB
+> 	devid    4 size 1000.00MB used 0.00 path /dev/loop4
+> 	devid    3 size 1000.00MB used 259.94MB path /dev/loop2
+> 	devid    2 size 1000.00MB used 108.75MB path /dev/loop1
+> 	devid    1 size 1.00GB used 271.94MB path /dev/loop0
+> 
+> Btrfs Btrfs v0.19
+
+sudo btrfs filesystem balance /tmp/mnt
+sudo btrfs filesystem show /dev/loop4
+> Label: none  uuid: d26c3a7b-07ac-4c57-9cd0-b1ac6e120428
+> 	Total devices 4 FS bytes used 156.00KB
+> 	devid    4 size 1000.00MB used 356.56MB path /dev/loop4
+> 	devid    3 size 1000.00MB used 108.56MB path /dev/loop2
+> 	devid    2 size 1000.00MB used 356.56MB path /dev/loop1
+> 	devid    1 size 1.00GB used 120.56MB path /dev/loop0
+> 
+> Btrfs Btrfs v0.19
+
+# remove device from volume, online, its content is transparently redistributed among the other devices
+sudo btrfs device delete /dev/loop2 /tmp/mnt
+sudo btrfs filesystem show
+> Label: none  uuid: d26c3a7b-07ac-4c57-9cd0-b1ac6e120428
+> 	Total devices 4 FS bytes used 28.00KB
+> 	devid    4 size 1000.00MB used 256.00MB path /dev/loop4
+> 	devid    2 size 1000.00MB used 264.00MB path /dev/loop1
+> 	devid    1 size 1.00GB used 12.00MB path /dev/loop0
+> 	*** Some devices missing
+> 
+> Btrfs Btrfs v0.19
+df -h /tmp/mnt
+> Filesystem      Size  Used Avail Use% Mounted on
+> /dev/loop0      3.0G   56K  1.5G   1% /tmp/mnt
+
+sudo btrfs filesystem balance /tmp/mnt
+sudo btrfs filesystem show
+> Label: none  uuid: d26c3a7b-07ac-4c57-9cd0-b1ac6e120428
+> 	Total devices 3 FS bytes used 28.00KB
+> 	devid    4 size 1000.00MB used 264.00MB path /dev/loop4
+> 	devid    2 size 1000.00MB used 512.00MB path /dev/loop1
+> 	devid    1 size 1.00GB used 268.00MB path /dev/loop0
+> 
+> Btrfs Btrfs v0.19
+
+
+
+# create subvolumes
+sudo touch /tmp/mnt/a
+{ cd /tmp/mnt; sudo btrfs subvolume create SV1; }
+ls -l
+ls -l
+> total 0
+> drwx------ 1 root root 2 Feb 19 10:32 SV1
+> -rw-r--r-- 1 root root 0 Feb 19 10:20 a
+sudo btrfs subvolume create /tmp/mnt/SV2
+sudo btrfs subvolume create /tmp/mnt/SV2/SV21
+sudo btrfs subvolume create /tmp/mnt/SV2/SV22
+sudo mkdir /tmp/mnt/SV1/d1
+sudo touch /tmp/mnt/SV2/f1
+sudo mkdir /tmp/mnt/SV2/d1
+sudo ls /tmp/mnt/SV2 -l
+> total 0
+> drwx------ 1 root root 0 Feb 19 10:34 SV21
+> drwx------ 1 root root 0 Feb 19 10:35 SV22
+> drwxr-xr-x 1 root root 0 Feb 19 11:05 d1
+> -rw-r--r-- 1 root root 0 Feb 19 11:05 f1
+sudo btrfs subvolume list /tmp/mnt
+> ID 261 top level 5 path SV1
+> ID 262 top level 5 path SV2
+> ID 263 top level 5 path SV2/SV21
+> ID 264 top level 5 path SV2/SV22
+
+
+# change point of view
+sudo find /tmp/mnt -ls
+>    256    4 dr-xr-xr-x   1 root     root           14 Feb 19 10:20 /tmp/mnt
+>    257    0 -rw-r--r--   1 root     root            0 Feb 19 10:20 /tmp/mnt/a
+>    256    0 drwx------   1 root     root            8 Feb 19 11:05 /tmp/mnt/SV1
+>    257    0 -rw-r--r--   1 root     root            0 Feb 19 11:05 /tmp/mnt/SV1/f1
+>    258    0 drwxr-xr-x   1 root     root            0 Feb 19 11:05 /tmp/mnt/SV1/d1
+>    256    0 drwx------   1 root     root           24 Feb 19 11:05 /tmp/mnt/SV2
+>    256    0 drwx------   1 root     root            0 Feb 19 10:34 /tmp/mnt/SV2/SV21
+>    256    0 drwx------   1 root     root            0 Feb 19 10:35 /tmp/mnt/SV2/SV22
+>    257    0 -rw-r--r--   1 root     root            0 Feb 19 11:05 /tmp/mnt/SV2/f1
+>    258    0 drwxr-xr-x   1 root     root            0 Feb 19 11:05 /tmp/mnt/SV2/d1
+sudo umount /tmp/mnt
+sudo mount -o subvolid=261 /dev/loop0 /tmp/mnt
+sudo umount /tmp/mnt
+sudo mount -o subvolid=262 /dev/loop0 /tmp/mnt
+sudo find  /tmp/mnt/ -ls
+>    256    0 drwx------   1 root     root           24 Feb 19 11:05 /tmp/mnt/
+>    256    0 drwx------   1 root     root            0 Feb 19 10:34 /tmp/mnt/SV21
+>    256    0 drwx------   1 root     root            0 Feb 19 10:35 /tmp/mnt/SV22
+>    257    0 -rw-r--r--   1 root     root            0 Feb 19 11:05 /tmp/mnt/f1
+>    258    0 drwxr-xr-x   1 root     root            0 Feb 19 11:05 /tmp/mnt/d1
+sudo btrfs subvolume list /tmp/mnt
+> ID 261 top level 5 path SV1
+> ID 262 top level 5 path SV2
+> ID 263 top level 5 path SV2/SV21
+> ID 264 top level 5 path SV2/SV22
+
+
+
+# setting default sub-volume id "-o subvolid=..." isomiitted when mounting
+sudo btrfs subvolume set-default 262 /tmp/mnt
+sudo umount /tmp/mnt
+sudo mount /dev/loop0 /tmp/mnt
+sudo find /tmp/mnt -ls
+>    256    0 drwx------   1 root     root           24 Feb 19 11:05 /tmp/mnt
+>    256    0 drwx------   1 root     root            0 Feb 19 10:34 /tmp/mnt/SV21
+>    256    0 drwx------   1 root     root            0 Feb 19 10:35 /tmp/mnt/SV22
+>    257    0 -rw-r--r--   1 root     root            0 Feb 19 11:05 /tmp/mnt/f1
+>    258    0 drwxr-xr-x   1 root     root            0 Feb 19 11:05 /tmp/mnt/d1
+
+
+sudo btrfs subvolume set-default 5 /tmp/mnt/
+sudo umount /tmp/mnt
+sudo mount /dev/loop0 /tmp/mnt
+sudo find /tmp/mnt -ls
+>    256    4 dr-xr-xr-x   1 root     root           14 Feb 19 10:20 /tmp/mnt
+>    257    0 -rw-r--r--   1 root     root            0 Feb 19 10:20 /tmp/mnt/a
+>    256    0 drwx------   1 root     root            8 Feb 19 11:05 /tmp/mnt/SV1
+>    257    0 -rw-r--r--   1 root     root            0 Feb 19 11:05 /tmp/mnt/SV1/f1
+>    258    0 drwxr-xr-x   1 root     root            0 Feb 19 11:05 /tmp/mnt/SV1/d1
+>    256    0 drwx------   1 root     root           24 Feb 19 11:05 /tmp/mnt/SV2
+>    256    0 drwx------   1 root     root            0 Feb 19 10:34 /tmp/mnt/SV2/SV21
+>    256    0 drwx------   1 root     root            0 Feb 19 10:35 /tmp/mnt/SV2/SV22
+>    257    0 -rw-r--r--   1 root     root            0 Feb 19 11:05 /tmp/mnt/SV2/f1
+>    258    0 drwxr-xr-x   1 root     root            0 Feb 19 11:05 /tmp/mnt/SV2/d1
+
+
+# delete subvolume, "rm -rf" works but it walks whole tree and should take long time
+sudo btrfs subvolume delete /tmp/mnt/SV2/SV22
+
+# snapshot
+sudo btrfs subvolume snapshot /tmp/mnt/ /tmp/mnt/$(date +%F)
+
