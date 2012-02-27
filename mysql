@@ -136,6 +136,13 @@ user@master:~$ rm -f /home/mysql/logs/*
 create database `dbname` character set 'utf8' COLLATE 'utf8_turkish_ci';
 
 
+== copy a table into memory ==
+# from http://stackoverflow.com/questions/5097088/how-to-copy-mysql-table-structure-to-table-in-memory
+CREATE TABLE t_copy ENGINE=MEMORY SELECT * FROM t_original;
+
+
+
+
 
 
 
