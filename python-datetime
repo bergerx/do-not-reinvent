@@ -1,0 +1,45 @@
+#from http://stackoverflow.com/questions/3682748/converting-unix-timestamp-string-to-readable-date-in-python
+
+import datetime
+print(datetime.datetime.fromtimestamp(int("1284101485")).strftime('%Y-%m-%d %H:%M:%S'))
+
+
+>>> from datetime import datetime
+>>> datetime.fromtimestamp(1172969203.1)
+datetime.datetime(2007, 3, 4, 0, 46, 43, 100000)
+
+
+
+now = datetime.now()
+previous_midnight = datetime.datetime( now.year, now.month, now.day )
+
+
+>>> from datetime import datetime
+>>> import time
+>>> time_now = datetime.now()
+>>> time_at_start_of_today_local = datetime( n.year, n.month, n.day )
+>>> epochal_time_now = time.mktime( time_now.timetuple() )
+>>> epochal_time_at_start_of_today_local = time.mktime( time_at_start_of_today.timetuple() )
+>>> hours_since_start_of_day_today = (epochal_time_at_start_of_today_local - epochal_time_now) / 60 / 60
+12.975833333333332
+
+>>> time_at_start_of_today_utc = time_at_start_of_today_local - time.timezone
+
+
+
+
+
+
+future = datetime.datetime.now() + datetime.timedelta(minutes=5)
+return time.mktime(future.timetuple())
+
+
+
+
+
+
+import time
+def expires():
+    '''return a UNIX style timestamp representing 5 minutes from now'''
+    return int(time.time()+300)
+
