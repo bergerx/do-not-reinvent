@@ -1,0 +1,36 @@
+php-oci8 on debian squeeze
+
+
+## Instant Client Package - Basic (~55MB)
+# oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm
+## *Instant Client Package - SQL*Plus (~1MB)
+# oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm
+
+sudo aptitude install alien
+sudo alien -i oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm
+sudo alien -i oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm
+sudo alien -i oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm
+
+# learn library path for later use in pecl install
+dpkg -L oracle-instantclient11.2-basic  | grep lib$
+
+echo /usr/lib/oracle/11.2/client64/lib | sudo tee /etc/ld.so.conf.d/oracle-instantclient.conf
+
+export LC_ALL="C"
+export LANG="C"
+sudo pecl install oci8
+# Please provide the path to the ORACLE_HOME directory. Use 'instantclient,/path/to/instant/client/lib' if you're compiling with Oracle Instant Client [autodetect] :
+# The rigth answer is: instantclient,/usr/lib/oracle/11.2/client64/lib
+...
+Build process completed successfully
+Installing '/usr/lib/php5/20090626/oci8.so'
+install ok: channel://pecl.php.net/oci8-1.4.7
+configuration option "php_ini" is not set to php.ini location
+You should add "extension=oci8.so" to php.ini
+
+
+echo extension=oci8.so | sudo tee /etc/php5/conf.d/oci8.ini
+
+sudo aptitude install libaio1
+sudo invoke-rc.d apache2 restart
+

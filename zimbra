@@ -1,0 +1,37 @@
+enable bayes:
+/opt/zimbra/conf/spamassassin/local.cf
+
+# check bayes DB
+/opt/zimbra/libexec/sa-learn --dbpath /opt/zimbra/data/amavisd/.spamassassin --dump magic
+
+
+zimbra@mailblocks:~$ zmprov mcf +zimbraMtaRestriction "reject_rbl_client recent.spam.dnsbl.sorbs.net"
+zimbra@mailblocks:~$ zmprov mcf +zimbraMtaRestriction "reject_rbl_client new.spam.dnsbl.sorbs.net"
+zimbra@mailblocks:~$ zmprov mcf +zimbraMtaRestriction "reject_rbl_client zen.spamhaus.org"
+
+
+# install dnsblcount as in http://wiki.zimbra.com/wiki/Configuring_and_Monitoring_Postfix_DNSBL
+/var/log/zimbra.log {
+    daily
+    missingok
+    notifempty
+    prerotate
+        /usr/local/bin/dnsblcount /var/log/zimbra.log | mail -s "[zimbra-dnsbl] $HOSTNAME - DNSBL Count" otomatik.usy@kartaca.com
+    create 0644 zimbra zimbra
+    postrotate
+      kill -HUP `cat /var/run/rsyslog*.pid 2> /dev/null` 2> /dev/null || true
+      su - zimbra -c "/opt/zimbra/bin/zmswatchctl restart" > /dev/null 2>&1 || true
+    endscript
+    compress
+}
+
+
+http://wiki.zimbra.com/wiki/Improving_Anti-spam_system#Postfix_whitelist_when_using_RBL.27s
+zimbra@mailblocks:~$ vi /opt/zimbra/conf/postfix_rbl_override
+# add whitelisted domains
+zimbra@mailblocks:~$ postmap /opt/zimbra/conf/postfix_rbl_override
+zimbra@mailblocks:~$ vi /opt/zimbra/conf/postfix_recipient_restrictions.cf
+under: reject_unauth_destination
+add: check_client_access hash:/opt/zimbra/conf/postfix_rbl_override
+
+

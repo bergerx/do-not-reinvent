@@ -1,0 +1,24 @@
+# from http://dincersalihkurnaz.com/post/15663934691/linux-da-hot-swappable-disklerle-oynamak
+# http://tldp.org/HOWTO/SCSI-2.4-HOWTO/index.html
+
+
+fdisk -l
+cat /proc/scsi/scsi
+
+#new disk (host, bus, target, lun)
+echo "- - -" > /sys/class/scsi_host/host?/scan
+
+# remove disk
+echo 1 > /sys/block/sd?/device/delete
+
+# add disk
+echo "scsi add-single-device 0 0 2 0">/proc/scsi/scsi
+
+## from: http://rackerhacker.com/2009/04/23/re-scan-the-scsi-bus-in-linux-after-hot-swapping-a-drive/
+## if your hot-plugged device is not recognised by your system:
+cd /sys/class/scsi_host/hostX
+echo "- - - " > scan
+## if not sure about X
+# cat /sys/class/scsi_host/host0/proc_name
+sata_nv
+

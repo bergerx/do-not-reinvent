@@ -67,3 +67,12 @@ sudo su -c 'echo repair > /sys/block/mdX/md/sync_action'
 cat /proc/mdstat
 
 
+
+## from: http://rackerhacker.com/2009/04/23/re-scan-the-scsi-bus-in-linux-after-hot-swapping-a-drive/
+## if your hot-plugged device is not recognised by your system:
+cd /sys/class/scsi_host/hostX
+echo "- - - " > scan
+## if not sure about X
+# cat /sys/class/scsi_host/host0/proc_name
+sata_nv
+

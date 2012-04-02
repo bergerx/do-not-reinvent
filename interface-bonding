@@ -1,0 +1,94 @@
+root@migu:~# ifconfig 
+bond0     Link encap:Ethernet  HWaddr e8:b7:48:7b:40:be  
+          inet addr:192.168.27.203  Bcast:192.168.27.255  Mask:255.255.255.0
+          inet6 addr: fe80::eab7:48ff:fe7b:40be/64 Scope:Link
+          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1
+          RX packets:12915 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:3020 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:4424268 (4.2 MiB)  TX bytes:392278 (383.0 KiB)
+
+eth0      Link encap:Ethernet  HWaddr e8:b7:48:7b:40:be  
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6168 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:1462 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:801926 (783.1 KiB)  TX bytes:251111 (245.2 KiB)
+          Memory:b1960000-b1980000 
+
+eth1      Link encap:Ethernet  HWaddr e8:b7:48:7b:40:be  
+          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1
+          RX packets:6747 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:1558 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:3622342 (3.4 MiB)  TX bytes:141167 (137.8 KiB)
+          Memory:b1920000-b1940000 
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:794 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:794 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:83574 (81.6 KiB)  TX bytes:83574 (81.6 KiB)
+alias bond0 bonding
+
+root@migu:~# cat /etc/modprobe.d/bond.conf 
+  options bonding mode=2 arp_interval=2000 arp_ip_target=192.168.27.3
+root@migu:~# cat /etc/network/interfaces
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto bond0
+iface bond0 inet static
+    address 192.168.27.203
+    netmask 255.255.255.0
+    network 192.168.27.0
+    gateway 192.168.27.3
+    slaves eth0 eth1
+#    bond-mode active-backup
+    bond-miimon 100
+    bond-downdelay 200
+    bond-updelay 200
+
+root@migu:~# aptitude show ifenslave
+No current or candidate version found for ifenslave
+Package: ifenslave
+State: not a real package
+Provided by: ifenslave-2.6
+root@migu:~# aptitude show ifenslave-2.6
+Package: ifenslave-2.6                   
+State: installed
+Automatically installed: no
+Version: 1.1.0-17
+Priority: optional
+Section: net
+Maintainer: Guus Sliepen <guus@debian.org>
+Uncompressed Size: 143 k
+Depends: libc6 (>= 2.2.5), iproute
+Recommends: net-tools
+Conflicts: ifenslave (< 2), ifenslave-2.4 (<= 0.07+2.5.15-6)
+Provides: ifenslave
+Description: Attach and detach slave interfaces to a bonding device
+ This is a tool to attach and detach slave network interfaces to a bonding device. A bonding device will act like a normal Ethernet network device to the kernel, but will send out the packets via the slave devices using a simple
+ round-robin scheduler. This allows for simple load-balancing, identical to "channel bonding" or "trunking" techniques used in switches. 
+ 
+ The kernel must have support for bonding devices for ifenslave to be useful. This package supports 2.6.x kernels and the most recent 2.4.x kernels.
+
+root@migu:~# lsmod  | grep bond
+bonding                74007  0 
+root@migu:~# 
+
+root@migu:~# cd /etc/modprobe.d/
+aliases.conf          blacklist.conf        bond.conf             fbdev-blacklist.conf  
+root@migu:~# cat /etc/modprobe.d/bond.conf 
+  options bonding mode=2 arp_interval=2000 arp_ip_target=192.168.27.3
+root@migu:~# cat /etc/modprobe.d/aliases.conf 
+...
+

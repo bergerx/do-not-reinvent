@@ -1,0 +1,5 @@
+#!/bin/bash
+# print total line count from stdin on every $1 lines
+each=${1:-10}
+while read line; do let i=i+1 ; let i%each || echo $i; done
+echo Total of $i lines.
