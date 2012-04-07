@@ -78,3 +78,32 @@ http://devsec.org/info/ssl-cert.html
 
 ==============================
 keytool -v -importkeystore -srckeystore mydomain_wildcard.p12 -srcstoretype PKCS12 -destkeystore mydomain.keystore -deststoretype JKS
+
+
+
+
+==============================
+# from https://www.sslshopper.com/ssl-converter.html
+Convert PEM to DER
+openssl x509 -outform der -in certificate.pem -out certificate.der
+
+Convert PEM to P7B
+openssl crl2pkcs7 -nocrl -certfile certificate.cer -out certificate.p7b -certfile CACert.cer
+
+Convert PEM to PFX
+openssl pkcs12 -export -out certificate.pfx -inkey privateKey.key -in certificate.crt -certfile CACert.crt
+
+Convert DER to PEM
+openssl x509 -inform der -in certificate.cer -out certificate.pem
+
+Convert P7B to PEM
+openssl pkcs7 -print_certs -in certificate.p7b -out certificate.cer
+
+Convert P7B to PFX
+openssl pkcs7 -print_certs -in certificate.p7b -out certificate.cer
+openssl pkcs12 -export -in certificate.cer -inkey privateKey.key -out certificate.pfx -certfile CACert.cer
+
+Convert PFX to PEM
+openssl pkcs12 -in certificate.pfx -out certificate.cer -nodes
+
+

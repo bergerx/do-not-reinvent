@@ -19,3 +19,60 @@ git diff [foobar]
 git commit -a
 git svn dcommit
 
+
+== refspec ==
+#from http://reinh.com/blog/2008/04/18/git-push-just-the-tip.html
+refspec = is a rule for mapping between local references and remote references, commit object "man git-rev-parse"
+<sha1>, e.g. dae86e1950b1277e545cee180551750029cfe735, dae86e
+<describeOutput>, e.g. v1.7.4.2-679-g3bee7fb
+<refname>, e.g. master, heads/master, refs/heads/master
+<refname>@{<date>}, e.g. master@{yesterday}, HEAD@{5 minutes ago}
+<refname>@{<n>}, e.g. master@{1}
+<refname>@{<date>}, e.g. master@{yesterday}, HEAD@{5 minutes ago}
+<refname>@{<n>}, e.g. master@{1}
+@{<n>}, e.g. @{1}
+@{-<n>}, e.g. @{-1}
+<refname>@{upstream}, e.g. master@{upstream}, @{u}
+<rev>^, e.g. HEAD^, v1.5.1^0
+<rev>~<n>, e.g. master~3
+<rev>^{<type>}, e.g. v0.99.8^{commit}
+<rev>^{}, e.g. v0.99.8^{}
+<rev>^{/<text>}, e.g. HEAD^{/fix nasty bug}
+:/<text>, e.g. :/fix nasty bug
+<rev>:<path>, e.g. HEAD:README, :README, master:./README
+:<n>:<path>, e.g. :0:README, :README
+G   H   I   J
+ \ /     \ /
+  D   E   F
+   \  |  / \
+    \ | /   |
+     \|/    |
+      B     C
+       \   /
+        \ /
+         A
+A =      = A^0
+B = A^   = A^1     = A~1
+C = A^2  = A^2
+D = A^^  = A^1^1   = A~2
+E = B^2  = A^^2
+F = B^3  = A^^3
+G = A^^^ = A^1^1^1 = A~3
+H = D^2  = B^^2    = A^^^2  = A~2^2
+I = F^   = B^3^    = A^^3^
+J = F^2  = B^3^2   = A^^3^2
+
+
+git push origin, will push changes from all local branches to matching branches the origin remote.
+git push origin master, will push changes from the local master branch to the remote master branch.
+git push origin master:staging, will push changes from the local master branch to the remote staging branch if it exists.
+
+# Create a Remote Branch
+git push origin master:refs/heads/staging, will create the branch staging in the origin by copying the local @master@ branch
+
+#Delete a Remote Branch
+git push origin :staging, will delete the branch staging from the origin repository.
+
+#Set Up A Branch’s Default Remote
+git config branch.<name>.remote <remote> can be used to specify this manually.
+

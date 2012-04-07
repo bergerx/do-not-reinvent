@@ -38,8 +38,6 @@ dlocate filename
      ... upgrade all unstable packages to their newest versions
 
 
-
-
 record
      # dpkg --get-selections "*" >myselections   # or use \*
      # debconf-get-selections > debconfsel.txt
@@ -50,7 +48,9 @@ reload
      # apt-get -u dselect-upgrade    # or dselect install
 
 
-
-
-
+.aptitude/config: aptitude::Recommends-Important "false";
+.aptitude/config: aptitude::Ignore-Recommends-Important "true";
+.aptitude/config: APT::AutoRemove::RecommendsImportant "false";
+.aptitude/config: APT::Install-Recommends "false";
+.aptitude/config: APT::Install-Suggests "false";
 

@@ -1,5 +1,10 @@
 #!/bin/bash
 # from http://wiki.bash-hackers.org/howto/getopts_tutorial
+
+#if ! getopts ":a:" opt; then
+#	echo "This script can get '-a' parameter"
+#	exit 2
+#fi
  
 while getopts ":a:" opt; do
   case $opt in
@@ -16,6 +21,9 @@ while getopts ":a:" opt; do
       ;;
   esac
 done
+shift $(($OPTIND - 1))
+echo "$@"
+
 
 # getopt v.s. getopts
 # http://aplawrence.com/Unix/getopts.html

@@ -1,8 +1,7 @@
 #!/bin/bash
 rm TAGS
-DIR=$1
+DIR=${1:-.}
 shift;
-DIR=${DIR:=.}
 find $DIR $@ ! -wholename "*CVS*" \
 	! -wholename "*.svn*" \
 	! -wholename "*.git*" \
