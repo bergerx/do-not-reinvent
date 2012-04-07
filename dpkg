@@ -1,0 +1,3 @@
+#install a deb with its dependencies
+sudo dpkg --force-depends  -i simplelxc_0.1-1_all.deb
+sudo apt-get -f install 

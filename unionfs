@@ -1,0 +1,16 @@
+mkdir /tmp/rw
+mkdir /tmp/ro
+cp -r /etc/ /tmp/ro
+sudo unionfs-fuse -o allow_other,use_ino,nonempty,cow /tmp/rw=RW:/tmp/ro=RO /tmp/union
+
+
+UnionFS doesn't support NFS-exporting and has issues with exporting via samba
+aufs is a bit better, but it doesn't support nfs yet
+JFS on LVM
+
+
+http://www.mail-archive.com/unionfs@mail.fsl.cs.sunysb.edu/msg02264.html
+unionfs 1.x is unstable and buggy
+unionfs 2.x is maybe more stable, but feature-poor
+aufs is stable and feature-rich
+
