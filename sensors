@@ -1,0 +1,10 @@
+sudo aptitude install lm-sensors
+sensors
+sudo sensors-detect
+
+sudo aptitude install smartmontools
+sudo smartctl --all /dev/[sh]d[a-z]
+
+sudo aptitude install hddtemp
+sudo hddtemp /dev/[sh]d[a-z]
+
