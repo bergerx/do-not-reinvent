@@ -1,0 +1,152 @@
+# http://www.puppetcookbook.com/posts/run-exec-if-file-absent.html
+## Don’t run exec if $file exists
+exec { "create_needed_directory":
+  command => "/bin/mkdir -p /tmp/needed/directory",
+  creates => "/tmp/needed/directory"
+}
+
+# http://www.puppetcookbook.com/posts/exec-onlyif.html
+## Selective exec running
+# run exec only if command in onlyif returns 0.
+exec { "run_account_purger":
+  command => "/usr/local/sbin/account_purger",
+  onlyif => "grep -c old_account /etc/passwd",
+}
+
+# or run multiple commands - all must succeed for exec to run
+exec { "run_account_purger":
+  command => "/usr/local/sbin/account_purger",
+  onlyif => [ 
+    "grep -c old_account /etc/passwd", 
+    "test -d /home/old_account/"
+  ]
+}
+
+
+
+#### PUPPET EXCLUDE PATTERNS ####
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# http://serverfault.com/questions/316744/puppet-exclude-module
+class centos_base {
+  define includer($exclude=false) {
+    if !$exclude {
+      include $name
+    }
+  }
+
+  includer{ ["chkconfig", "hosts", ...: }
+
+  class no_syslog_base inherits centos_base {
+    Includer["syslog::base"] { exclude => true }
+  }
+  ...
+}
+# For server you want to exclude syslog::base:
+node 'special' {
+  include centos_base::no_syslog_base
+}
+# and for all other servers:
+node 'normal' {
+  include centos_base
+}
+
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# http://comments.gmane.org/gmane.comp.sysutils.puppet.user/30670
+class baseclass {
+  $classes = ["aaa", "access", "banner", "func", "hosts", "munin", "ntp", "resolv", "rhn", "rsyslog", "ssh", "sudo"]
+  define include_class() {
+    if ($exclude_classes == undef) or ! ($name in $exclude_classes) {
+      include $name
+    }
+  }
+  include_class{ $classes: }
+}
+node default {
+  include baseclass
+}
+
+# simpler
+baseclass {
+  define include_class($exclude = false) {
+    if !$exclude { include $name }
+  }
+}
+
+class baseclass::no_rsyslog {
+  Include_class["rsyslog"] { exclude => true }
+}
+
+
+# same with the first one:
+class a { notify { "a included": } }
+class b { notify { "b included": } }
+class c { notify { "c included": } }
+
+class include_it {
+        define includer($exclude=false) {
+                if !$exclude {
+                        include $name
+                }
+        }
+
+        includer { [ "a", "b", "c" ]: }
+
+        class no_a inherits include_it {
+                Includer["a"] { exclude => true }
+        }
+
+        class no_b inherits include_it {
+                Includer["b"] { exclude => true }
+        }
+
+        class no_c inherits include_it {
+                Includer["c"] { exclude => true }
+        }
+}
+
+#in order to get rid of any include, you include the respective excluder-subclass in your node 
+include include_it
+include include_it::no_a
+include include_it::no_c
+
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# http://groups.google.com/group/puppet-users/browse_thread/thread/038e251b79698c15/f668e75b926fc793?pli=1
+
+# templates.pp (imported into site.pp) 
+class system_base ( $zabbix = true ) { 
+    include motd # etc. 
+    if $zabbix { 
+        include zabbix::stuff 
+   } 
+} 
+
+# nodes.pp (imported into site.pp) 
+node 'basic_host' { 
+    class { 'system_base': } 
+} 
+
+node 'special_case' { 
+    class { 'system_base': zabbix => false } 
+} 
+
+# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# http://groups.google.com/group/puppet-users/browse_thread/thread/6b59ae2470acfa14/810eb8671a5b3cdd
+class puppet::client { 
+  file { '/etc/puppet/puppet.conf': 
+    ensure => present, 
+    source => 'puppet:///puppet/configfile', 
+  } 
+} 
+class puppet::client::disabled inherits puppet::client { 
+  File['/etc/puppet/puppet.conf'] { 
+    ensure => undef, 
+    source => undef, 
+  } 
+} 
+class puppet::server { 
+  include puppet::client::disabled 
+} 
+
+
