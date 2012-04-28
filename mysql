@@ -49,6 +49,40 @@ Use mysqldumpslow
 # use MERGE tables ARCHIVE tables for logs 
 
 
+# from http://forge.mysql.com/wiki/Top10SQLPerformanceTips
+Don't use DISTINCT when you have or could use GROUP BY
+Use LOAD DATA instead of INSERT
+LIMIT m,n may not be as fast as it sounds. Learn how to improve it and read more about Efficient Pagination Using MySQL
+Use SQL_NO_CACHE when you are SELECTing frequently updated data or large sets of data
+
+innodb_flush_commit=0 can help slave lag
+Optimize for data types, use consistent data types. Use PROCEDURE ANALYSE() to help determine the smallest data type for your needs.
+enable and increase the query and buffer caches if appropriate
+--skip-name-resolve
+use --safe-updates for client
+Keep an eye on buffer pool and keybuffer hit rate
+increase myisam_sort_buffer_size to optimize large inserts (this is a per-connection variable)
+increase temp table size in a data warehousing environment (default is 32Mb) so it doesn't write to disk (also constrained by max_heap_table_size, default 16Mb)
+Run in SQL_MODE=STRICT to help identify warnings
+consider battery-backed RAM for innodb logfiles
+BLACKHOLE engine and replication is much faster than FEDERATED tables for things like logs.
+-Know your storage engines and what performs best for your needs, know that different ones exist.
+- ie, use MERGE tables ARCHIVE tables for logs
+Archive old data -- don't be a pack-rat! 2 common engines for this are ARCHIVE tables and MERGE tables
+Storing flags in a database can slow down execution due to a bad cardinality. Try using bit flags
+Storing flags in a database can slow down execution due to a bad cardinality. Try using bit flags
+
+use one of the supplied config files
+key_buffer, unix cache (leave some RAM free), per-connection variables, innodb memory variables
+be aware of global vs. per-connection variables
+check SHOW STATUS and SHOW VARIABLES (GLOBAL|SESSION in 5.0 and up)
+be aware of swapping esp. with Linux, "swappiness" (bypass OS filecache for innodb data files, innodb_flush_method=O_DIRECT if possible (this is also OS specific))
+defragment tables, rebuild indexes, do table maintenance
+If you use innodb_flush_txn_commit=1, use a battery-backed hardware cache write controller
+more RAM is good so faster disk speed
+use 64-bit architectures
+
+
 
 == replication ==
 #from http://aciddrop.com/2008/01/10/step-by-step-how-to-setup-mysql-database-replication/
@@ -213,3 +247,29 @@ mysql> SHOW SLAVE STATUS \G
 mysql> SHOW PROCESSLIST;
 
 
+
+
+===== copy database =====
+# http://dev.mysql.com/doc/refman/5.5/en/copying-databases.html
+source_shell>  mysqldump db_name | mysql -h 'target' db_name
+# or
+source_target> mysqldump -h 'source' --compress db_name | mysql db_name
+# or
+source_shell> mysqldump --quick db_name | gzip > db_name.gz
+target_shell> gunzip < db_name.gz | mysql db_name
+
+
+#For large tables (big tables), this is much faster than simply using mysqldump.
+source_shell> mkdir DUMPDIR
+source_shell> mysqldump --tab=DUMPDIR db_name
+
+target_shell> mysqladmin create db_name           # create database
+target_shell> cat DUMPDIR/*.sql | mysql db_name   # create tables in database
+target_shell> mysqlimport db_name DUMPDIR/*.txt   # load data into tables
+
+
+
+===== mysqltuner =====
+# from http://www.debianadmin.com/check-your-mysql-server-performance-with-mysqltuner.html
+wget http://mysqltuner.com/mysqltuner.pl
+perl mysqltuner.pl

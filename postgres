@@ -33,3 +33,64 @@ template1=# select datname, numbackends from pg_stat_database;
 # save a select result as csv
 COPY (SELECT foo,bar FROM whatever) TO ‘/tmp/dump.csv’ WITH CSV HEADER
 COPY (SELECT foo,bar FROM whatever) TO STDOUT WITH CSV HEADER
+
+# from http://stackoverflow.com/questions/2094963/postgresql-improving-pg-dump-pg-restore-performance
+# copy
+source_shell> pd_dump --format=custom > db.dump # or -Fc as short
+target_shell> pg_restore -d newdb db.dump
+
+target_shell> time ssh source sudo -u postgres pg_dumpall | sudo -u postgres psql
+
+
+shared_buffers  should be set correctly
+maintenance_work_mem should be increased during the restore
+full_page_writes should be off during the restore
+wal_buffers should be increased to 16MB during the restore
+checkpoint_segments should be increased to something like 16 during the restore
+auto_vacuum should be disabled during the restore.
+archive_mode Turn off
+
+
+
+
+# learn db size
+# select pg_size_pretty(pg_database_size('dbname'));
+47 GB
+
+
+
+# http://www.debian-administration.org/article/677/How-to_setup_Postgresql_9.1_Streaming_Replication_on_Debian_Squee
+# replication
+--- om master
+root@master:~# nano -w /etc/postgresql/9.1/main/postgresql.conf
+> #listen_addresses = 'localhost'		# what IP address(es) to listen on;
+> listen_addresses = '*'
+> #wal_level = minimal			# minimal, archive, or hot_standby
+> wal_level = hot_standby
+> #max_wal_senders = 0
+> max_wal_senders = 3
+root@master:~# psql -h localhost -U postgres -W -c "CREATE USER ruser WITH REPLICATION PASSWORD 'password';"
+root@master:~# nano -w /etc/postgresql/9.1/main/pg_hba.conf
+> #rep
+> host    replication     ruser        192.168.0.2/32          md5
+root@master:~# /etc/init.d/postgresql stop
+
+--- on slave
+root@slave:~# nano -w /etc/postgresql/9.1/main/postgresql.conf
+> #listen_addresses = 'localhost'		# what IP address(es) to listen on;
+> listen_addresses = '*'
+> #hot_standby = off
+> hot_standby = on
+root@slave:~# /etc/init.d/postgresql stop
+root@slave:~# cd /var/lib/postgresql/9.1/main/
+root@slave:/var/lib/postgresql/9.1/main# rm -rf *
+root@slave:~# nano -w /var/lib/postgresql/9.1/main/recovery.conf
+> primary_conninfo = 'host=192.168.0.1 port=5432 user=ruser password=password'
+> standby_mode = on
+
+--- lets start
+root@master:~# rsync -av /var/lib/postgresql/9.1/main/* 192.168.0.2:/var/lib/postgresql/9.1/main/
+root@slave:~# /etc/init.d/postgresql start
+root@master:~# /etc/init.d/postgresql start
+root@master:~# psql -h localhost -U postgres -W -c "select * from pg_stat_replication;"
+
