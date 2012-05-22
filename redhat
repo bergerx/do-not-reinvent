@@ -1,0 +1,9 @@
+sudo rhn_register
+# and its cli brother
+sudo rhnreg_ks --username hede --password hebelek
+
+sudo yum repolist all
+sudo rhn-channel --available-channels
+sudo rhn-channel --add --channel=rhel-x86_64-server-optional-6.2.z
+sudo yum repolist all
+
