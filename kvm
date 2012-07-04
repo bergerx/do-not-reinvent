@@ -107,3 +107,39 @@ bekir@hede:/tmp$ mount -l | grep /tmp/test
 /media/free/lxc_test_hda on /tmp/test type ext3 (rw,offset=1048576)
 
 
+
+
+
+
+
+# resize disk
+qemu-img resize fedora16.img +1GB
+
+
+# http://kaivanov.blogspot.com/2010/10/virtualization-using-kvm-with-libvirt.html
+[root@host]# cat newdisk.xml
+   <disk type="block" device="disk">
+      <driver name="qemu" cache="none">
+      <source dev="/dev/mapper/VGkvmimages-LVstorage">
+      <target dev="vdb" bus="virtio">
+    </target></driver></disk>
+
+[root@host]# virsh attach-device testbox newdisk.xml
+### OR ###
+[root@host]# virsh attach-disk testbox /dev/mapper/VGkvmimages-LVstorage vdb
+
+
+
+
+# http://kaivanov.blogspot.com/2010/10/virtualization-using-kvm-with-libvirt.html
+# Adding console access to KVM guest
+[root@testbox]# modprobe acpiphp
+[root@host]# vi /boot/grub/grub.conf
+serial --unit=0 --speed=115200
+terminal --timeout=5 serial console
+# Append console=ttyS0 at the end of the kernel line like so (all on one line):
+[root@host]# vi /boot/grub/grub.conf
+kernel /vmlinuz-2.6.18-194.17.1.el5 ro root=/dev/VolGroup00/LVroot rhgb quiet console=ttyS0,115200
+[root@host]# vi /etc/securetty
+ttyS0
+[root@host]# virsh console testbox

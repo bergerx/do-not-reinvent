@@ -217,3 +217,30 @@ options.ini
 parser.print_help()
 
 
+
+
+regex
+=====
+import re
+
+re.search() v.s. re.match()
+# match checks only at the beginning
+# search checks anywhere
+
+>>> matchobj = re.search(r'h.*,(h.*);(h.*)', 'aHede,Hodo;Hop', re.I|re.M)
+>>> matchobj.groups()
+('hodo', 'hop')
+>>> mo.group()
+'hede,hodo;hop'
+>>> mo.group(1)
+'hodo'
+>>> mo.group(2)
+'hop'
+
+
+>>> num="0 533 7119886 # bekirin telefonu"
+>>> num=re.sub(r'#.*$', "", num)
+>>> num=re.sub(r'\D', "", num)
+>>> num
+'05337119886'
+

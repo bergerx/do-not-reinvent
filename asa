@@ -1,0 +1,2 @@
+wget https://10.10.10.10/admin/public/asdm.jnlp --no-check-certificate
+javaws asdm.jnlp

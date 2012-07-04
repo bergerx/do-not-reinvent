@@ -148,3 +148,14 @@ http://sf.net/gentoo/gentoo-(.+)\.tar\.gz debian uupdate
 --
 
 
+== pear package ==
+aptitude install dh-make-php pbuilder devscripts
+pbuilder --create
+
+pear channel-discover pear.apache.org/log4php
+dh-make-pear  log4php/Apache_log4php
+
+cd php-apache-log4php*
+pdebuild
+debuild -us -uc
+

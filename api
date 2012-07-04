@@ -1,0 +1,82 @@
+versiyon (must be in path) - /v1
+auth (must use POST) - /v1/auth
+documentation and maybe explorer - /v1
+lists (use plural) - /v1/users
+pagination - /v1/users?limit=10&offset=100
+search/query - /v1/users?uid=1053 or /v1/users?lastname=dogan
+ CRUD
+  - create POST /v1/users or POST /v1/users/create (Not GET) ==> HTTP/1.1 201 Created + Location: /v1/users/bekir (if referrer)
+  - read GET /v1/users/bekir for list, GET /v1/users/info for information ==> HTTP/1.1 200 OK
+  - update PUT /v1/users/bekir or POST /v1/users/bekir/{update|put} (Not GET) # no partial updates, use PATCH instead
+  - delete DELETE /v1/users/bekir or POST /v1/users/bekir/delete sure=yes (Not GET)
+return fields - /v1/users/bekir?fields=displayname,team,department
+format - /v1/users/bekir.json
+address - api.example.com
+
+standard parameters - auth,sign
+ - token
+
+http://www.freshblurbs.com/pragmatic-restful-api-design
+field listesini nasl alacagiz
+setter islevleri olacaksa arguments net olmali
+hangi ozelliklerini degistirebilecegimizi nasil bilecegiz
+degisiklikl yapan islemler GET olmamali, spiders (google bot or website downloader), bookmarks, caches
+Never:
+ 
+POST always redirect (http://en.wikipedia.org/wiki/Post/Redirect/Get) - 303 See Other (http://tools.ietf.org/html/rfc2616#section-10.3.3)# not for api users but for testong
+All request replies with proper http header
+status codes:
+ 200 OK: Success!
+ 201 Created: a common return code for a successful HTTP POST (or PUT in idempotent creations)
+ 202 Accepted: request was accepted, but has not fully been processed, yet. A common code to return for asynchronous calls.
+ 304 Not Modified: There was no new data to return (think: cache).
+ 400 Bad Request: Invalid Request. Error message will be returned to provide further details.
+ 401 Unauthorized: Authentication credentials were missing or incorrect.
+ 403 Forbidden: Valid request that was refused. Attempt to access a resource that the client does not have permission to. Error message will be returned to provide further details.
+ 404 Not Found: The URL requested is invalid or the resource requested, such as a story or a user, does not exists.
+ 406 Not Acceptable: Returned when parameters passed are correct in theory and individually, but when combined can not be satisfied because the combination makes no sense (e.g. cart_id from one user is used with a user_id from another user). If possible, an error message will be returned to provide further details.
+ 500 Internal Server Error: Something went horribly wrong and we were not smart enough to provide more details :) Hopefully a very rare response code.
+ 503 Service Unavailable: Servers are offline for maintenance or went down under load (oops).
+Content-Type: Accept:
+ application/x-resource+json
+ application/x-collection+json
+ application/x-resource+yaml
+ application/x-collection+yaml
+ application/x-resource+xml
+ application/x-collection+xml
+ text/html
+
+
+controller
+list -> CRUD (no C, no D)
+item -> CRUD
+
+example:
+https://github.com/spiral-project/ihatemoney/blob/master/budget/api.py
+
+model -> functions
+resource list (immutable)
+resource
+ add - fields, required/optional
+ change - fields, immutable fields
+ delete
+ edit - mutable fields
+ rename - special case
+
+cache:
+ If-Modified-since
+ If-None-Match
+ Etag
+ If-Match
+ Expires
+ Last-Modified
+ Cache-Control
+
+
+links (meta):
+ next
+ collections
+ parent
+
+test:
+ chrome - advanced rest client
