@@ -1,0 +1,6 @@
+
+# query from here
+https://www.dan.me.uk/bgplookup
+
+# learn your AS record number
+whois 91.213.1.31 | grep origin:

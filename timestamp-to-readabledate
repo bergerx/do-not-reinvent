@@ -3,5 +3,5 @@ cat logfile | while read a b; do echo $(date -ud "1/1/70+${a}sec+2hours") $b ; d
 
 grep smth nagios.log | while read a b; do
   x=$(echo $a | tr -d '[]')
-  echo $(date -ud "1/1/70+${x}sec+2hours") - $b
+  echo $(date +"%F %T"  -ud "1/1/70+${x}sec+2hours") - $b
 done

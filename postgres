@@ -9,8 +9,8 @@ GRANT ALL PRIVILEGES ON DATABASE dbname TO username;
 OR
 
 sudo -u postgres psql
-CREATE DATABASE dbname
 CREATE USER username WITH PASSWORD 'userpass';
+CREATE DATABASE dbname OWNER username WITH ENCODING 'UTF-8';
 GRANT ALL PRIVILEGES ON DATABASE dbname TO username;
 
 

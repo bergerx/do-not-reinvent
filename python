@@ -155,6 +155,8 @@ dir_path = os.path.dirname(path)
 
 memory profling
 ===============
+# there is also https://launchpad.net/meliae 
+
 # from http://stackoverflow.com/questions/552744/how-do-i-profile-memory-usage-in-python
 >>> from guppy import hpy; h=hpy()
 >>> h.heap()
@@ -217,6 +219,22 @@ options.ini
 parser.print_help()
 
 
+profiling
+=========
+# from http://reinout.vanrees.org/weblog/2012/04/18/profiling-python.html
+import cProfile
+cProfile.run('your_method()')
+
+or
+
+python -m cProfile your_script.py -o your_script.profile
+# your_script.profile is a pstats to get the actual statistics
+# you can visualize it using "run snake run" http://www.vrplumber.com/programming/runsnakerun/ 
+
+
+pycounters
+==========
+# http://pycounters.readthedocs.org/en/latest/index.html
 
 
 regex

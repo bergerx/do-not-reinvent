@@ -20,3 +20,10 @@ mailq | awk '/theEnemyHostName/ {print $1}' | postsuper -d -
 mailq | sed ':a;N;$!ba;s/\n\([ (]\)\+/ \1/g' | grep -v '^$'
 mailq | sed ':a;N;$!ba;s/\n\([ (]\)\+/ \1/g' | grep -v '^$' | grep ${expr-theEnemyHostName} | cut -d" " -f1 | cut -d'*' -f1 | sudo postsuper -d -
 
+
+
+
+Protecting internal email distribution lists
+http://www.postfix.org/RESTRICTION_CLASS_README.html#internal
+# for zimbra
+http://wiki.zimbra.com/index.php?title=RestrictPostfixRecipients
