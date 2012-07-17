@@ -92,9 +92,9 @@ master-mysql> CREATE USER ‘slave_user’@ ‘X.X.X.X’ IDENTIFIED BY ‘passw
 master-mysql> GRANT REPLICATION SLAVE ON *.* TO 'slave_user'@'X.X.X.X' IDENTIFIED BY 'your_password';
 master-mysql> FLUSH PRIVILEGES;
 user@master:~$$ vim my.cnf # in [mysqld] section
- log-bin = /home/mysql/logs/mysql-bin.log
- binlog-do-db=my_database
+ log-bin = /var/lib/mysql/mysql-bin.log
  server-id=1
+ binlog-do-db=my_database # not necessary but if not given uses hostname
  #You should also make sure skip-networking has not been enabled.
  # If you use innodb add the next lines
  innodb_flush_log_at_trx_commit=1
@@ -104,14 +104,17 @@ user@master:~$ /etc/rc.d/init.d/mysqld restart
 user@slave:~$ vim my.cnf # in [mysqld] section
  server-id=2
  master-host=128.0.0.1
- master-connect-retry=60
  master-user=slave_user
  master-password=slave_password
- replicate-do-db=my_database
- 
+ master-connect-retry=60
+ replicate-do-db=my_database # or replicate-ignore-db=mysql
  relay-log = /var/lib/mysql/slave-relay.log
  relay-log-index = /var/lib/mysql/slave-relay-log.index
  #You should also make sure skip-networking has not been enabled.
+ # in redhat
+ log-slave-updates
+ log-warnings
+ report-host=slave.mydomain.com
 user@slave:~$ /etc/rc.d/init.d/mysqld restart
 
 === get data to slave ===
@@ -140,10 +143,10 @@ master-mysql> SHOW MASTER STATUS;
 slave-mysql> SLAVE STOP;
  Query OK, 0 rows affected (0.00 sec)
 slave-mysql> CHANGE MASTER TO
-+> MASTER_HOST='128.0.0.1',
-+> MASTER_USER='slave_user',
-+> MASTER_PASSWORD='slave_password',
-+> MASTER_LOG_FILE='mysql-bin.000001',
+#+> MASTER_HOST='128.0.0.1',
+#+> MASTER_USER='slave_user',
+#+> MASTER_PASSWORD='slave_password',
+#+> MASTER_LOG_FILE='mysql-bin.000001',
 +> MASTER_LOG_POS=21197930,
 +> MASTER_CONNECT_RETRY=10;
  Query OK, 0 rows affected (0.01 sec)
@@ -198,7 +201,7 @@ log_bin                 = /var/log/mysql/mysql-bin.log
 expire_logs_days        = 10
 max_binlog_size         = 100M
 binlog_do_db            = include_database_name
-#binlog_ignore_db       = include_database_name
+#binlog_ignore_db       = exclude_database_name
 ...
 root@mysqlmaster:~# service mysql start
 root@mysqlmaster:~# mysql -u root -p
@@ -241,7 +244,8 @@ replicate-do-db         = include_database_name
 root@mysqlslave:~# service mysql start
 root@mysqlslave:~# mysql -u root -p
 mysql> SLAVE STOP;
-mysql> CHANGE MASTER TO MASTER_HOST='mysqlmaster', MASTER_USER='slave_user', MASTER_PASSWORD='slave_pass', MASTER_LOG_FILE='mysql-bin.000002', MASTER_LOG_POS=455;
+#mysql> CHANGE MASTER TO MASTER_HOST='mysqlmaster', MASTER_USER='slave_user', MASTER_PASSWORD='slave_pass', MASTER_LOG_FILE='mysql-bin.000002', MASTER_LOG_POS=455;
+mysql> CHANGE MASTER TO MASTER_LOG_FILE='mysql-bin.000002', MASTER_LOG_POS=455;
 mysql> START SLAVE;
 mysql> SHOW SLAVE STATUS \G
 mysql> SHOW PROCESSLIST;
