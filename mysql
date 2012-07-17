@@ -22,7 +22,7 @@ FLUSH PRIVILEGES;
 # http://www.mysqlperformanceblog.com/2006/09/29/what-to-tune-in-mysql-server-after-installation/
 # http://docs.cellblue.nl/2007/03/17/easy-mysql-performance-tweaks/
 max_heap_table_size, default 16Mb
-mysql> SHOW VARIABLES LIKE ‘key%’
+mysql> SHOW VARIABLES LIKE 'key%'
 key_buffer_size - important if you use myisam, holds the indexes of tables in memory, Bigger is better, but prevent swapping at all costs. generally 1/4 of system memory.
 sort_buffer_size - used for grouping and sorting and is a per-thread buffer. there is no reason to increase sort_buffer_size even if you have 64GB of memory to waste. Furthermore doing so may decrease performance.
 table_cache - number of tables a thread can keep open at the same time, 1024 is good value for applications with couple hundreds tables (remember each connection needs its own entry) if you have many connections or many tables increase it larger.
@@ -88,13 +88,13 @@ use 64-bit architectures
 #from http://aciddrop.com/2008/01/10/step-by-step-how-to-setup-mysql-database-replication/
 #from http://www.gra2.com/article.php/setting-up-database-replication-on-mysql
 === master ===
-master-mysql> CREATE USER ‘slave_user’@ ‘X.X.X.X’ IDENTIFIED BY ‘password’; # X.X.X.X is the slave
+master-mysql> CREATE USER 'slave_user'@'X.X.X.X' IDENTIFIED BY 'password'; -- X.X.X.X is the slave
 master-mysql> GRANT REPLICATION SLAVE ON *.* TO 'slave_user'@'X.X.X.X' IDENTIFIED BY 'your_password';
 master-mysql> FLUSH PRIVILEGES;
-user@master:~$$ vim my.cnf # in [mysqld] section
- log-bin = /var/lib/mysql/mysql-bin.log
+user@master:~$ vim my.cnf # in [mysqld] section
+ log-bin=/var/lib/mysql/mysql-bin.log # not necessary but if not given uses hostname
  server-id=1
- binlog-do-db=my_database # not necessary but if not given uses hostname
+ binlog-do-db=my_database # binlog-ignore-db=mysql
  #You should also make sure skip-networking has not been enabled.
  # If you use innodb add the next lines
  innodb_flush_log_at_trx_commit=1
