@@ -97,3 +97,45 @@ End;
 /
 
 
+
+
+
+
+
+
+
+oracle trace hakkinda
+# http://dincersalihkurnaz.com/post/27324937534/oracle-trace-hakkinda
+* Oturum bazında trace etmek için 
+alter session set sql_trace = true; — iptal etmek için false
+
+alter session set tracefile_identifier = dincerkurnaz-trace;
+alter session set timed_statistics = true;
+alter session set STATISTICS_LEVEL = ALL ;
+alter session set max_dump_file_size=unlimited;
+alter session set events ‘10046 trace name context forever,level 12’;
+
+* Başka bir oturumu takip etmek istiyorsak artı olarak bu komutu çalıştıracağız.
+
+select distinct sid from v$mystat;
+
+select SCHEMANAME, sid, serial# from v$session;
+
+exec dbms_system.set_sql_trace_in_session(186, 11764, true); 
+
+
+* Tüm database trace etmek için
+
+alter system set sql_trace = true SCOPE=MEMORY;
+
+
+* trace dosylarımız burada
+SQL> show parameter dump
+
+NAME                     TYPE     VALUE
+—————————————————— —————- ———————————————
+user_dump_dest                 string     /usr/local/oracle/diag/rdbms/dincer/kurnaz/trace
+
+artık tkprof veya trace analyzer gibi uygulamalar kullanarak raporlar üretebiliriz.
+
+
