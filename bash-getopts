@@ -27,3 +27,7 @@ echo "$@"
 
 # getopt v.s. getopts
 # http://aplawrence.com/Unix/getopts.html
+
+# grep --color 'getopts\? ' /usr/bin/*
+## getopt example: /usr/bin/ucf
+## getopts example: /usr/bin/savelog
