@@ -146,7 +146,7 @@ slave-mysql> CHANGE MASTER TO
 #+> MASTER_HOST='128.0.0.1',
 #+> MASTER_USER='slave_user',
 #+> MASTER_PASSWORD='slave_password',
-#+> MASTER_LOG_FILE='mysql-bin.000001',
++> MASTER_LOG_FILE='mysql-bin.000001',
 +> MASTER_LOG_POS=21197930,
 +> MASTER_CONNECT_RETRY=10;
  Query OK, 0 rows affected (0.01 sec)
