@@ -1,0 +1,33 @@
+# from http://www.docjar.com/docs/api/org/quartz/CronExpression.html
+
+Field Name        Allowed Values      Allowed Special Characters
+Seconds           0-59                , - * /
+Minutes           0-59                , - * /
+Hours             0-23                , - * /
+Day-of-month      1-31                , - * ? / L W
+Month             1-12 or JAN-DEC     , - * /
+Day-of-Week       1-7 or SUN-SAT      , - * ? / L #
+Year (Optional)   empty, 1970-2099    , - * /
+
+W short-hand for weekday
+* every
+
+only for dom and dow
+? any
+L short-hand for "last"
+
+LW = last weekday of the month
+
+*/15 = 0/15 = 0,15,30,45
+5/15 = 5,20,35,50
+
+day-of-week (dow)
+1=Sun, 2=Mon, 3=Tue, 4=Wed, 5=Thu, 6=Fri, 7=Sat
+2#1 = 1st Monday(2) of the month
+4#5 = 5th Wednesday(4) of the month
+6#3 = 3rd Friday(6) in the month
+
+s   m   h   dom  mon  dow  year
+0   0   0   1    *    *          # first day of every month on 21:00
+0   0   21  ?    */3  2#1        # 1st monday of every three months on 21:00
+

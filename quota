@@ -92,3 +92,27 @@ ahmet     --    1060       0   9766M             72     0     0
 
 bekir@hede:/mnt/disk/home$ 
 
+
+
+/etc/warnquota.conf
+MAIL_CMD	= "/usr/sbin/exim -t"
+FROM		= "bekir@bdgn.net"
+SUBJECT		= "Disk kullanim limitiniz dolmak uzere."
+#CC_TO		= "root@localhost"
+SUPPORT		= "bekir@bdgn.net"
+PHONE		= "+90 212 331 3131"
+CHARSET		= UTF-8
+MESSAGE         = Merhaba %i,\ AG6B home folderında size ayrılan alanın\
+ limitlerine yaklaştığınızı fark ettik.|Lütfen belirtilen dosya sistemlerini temizleyiniz.:|
+SIGNATURE	= İyi Çalışmalar!|			Bdgn|
+
+
+
+####  cron definitions
+# define quota for new users, copy from user bekir
+31 3 * * * edquota -p bekir $(awk -F: '$3 > 999 {print $1}' <(getent passwd)) >/dev/null
+# calculate quota usage
+31 4 * * * /sbin/quotacheck -vagum >/dev/null
+# mail to users
+1 5 * * * /usr/sbin/warnquota -s >/dev/null
+
