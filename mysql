@@ -277,3 +277,13 @@ target_shell> mysqlimport db_name DUMPDIR/*.txt   # load data into tables
 # from http://www.debianadmin.com/check-your-mysql-server-performance-with-mysqltuner.html
 wget http://mysqltuner.com/mysqltuner.pl
 perl mysqltuner.pl
+
+
+
+===== mysql dump encoding =====
+# from http://www.loopbacking.info/blog/2012/09/25/farkli-kodlamali-mysql-veri-tabanina-veri-aktarmak/
+# add next three lines in the begiining of the dump before importing
+SET NAMES 'utf8';
+SET CHARACTER SET 'utf8';
+SET COLLATION_CONNECTION = 'utf8_bin';
+#SET COLLATION_CONNECTION = 'utf8_general_ci';
