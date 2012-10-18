@@ -61,6 +61,10 @@ sudo grub-install /dev/sdx
 
 
 
+# on redhat wipe metadata from ekrem
+dmraid -r -E /dec/sdc
+
+
 sudo su -c 'echo check > /sys/block/mdX/md/sync_action'
 cat /proc/mdstat
 sudo su -c 'echo repair > /sys/block/mdX/md/sync_action'
