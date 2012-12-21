@@ -1,0 +1,26 @@
+
+
+# run in debug mode
+bash -x bash_file
+
+
+
+
+# in any part of bash script
+...
+set -x # debug on
+...
+set +x # debug off
+...
+
+
+
+
+
+# https://www.google.com/reader/view/?tab=my#stream/user%2F11048092914547960854%2Flabel%2Fdebian
+#with time stamps
+set -x
+PS4='+\t '
+
+
+

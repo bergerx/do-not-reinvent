@@ -18,3 +18,25 @@ LSLOGSTACK () {
   done
 }
 
+
+## 
+LSLOGSTACK () {
+  local i=0
+  local FRAMES=${#BASH_LINENO[@]}
+  # FRAMES-2 skips main, the last one in arrays
+  for ((i=FRAMES-2; i>=0; i--)); do
+    echo -n "> ${FUNCNAME[i+1]} "
+  done
+  echo
+}
+
+function hebelek2() {
+	LSLOGSTACK	
+}
+
+function hebelek() {
+	hebelek2 $@
+	LSLOGSTACK
+}
+
+hebelek a b c

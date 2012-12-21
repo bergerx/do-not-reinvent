@@ -1,0 +1,2 @@
+sudo aptitude install calibre
+ebook-convert book.epub book.mobi

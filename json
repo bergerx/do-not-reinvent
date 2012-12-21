@@ -1,0 +1,3 @@
+# http://igorgue.com/pjson/
+
+cat hede.json | python -mjson.tool

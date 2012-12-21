@@ -1,0 +1,2 @@
+sudo aptitude install transmission-cli
+transmission-cli hede.torrent
