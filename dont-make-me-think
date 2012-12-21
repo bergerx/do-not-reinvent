@@ -1,16 +1,68 @@
+from: http://www.amazon.com/Dont-Make-Me-Think-Usability
+
 self-evident / self-explanatory
   obvius - buttons, links, searchs
 web users have to keep moving or they’ll die
   users scan (dont read) then click, help them boldface
 find smth works, stick to it
 visual hierarchy, things should be nested properly
-
-on page 35
-
-people don’t like to puzzle
+Busy-ness and less background noise
 users guess wrong, then click back button
-find something that works, we stick to it
-no happy talks
-make search usable - some only use it
+users find something that works, stick to it
+no happy talk, no introduction
+trunk test
+ site id/logo
+ page name - should be clear
+ sections and subsections (utilities should be seperate)
+ local navigation
+ You are here - breadcumb (tiny, boldface last)
+ make search usable - some only use it - for what (site/book/net) if needed
+Persistant navigation
 mental site map - find anything later with same path
 make home button
+tabs
+ active tab should be contrast to others or space below it has same color with it
+ dont forget welcome tab
+home page
+ site identity and mission
+ hierarchy
+ search
+ teases
+ timely content
+ deals
+ shortcuts
+home page - big picture
+ what is this
+ what do they have here
+ what can i do here
+ why should i be here - and not somewhere else
+home page
+ tagline - clear, informative, just long enough, differentiation, clear benefit, lovely, sometimes clever, not generic, not vague
+ welcome blurb - short, boldfaced keywords, not mission
+home page - here's where to start if i want to
+ search
+ browse
+ sample their best stuff
+pull down troubles
+ you have to seek
+ hard to scan
+ come and goes fast
+forms
+ dont ask more than needed
+ maybe good if partially edit
+diminish goodwill
+ hiding information taht i want
+ punishing me for not doing things your way
+ asking me for information you dont need
+ shucking and jiving me
+ outting sizzle in my way - flash intro, marketing pages
+ your site look amateurish
+increase goodwill
+ know the main things that people want to do on your site and make them obvius and easy
+ tell me what i want to know
+ save me steps wherever you can
+ put effort into it
+ know what questions i'm likely to have, and answer them
+ provide me with creature comforts like printer-friendly pages
+ make it easy to recover from errors
+ when in doubt, apologise - university let users know that they dont have library section in site
