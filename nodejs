@@ -1,0 +1,42 @@
+
+list of nodejs modules and frameworks
+=====================================
+# https://github.com/joyent/node/wiki/modules
+
+server:
+request - express - geddy - tower (rail3) - railway (rails2) - flatiron - sammyjs
+real-time:
+  derby - meteor - socketstream - spacemagic - firebase
+template:
+  jade - mustache
+client:
+  angular - knockout - ember - spine - backbone 
+  jquery - (twitter) bootstrap
+  date:
+    momentjs
+  sytle:
+    less (lesscss) - stylus - sass
+minify:
+  uglifyjs
+sso:
+  passport - everyauth - mongoose-auth
+application assembler:
+  brunch.io
+
+development environment
+=======================
+# http://pypi.python.org/pypi/nodeenv/
+using with virtualenv wrapper
+
+# prepare
+sudo pip install nodeenv
+mkvirtualenv sample-node-env
+nodeenv -p
+
+# then use like this
+workon sample-node-env
+npm install -g coffee-script
+
+
+
+
