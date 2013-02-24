@@ -1,0 +1,18 @@
+
+fdisk /dev/sdx
+ # fdisk /dev/sda
+ n (to create new partition)
+ p (for primary partition)
+ 1 (for partition number)
+ default for First cylinder
+ t (change partition's system id)
+ 1 (for partition number)
+ L (to view hex codes)
+ 87 (for NTFS partition)
+ w (to write changes)
+
+sudo apt-get install ntfsprogs ntfs-3g
+
+sudo mkntfs /dev/sdx1
+
+mount -t ntfs /dev/sdx1 /media/free
