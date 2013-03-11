@@ -1,0 +1,182 @@
+-A [channel] = Append
+-I = Insert (-I INPUT 5)
+-L = List
+-F = Flush
+-j [ACCEPT|REJECT|DROP|LOG --log-level] = Jump
+-p [TCP|UDP|ICMP]
+-s <source-ip-address>
+-d <dest-ip-address>
+-i <input-interface-name> 
+-o <output-interface-name> 
+--sport starting-port:ending-port
+--dport starting-port:ending-port
+--syn (! --syn)
+-p icmp --icmp-type echo-request
+
+-m multiport --sports <port, port>
+-m multiport --dports <port, port>
+-m multiport --ports <port, port> 
+-m state --state [ESTABLISHED|NEW|RELATED|INVALID]
+
+# CHAINS: PREROUTING,[INPUT,FORWARD,OUTPUT],POSTROUTING
+# TABLES (-t): raw,mangle,nat,filter (default:filter)
+
+
+# from: http://www.frozentux.net/iptables-tutorial/iptables-tutorial.html#TRAVERSINGOFTABLES
+
+# from remote
+* PREROUTING: raw,mangle,nat
+* INPUT: mangle,nat
+#detail:
+  (come to interface)
+PREROUTING (raw table, ex:pre-tracking)
+  (tracking)
+PREROUTING (mangle, ex:changing TOS, TTL, mark)
+PREROUTING (nat, ex:dnat)
+  (routing decision)
+INPUT (mangle)
+INPUT (filter)
+
+# forwarded packets
+* PREROUTING: raw,mangle,nat
+* FORWARD: mangle,filter
+* POSTROUTING: mangle,nat
+#detail:
+  (come to interface)
+PREROUTING (raw table, ex:pre-tracking)
+  (tracking)
+PREROUTING (mangle, ex:changing TOS)
+PREROUTING (nat, ex:dnat)
+  (routing decision)
+FORWARD (mangle)
+FORWARD (filter)
+POSTROUTING (mangle)
+POSTROUTING (nat)
+
+# from local
+* OUTPUT: raw,mangle,nat,filter
+* POSTROUTING: mangle,nat
+#detail:
+  (routing decision)
+OUTPUT (raw, pre-tracking)
+  (tracking)
+OUTPUT (mangle, dont filter here)
+OUTPUT (nat)
+  (routing decision)
+OUTPUT (filter)
+POSTROUTING (mangle, ex:traverse firewall)
+POSTROUTING (nat, ex:snat)
+  (goes to interface)
+
+#from: http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_:_Ch14_:_Linux_Firewalls_Using_iptables#.UT3iAqrLfmE
+# by queue types
+filter: FORWARD,INPUT,OUTPUT
+nat: PREROUTING,POSTROUTING,OUTPUT
+mangle: PREROUTING,POSTROUTING,OUTPUT,INPUT,FORWARD
+
+# User Defined Chains (-j)
+iptables -A INPUT -i eth0  -d 206.229.110.2 -j fast-input-queue
+iptables -A OUTPUT -o eth0 -s 206.229.110.2 -j fast-output-queue
+iptables -A fast-input-queue  -p icmp -j icmp-queue-in
+iptables -A fast-output-queue -p icmp -j icmp-queue-out
+
+# Targets (-j)
+ACCEPT - stop processing, handover package to app
+DROP - stop processing, block package
+LOG - syslog, go on processing (--log-prefix "string")
+REJECT - like rop but return smth (icmp, tcp-reset, echo-reply)
+DNAT - (--to-destination ipaddress)
+SNAT - (--to-source <address>[-<address>][:<port>-<port>])
+MASQUERADE - snat again ([--to-ports <port>[-<port>]])
+
+
+# logging
+sudo iptables -I INPUT 5 -m limit --limit 5/min -j LOG --log-prefix "iptables denied: " --log-level 7
+
+# Established Sessions
+sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+#same
+udo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# from:http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_:_Ch14_:_Linux_Firewalls_Using_iptables#.UT3iAqrLfmE
+# kernel modules needed:
+# File: /etc/rc.local
+# Module to track the state of connections
+modprobe ip_conntrac
+# Load the iptables active FTP module, requires ip_conntrack
+modprobe ip_conntrack_ftp
+# Load iptables NAT module when required
+  modprobe iptable_nat
+# Module required for active an FTP server using NAT
+   modprobe ip_nat_ftp
+
+# disable accel
+iptables -A OUTPUT -p udp -o eth0 --dport 53 --sport 1024:65535 -j ACCEPT
+iptables -A INPUT -p udp -i eth0 --sport 53 --dport 1024:65535 -j ACCEPT 
+
+#NAT
+modprobe iptable_nat
+echo 1 > /proc/sys/net/ipv4/ip_forward
+# Port Forwarding Type NAT
+iptables -A FORWARD -p tcp -i eth0 -o eth1 -d 192.168.1.200 --dport 8080 --sport 1024:65535 -m state --state NEW -j ACCEPT
+iptables -A FORWARD -t filter -o eth0 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT 
+iptables -A FORWARD -t filter -i eth0 -m state --state ESTABLISHED,RELATED -j ACCEPT
+# Static NAT
+# TO:             FROM:           MAP TO SERVER:
+# 97.158.253.26    Anywhere        192.168.1.100 (1:1 NAT - Inbound)
+# Anywhere        192.168.1.100   97.158.253.26 (1:1 NAT - Outbound)
+# Anywhere        192.168.1.0/24  97.158.253.29 (FW IP)
+iptables -t nat -A PREROUTING -d 97.158.253.26 -i eth0 -j DNAT --to-destination 192.168.1.100
+iptables -t nat -A POSTROUTING -s 192.168.1.100 -o eth0 -j SNAT --to-source 97.158.253.26
+iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -j SNAT -o eth0 --to-source 97.158.253.29
+iptables -A FORWARD -p tcp -i eth0 -o eth1 -d 192.168.1.100 -m multiport --dports 80,443,22 -m state --state NEW -j ACCEPT
+
+# masquerading (MASQUERADE)
+modprobe iptable_nat
+echo 1 > /proc/sys/net/ipv4/ip_forward
+iptables -A POSTROUTING -t nat -o eth0 -s 192.168.1.0/24 -d 0/0 -j MASQUERADE
+iptables -A FORWARD -t filter -o eth0 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -t filter -i eth0 -m state --state     ESTABLISHED,RELATED -j ACCEPT
+
+# cleaning tools
+echo "Stopping firewall and allowing everyone..."
+iptables -F
+iptables -X
+iptables -t nat -F
+iptables -t nat -X
+iptables -t mangle -F
+iptables -t mangle -X
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+
+# save - reload
+# from:https://help.ubuntu.com/community/IptablesHowTo
+# Solution #1 - /etc/network/interfaces
+iptables-save > /etc/iptables.rules
+sudo nano /etc/network/interfaces
+  pre-up iptables-restore < /etc/iptables.rules
+  post-down iptables-save > /etc/iptables.rules
+# Solution #2 /etc/network/if-pre-up.d and ../if-post-down.d
+>>> /etc/network/if-pre-up.d/iptablesload
+#!/bin/sh
+iptables-restore < /etc/iptables.rules
+exit 0
+>>> /etc/network/if-post-down.d/iptablessave
+#!/bin/sh
+iptables-save -c > /etc/iptables.rules
+if [ -f /etc/iptables.downrules ]; then
+  iptables-restore < /etc/iptables.downrules
+fi
+exit 0
+# Solution #3 iptables-persistent
+sudo aptitude install iptables-persistent
+
+
+# detailed Logging (--limit --> number of times to log the same rule to syslog)
+-A LOGNDROP -p tcp -m limit --limit 5/min -j LOG --log-prefix "Denied TCP: " --log-level 7
+-A LOGNDROP -p udp -m limit --limit 5/min -j LOG --log-prefix "Denied UDP: " --log-level 7
+-A LOGNDROP -p icmp -m limit --limit 5/min -j LOG --log-prefix "Denied ICMP: " --log-level 7
+
+#ban ip
+iptables -A INPUT -s $IP -j DROP
