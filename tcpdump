@@ -9,6 +9,9 @@ tcpdump tcp portrange 20-24
 # -s: define showlength, -s0 means everything
 # -S: show absoulte sequence numbers
 # -n, -nn: dont resolv host and port names
+# -A: Display Captured Packets in ASCII
+# -XX: display in hex
+# -tttt: show proper readable timestamp
 
 #skip ssh and dns packages
 tcpdump -i eth0 -s 1500 port not 22
