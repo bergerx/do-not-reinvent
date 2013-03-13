@@ -1,0 +1,10 @@
+# from http://danielmiessler.com/study/lsof/
+lsof -i        # connections
+lsof -i TCP    # tcp connections 
+lsof -i :22    # connections related to port 22
+lsof -i @192.168.1.5    # connections to a specific host
+lsof -i @192.168.1.5:22 # using both host and port
+lsof -c syslog-ng       # show connections related to program
+lsof -u daniel # show connections related to user
+lsof -p 10075  # show connections related to pid
+lsof +L1       # all open files that have a link count less than 1 (opened and then deleted files) 
