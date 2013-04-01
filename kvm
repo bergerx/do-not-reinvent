@@ -143,3 +143,8 @@ kernel /vmlinuz-2.6.18-194.17.1.el5 ro root=/dev/VolGroup00/LVroot rhgb quiet co
 [root@host]# vi /etc/securetty
 ttyS0
 [root@host]# virsh console testbox
+
+
+
+#live migration
+http://docs.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html-single/Virtualization_Administration_Guide/index.html#chap-Virtualization_Administration_Guide-KVM_live_migration
