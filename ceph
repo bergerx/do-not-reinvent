@@ -1,0 +1,277 @@
+dont use raid1 raid0 raid6 raid5 raid10 ...
+one osd daemon = one disk
+
+rbd
+ - rbd_info
+ - rbd_directory
+ - <image>.rbd
+   - id
+   - size of image, objects
+   - snapshots
+ - rbd.<id>.<n>
+   - images are sparse
+
+rbd
+
+snap
+* freeze fs (xfs_freeze)
+* rbd snap create
+* unfreeze fs
+
+
+http://storageconference.org/2012/Presentations/T02.Weil.pdf
+
+cephfs
+$ mount -t ceph 1.2.3.4:/ /mnt
+$ cd /mnt
+$ ls -alSh | head
+total 0
+drwxr-xr-x 1 root root           9.7T 2011-02-04 15:51 .
+drwxr-xr-x 1 root root           9.7T 2010-12-16 15:06 ..
+drwxr-xr-x 1 pomceph pg4194980   9.6T 2011-02-24 08:25 pomceph
+drwxr-xr-x 1 mcg_test1 pg2419992  23G 2011-02-02 08:57 mcg_test1
+drwx--x--- 1 luko adm             19G 2011-01-21 12:17 luko
+drwx--x--- 1 eest adm             14G 2011-02-04 16:29 eest
+drwxr-xr-x 1 mcg_test2 pg2419992 3.0G 2011-02-02 09:34 mcg_test2
+drwx--x--- 1 fuzyceph adm        1.5G 2011-01-18 10:46 fuzyceph
+drwxr-xr-x 1 dallasceph pg275    596M 2011-01-14 10:06 dallasceph
+$ mkdir foo/.snap/one # create snapshot
+$ ls foo/.snap
+one
+$ ls foo/bar/.snap
+_one_1099511627776 # parent's snap name is mangled
+$ rm foo/myfile
+$ ls -F foo
+bar/
+$ ls -F foo/.snap/one
+myfile bar/
+$ rmdir foo/.snap/one # remove snapshot
+
+
+INSTALL
+echo deb http://ceph.newdream.net/debian precise main | sudo tee /etc/apt/sources.list.d/ceph.list
+sudo apt-get install ceph
+sudo apt-get install librbd1, librados2, libcephfs1
+sudo apt-get install radosgw
+
+sudo vi /etc/ceph/ceph.conf
+  > [global]
+  >   auth supported = cephx
+  > [mon]
+  >   mon data = /var/lib/ceph/ceph-mon.$id
+  > [mon.a]
+  >   host = mymon-a
+  >   mon addr = 1.2.3.4:6789
+  > [mon.b]
+  >   host = mymon-b
+  >   mon addr = 1.2.3.5:6789
+  > [mon.c]
+  >   host = mymon-c
+  >   mon addr = 1.2.3.4:6789
+  > [osd]
+  >   osd data = /var/lib/ceph/ceph-osd.$id
+  > [osd.0]
+  >   host = myosd0
+# set up ssh keys
+$ sudo mkcephfs -c conf -a -mkbtrfs
+# distribute admin key
+$ sudo service ceph start
+$ sudo ceph health
+$ sudo ceph -w
+
+$ sudo ceph osd dump
+$ sudo ceph osd tree
+  > dumped osdmap tree epoch 621
+  > # id    weight  type name   up/down reweight
+  > -1  12  pool default
+  > -3  12      rack le-rack
+  > -2  3           host ceph-01
+  > 0   1               osd.0   up  1
+  > 1   1               osd.1   up  1
+  > -4  3           host ceph-02
+  > 2   1               osd.2   up  1
+  > 3   1               osd.3   up  1
+
+== osd failure ==
+$ sudo killall ceph-osd
+$ sudo service stop osd.12
+$ sudo ceph osd out 12
+
+== add new osd ==
+$ sudo ceph osd create
+12
+$ sudo vi ceph.conf
+[osd.12]
+  host = plana12
+  btrfs devs = /dev/sdb
+$ sudo mkfs.btrfs /dev/sdb
+$ sudo mkdir -p /var/lib/ceph/osd-data/12
+$ sudo mount /dev/sdb /var/lib/ceph/osd-data/12
+$ sudo ceph-osd –mkfs -i 12 –mkkey
+$ sudo ceph auth add osd.12 osd 'allow *' mon 'allow rwx' -i /var/lib/ceph/osd-data/12/keyring
+$ sudo service ceph start osd.12
+$ sudo ceph osd tree
+$ sudo ceph osd crush add 12 osd.12 1.0 host=plana12 rack=unknownrack pool=default
+$ sudo ceph osd tree
+
+$ sudo ceph osd crush reweight osd.12 .7
+
+== modifying crush map ==
+$ sudo ceph osd getcrushmap -o cm
+$ sudo crushtool -d cm -o cm.txt
+$ sudo vi cm.txt
+  > # begin crush map
+  > 
+  > # devices
+  > device 0 osd.0
+  > device 1 osd.1
+  > device 2 osd.2
+  > device 3 osd.3
+  > 
+  > # types
+  > type 0 osd
+  > type 1 host
+  > type 2 rack
+  > type 3 row
+  > type 4 room
+  > type 5 datacenter
+  > type 6 pool
+  > 
+  > # buckets
+  > host ceph-01 {
+  >     id -2       # do not change unnecessarily
+  >     # weight 3.000
+  >     alg straw
+  >     hash 0  # rjenkins1
+  >     item osd.0 weight 1.000
+  >     item osd.1 weight 1.000
+  > }
+  > host ceph-02 {
+  >     id -4       # do not change unnecessarily
+  >     # weight 3.000
+  >     alg straw
+  >     hash 0  # rjenkins1
+  >     item osd.2 weight 1.000
+  >     item osd.3 weight 1.000
+  > }
+  > rack le-rack {
+  >     id -3       # do not change unnecessarily
+  >     # weight 12.000
+  >     alg straw
+  >     hash 0  # rjenkins1
+  >     item ceph-01 weight 2.000
+  >     item ceph-02 weight 2.000
+  > }
+  > pool default {
+  >     id -1       # do not change unnecessarily
+  >     # weight 12.000
+  >     alg straw
+  >     hash 0  # rjenkins1
+  >     item le-rack weight 4.000
+  > }
+  > 
+  > # rules
+  > rule data {
+  >     ruleset 0
+  >     type replicated
+  >     min_size 1
+  >     max_size 10
+  >     step take default
+  >     step chooseleaf firstn 0 type host
+  >     step emit
+  > }
+  > rule metadata {
+  >     ruleset 1
+  >     type replicated
+  >     min_size 1
+  >     max_size 10
+  >     step take default
+  >     step chooseleaf firstn 0 type host
+  >     step emit
+  > }
+  > rule rbd {
+  >     ruleset 2
+  >     type replicated
+  >     min_size 1
+  >     max_size 10
+  >     step take default
+  >     step chooseleaf firstn 0 type host
+  >     step emit
+  > }
+  > 
+  > # end crush map
+$ sudo crushtool -c cm.txt -o cm.new
+$ sudo ceph osd setcrushmap -i cm.new
+
+
+== adjust replication ==
+$ sudo ceph osd dump | grep ^pool # learn
+$ sudo ceph osd pool <poolname> set data size 3
+
+
+== rbd ==
+# create an rbd user
+sudo ceph-authtool --create-keyring -n client.rbd –gen- key rbd.keyring
+sudo ceph auth add client.rbd osd "allow *" mon "allow *" -i rbd.keyring
+
+# import an image
+$ sudo rbd import precise-server.img foo
+
+# take an initial snapshot
+$ sudo rbd snap create –snap=orig foo
+
+# resize
+$ sudo rbd resize –size 20000 foo
+$ sudo rbd info foo
+$ sudo rbd resize –size 10000 foo
+
+# rollback snapshot
+$ sudo rbd snap rollback –snap=orig foo
+
+
+== juju ==
+sudo apt-add-repository ppa:juju/pkgs
+sudo apt-get update && sudo apt-get install juju
+juju bootstrap
+vi ~/.juju/environments.yaml
+
+juju bootstrap --constraints instance-type=t1.micro
+juju status
+juju deploy -n 3 --config ceph.yaml ceph
+juju deploy -n 3 --config ceph.yaml ceph-osd
+juju status
+
+
+
+== scenarios ==
+http://www.sebastien-han.fr/blog/2012/12/07/ceph-2-speed-storage-with-crush/
+    storage nodes full of SSDs disks
+    storage nodes full of SAS disks
+    storage nodes full of SATA disks
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
