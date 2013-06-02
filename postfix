@@ -27,3 +27,7 @@ Protecting internal email distribution lists
 http://www.postfix.org/RESTRICTION_CLASS_README.html#internal
 # for zimbra
 http://wiki.zimbra.com/index.php?title=RestrictPostfixRecipients
+
+#for postfix
+sudo /opt/zimbra/postfix/sbin/mailq | sudo /opt/zimbra/postfix/sbin/postsuper -d -
+
