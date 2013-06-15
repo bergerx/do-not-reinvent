@@ -29,5 +29,5 @@ http://www.postfix.org/RESTRICTION_CLASS_README.html#internal
 http://wiki.zimbra.com/index.php?title=RestrictPostfixRecipients
 
 #for postfix
-sudo /opt/zimbra/postfix/sbin/mailq | sudo /opt/zimbra/postfix/sbin/postsuper -d -
+sudo /opt/zimbra/postfix/sbin/mailq | awk '/MAILER-DAEMON/ {print $1}' | sudo /opt/zimbra/postfix/sbin/postsuper -d -
 
