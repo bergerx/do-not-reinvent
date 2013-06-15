@@ -1,0 +1,36 @@
+# tools
+ifconfig
+vconfig
+brctl (bridge-utils)
+ip
+tc
+iptables
+ebtables
+ovs-vsctl (openvswitch-switch)
+
+Linux packet flow
+# http://c3414940.r40.cf0.rackcdn.com/blog/wp-content/uploads/2012/04/Linux-Packet-Flow.png
+
+
+
+# from http://net.doit.wisc.edu/~dwcarder/captivator/linux_trunking_bridging.txt
+modprobe 8021q
+vconfig add eth2 970
+vconfig add eth2 972
+vconfig add eth3 971
+vconfig add eth3 973
+ifconfig eth2 up
+ifconfig eth3 up
+ifconfig eth2.970 up
+ifconfig eth2.972 up
+ifconfig eth3.971 up
+ifconfig eth3.973 up
+brctl addbr br970
+brctl addif br970 eth2.970
+brctl addif br970 eth3.971
+brctl addbr br972
+brctl addif br972 eth2.972
+brctl addif br972 eth3.973
+
+
+

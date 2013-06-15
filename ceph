@@ -230,6 +230,7 @@ $ sudo rbd snap rollback –snap=orig foo
 
 
 == juju ==
+http://static.usenix.org/events/osdi06/tech/full_papers/weil/weil_html/index.html 
 sudo apt-add-repository ppa:juju/pkgs
 sudo apt-get update && sudo apt-get install juju
 juju bootstrap
@@ -249,29 +250,41 @@ http://www.sebastien-han.fr/blog/2012/12/07/ceph-2-speed-storage-with-crush/
     storage nodes full of SAS disks
     storage nodes full of SATA disks
 
+how dreamhosts using ceph
+http://ceph.com/presentations/20121102-ceph-day/20121102-dreamobjects.pdf 
+
+
+== benchmarks ==
+http://learnitwithme.com/?p=303
 
 
 
+== geo replication ==
+http://www.sebastien-han.fr/blog/2013/01/28/ceph-geo-replication-sort-of/ 
 
 
+== ceph openstack ==
+http://www.sebastien-han.fr/blog/2012/06/10/introducing-ceph-to-openstack/ 
+
+== webcasts ==
+http://en.community.dell.com/techcenter/cloud/w/wiki/4477.inktank-ceph-webinar-series-jan-feb-2013.aspx 
 
 
+== enable guest fs trim ==
+https://lwn.net/Articles/415889/ 
 
 
+== publication/paper ==
+http://static.usenix.org/events/osdi06/tech/full_papers/weil/weil_html/index.html 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+== some other links ==
+http://ceph.com/presentations/20121102-ceph-day/20121102-cluster-design-deployment.pdf
+http://ceph.com/presentations/20121102-ceph-day/20121102-ceph-in-the-cloud.pdf
+http://it.toolbox.com/blogs/database-soup/testing-disk-speed-the-dd-test-31069
+http://ceph.com/docs/master/rados/operations/crush-map/
+http://ceph.com/docs/master/rados/configuration/filesystem-recommendations/
+http://ceph.com/docs/master/faq/
+http://ceph.com/community/ceph-bobtail-jbod-performance-tuning/
+http://storageioblog.com/?p=588
 
