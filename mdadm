@@ -10,6 +10,11 @@ sudo mdadm --assemble --scan
 sudo mdadm --stop /dev/mdx
 sudo mdadm --detail --scan --verbose > /etc/mdadm.conf
 
+# look any device on system
+sudo mdadm --examine --scan
+# look any active md
+sudo mdadm --detail --scan
+
 
 recover superbloks
 http://www.redhat.com/archives/ext3-users/2005-October/msg00007.html
