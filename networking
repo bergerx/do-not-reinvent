@@ -255,3 +255,31 @@ HOST: hede                        Loss%   Snt   Last   Avg  Best  Wrst StDev
 bekir@hede:/tmp$ 
 
 
+
+
+tcpdump
+wireshark
+tshark
+netstat
+etherape
+strace -f -e trace=network -s 10000 PROCESS ARGUMENTS
+netstat -taucp | grep <pid or process name>
+http://freshmeat.net/projects/fixsrcip - binding outgoing traffic to specific source IP 
+http://freshmeat.net/projects/force_bind - force binding on a specific IP and/or port
+
+iptables -t nat -A OUTPUT -p tcp -m owner --uid-owner $USER -m tcp -j LOG 
+iptables -t nat -A OUTPUT -p udp -m owner --uid-owner $USER -m udp -j LOG 
+
+poptop - The PPTP Server for Linux
+NTM, Network Traffic Monitor - http://sourceforge.net/projects/netramon/ - graphical
+
+
+bmon - shows multiple interfaces at once
+slurm - has nice colored graphs
+tcptrack - A favorite. Tells how much bandwidth is being used and also what protocol (service/port) and destination the transmission is taking place to. Very helpful when you want to know exactly what is using up your bandwidth
+
+Crossroads
+BalanceNG
+HAproxy - tcp load balance
+multiple uplinks/providers - http://lartc.org/howto/lartc.rpdb.multiple-links.html
+
