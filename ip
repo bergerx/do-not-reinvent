@@ -1,0 +1,20 @@
+ip a       # show ip addresses
+ip -4 a    # show oinly ipv4 addresses
+ip addr show dev eth0 # ip a s eth0
+
+ip -s link # interface statitics
+ip link show
+ip link set eth0 up
+
+ip r       # ip route
+ip route add 192.168.172.0/24 dev gre01
+ip route add default via 192.168.0.1
+ip route chg default via 192.168.0.2
+ip route del default
+ip route get 192.168.173.123
+
+ip n   # show arp table
+ip neigh show
+
+ss -l   # netstat -nlt
+ss -p   # process information
