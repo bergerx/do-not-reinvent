@@ -1,0 +1,207 @@
+PS1='$(awk "/sysfs/{print \\$2}" /proc/self/mountstats)# '
+
+== scenario: create a netns ==
+# create/list/enter/exec/delete namespace
+sysfs# ip netns show        # ip net
+sysfs# ip netns add ns1
+sysfs# ip netns show
+ns1
+sysfs# ip netns exec ns1 bash
+ns1# ip link show
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN mode DEFAULT
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+ns1# ip link set dev lo up  # loopback interfaces are not up by default
+ns1# ip link show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+ns1# exit
+sysfs# ip netns exec ns1 ip link show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+sysfs# ip netns del ns1
+sysfs# ip netns show
+sysfs#
+
+== scenario: only internal communication between netns and host ==
+
+ Hosts System
+ +-----------------------------------------------------------------------+
+ |                                                                       |
+ |  br_ns                                                                |
+ |  +-----------------------+            namespace - ns1                 |
+ |  |  br_ns - 10.0.0.1/24  |            +---------------------------+   |
+ |  |  nsveth1 <---------- veth pair -----> nsveth - 10.0.0.2/24     |   |
+ |  |  nsveth2 <---- veth pair ----+     |                           |   |
+ |  +-----------------------+      |     +---------------------------+   |
+ |                                 |                                     |
+ |                                 |                                     |
+ |                                 |     namespace - ns2                 |
+ |                                 |     +---------------------------+   |
+ |                                 +------> nsveth - 10.0.0.3/24     |   |
+ |                                       |                           |   |
+ |                                       +---------------------------+   |
+ |                                                                       |
+ +-----------------------------------------------------------------------+
+
+ip netns add ns1
+ip netns exec ns1 ip link set lo up
+ip netns add ns2
+ip netns exec ns2 ip link set lo up
+ip link add name nsveth1 type veth peer name nsveth netns ns1 up
+ip netns exec ns1 ip link set nsveth up
+ip netns exec ns1 ip addr add 10.0.0.2/24 dev nsveth
+ip link add name nsveth2 type veth peer name nsveth netns ns2 up
+ip netns exec ns1 ip link set nsveth up
+ip netns exec ns2 ip addr add 10.0.0.3/24 dev nsveth
+brctl addbr br_ns
+brctl addif br_ns nsveth1
+brctl addif br_ns nsveth2
+ip link set br_ns up
+ip addr add 10.0.0.1/24 dev br_ns
+ping 10.0.0.2
+ping 10.0.0.3
+ip netns exec ns1 ping 10.0.0.1
+ip netns exec ns1 ping 10.0.0.3
+
+# clean
+ip link set br_ns down
+ip link del nsveth1
+ip link del nsveth2
+ip netns del ns1
+ip netns del ns2
+
+
+== scenario: all can go to net ==
+
+ Hosts System
+ +-------------------------------------------------------+
+ |                                                       |
+ |  br_ns                                                |
+ |  +-----------------+                                  |
+ |  |  eth0           |            namespace - ns1       |
+ |  |  br_ns - dhcp   |            +-----------------+   |
+ |  |  nsveth1 <----- veth pair ----> nsveth - dhcp  |   |
+ |  |  nsveth2 <- veth pair -+     |                 |   |
+ |  +-----------------+      |     +-----------------+   |
+ |                           |                           |
+ |                           |                           |
+ |                           |     namespace - ns2       |
+ |                           |     +-----------------+   |
+ |                           +------> nsveth - dhcp  |   |
+ |                                 |                 |   |
+ |                                 +-----------------+   |
+ |                                                       |
+ +-------------------------------------------------------+
+
+# TBD
+
+== scenario: communication between two netns ==
+
+ Hosts System
+ +--------------------------------------------------------------------+
+ | eth0                                                               |
+ |                                                                    |
+ |  namespace - ns1                   namespace - ns2                 |
+ |  +---------------------------+     +---------------------------+   |
+ |  |                           |     |                           |   |
+ |  |  bridge - br0             |     |  bridge - br0             |   |
+ |  |  +---------------------+  |     |  +---------------------+  |   |
+ |  |  |  br0 - 10.0.0.1/24  |  |     |  |  br0 - 10.0.0.2/24  |  |   |
+ |  |  |  nsveth <---------- veth pair ---> nsveth             |  |   |
+ |  |  +---------------------+  |     |  +---------------------+  |   |
+ |  |                           |     |                           |   |
+ |  +---------------------------+     +---------------------------+   |
+ |                                                                    |
+ +--------------------------------------------------------------------+
+
+ip netns add ns1
+ip netns add ns2
+ip link add name nsveth netns ns1 up type veth peer name nsveth netns ns2
+ip netns exec ns1 ip l set nsveth up
+ip netns exec ns2 ip l set nsveth up
+ip netns exec ns1 brctl addbr br0
+ip netns exec ns2 brctl addbr br0
+ip netns exec ns1 ip l set br0 up
+ip netns exec ns2 ip l set br0 up
+ip netns exec ns1 brctl addif br0 nsveth
+ip netns exec ns2 brctl addif br0 nsveth
+ip netns exec ns1 ip addr add 10.0.0.1/24 dev br0
+ip netns exec ns2 ip addr add 10.0.0.2/24 dev br0
+ip netns exec ns1 ping 10.0.0.2
+
+
+# lets clean
+ip netns exec ns1 ip l del nsveth
+ip netns exec ns1 ip l set br0 down
+ip netns exec ns2 ip l set br0 down
+ip netns exec ns1 brctl delbr br0
+ip netns exec ns2 brctl delbr br0
+ip netns del ns1
+ip netns del ns2
+
+== scenario 3: communication between shared namespace distributed to multiple hosts ==
+
+# TBD - next graph is not final
+ Hosts System
+ +-----------------------------------------------------------------------+
+ |                                                                       |
+ |  br_ns                                                                |
+ |  +-----------------------+            namespace - ns1                 |
+ |  |  br_ns - 10.0.0.1/24  |            +---------------------------+   |
+ |  |  nsveth1 <---------- veth pair -----> nsveth - 10.0.0.2/24     |   |
+ |  |  nsveth2 <---- veth pair ----+     |                           |   |
+ |  +-----------------------+      |     +---------------------------+   |
+ |                                 |                                     |
+ |                                 |                                     |
+ |                                 |     namespace - ns2                 |
+ |                                 |     +---------------------------+   |
+ |                                 +------> nsveth - 10.0.0.3/24     |   |
+ |                                       |                           |   |
+ |                                       +---------------------------+   |
+ |                                                                       |
+ +-----------------------------------------------------------------------+
+ +-------------------------------------------------------+
+ |                                                       |
+ |  br_ns                                                |
+ |  +-----------------+                                  |
+ |  |  eth0           |            namespace - ns1       |
+ |  |  br_ns - dhcp   |            +-----------------+   |
+ |  |  nsveth1 <----- veth pair ----> nsveth - dhcp  |   |
+ |  |  nsveth2 <- veth pair -+     |                 |   |
+ |  +-----------------+      |     +-----------------+   |
+ |                           |                           |
+ |                           |                           |
+ |                           |     namespace - ns2       |
+ |                           |     +-----------------+   |
+ |                           +------> nsveth - dhcp  |   |
+ |                                 |                 |   |
+ |                                 +-----------------+   |
+ |                                                       |
+ +-------------------------------------------------------+
+ Hosts System
+ +------------------------------------------------------------------------+
+ |                                        namespace - ns1                 |
+ |                                        +---------------------------+   |
+ |                                        |                           |   |
+ |  br0                                   |  bridge - br0             |   |
+ |  +------------------------+            |  +---------------------+  |   |
+ |  |  vxlan1 - 10.0.0.1/24  |            |  |  br0 - 10.0.0.2/24  |  |   |
+ |  |  ns1 <--------------- veth pair --------> nsveth             |  |   |
+ |  |  nsveth2 <------- veth pair --+     |  +---------------------+  |   |
+ |  +------------------------+      |     |                           |   |
+ |                                  |     +---------------------------+   |
+ |                                  |                                     |
+ |                                  |     namespace - ns2                 |
+ |                                  |     +---------------------------+   |
+ |                                  |     |                           |   |
+ |                                  |     |  bridge - br0             |   |
+ |                                  |     |  +---------------------+  |   |
+ |                                  |     |  |  br0 - 10.0.0.3/24  |  |   |
+ |                                  +---------> nsveth             |  |   |
+ |                                        |  +---------------------+  |   |
+ |                                        |                           |   |
+ |                                        +---------------------------+   |
+ |                                                                        |
+ +------------------------------------------------------------------------+
+
+
