@@ -1,0 +1,33 @@
+#!/bin/bash
+for word in "$@"; do
+    # test if output is terminal, use colors only if its a terminal
+    if test -t 1; then
+        case "$word" in
+            NORMAL|RESET) echo -n -e "\033[0;00m";;
+            BLACK) echo -n -e "\033[22;30m";;
+            RED|--ERROR|--ERR) echo -n -e "\033[22;31m";;
+            GREEN|--INFO) echo -n -e "\033[22;32m";;
+            YELLOW|--WARNING|--WARN) echo -n -e "\033[22;33m";;
+            BLUE) echo -n -e "\033[22;34m";;
+            MAGENTA) echo -n -e "\033[22;35m";;
+            CYAN) echo -n -e "\033[22;36m";;
+            GRAY|WHITE) echo -n -e "\033[22;37m";;
+            LGRAY|DARKGRAY|BRIGHTBLACK|--DEBUG) echo -n -e "\033[01;30m";;
+            LRED|LIGHTRED|BRIGHTRED|--FATAL) echo -n -e "\033[01;31m";;
+            LGREEN|LIGHTGREEN|BRIGHTGREEN) echo -n -e "\033[01;32m";;
+            LYELLOW|LIGHTYELLOW|BRIGHTYELLOW) echo -n -e "\033[01;33m";;
+            LBLUE|LIGHTBLUE|BRIGHTBLUE) echo -n -e "\033[01;34m";;
+            LMAGENTA|LIGHTMAGENTA|BRIGHTMAGENTA) echo -n -e "\033[01;35m";;
+            LCYAN|LIGHTCYAN|BRIGHTCYAN) echo -n -e "\033[01;36m";;
+            LWHITE|LIGHTWHITE|BRIGHTWHITE) echo -n -e "\033[01;37m";;
+            *) echo -n "$word ";;
+        esac
+    else
+        # so output should be a file, dont print any color
+        case "$word" in
+            NORMAL|RESET|BLACK|RED|--ERROR|--ERR|GREEN|--INFO|YELLOW|--WARNIN|--WARN|BLUE|MAGENTA|CYAN|GRAY|WHITE|LGRAY|DARKGRAY|BRIGHTBLACK|--DEBUG|LRED|LIGHTRED|BRIGHTRED|--FATAL|LGREEN|LIGHTGREEN|BRIGHTGREEN|LYELLOW|LIGHTYELLOW|BRIGHTYELLOW|LBLUE|LIGHTBLUE|BRIGHTBLUE|LMAGENTA|LIGHTMAGENTA|BRIGHTMAGENTA|LCYAN|LIGHTCYAN|BRIGHTCYAN|LWHITE|LIGHTWHITE|BRIGHTWHITE): ;;
+            *) echo -n "$word ";;
+        esac
+    fi
+done
+test -t 1 && echo -e "\033[0;00m" || echo
