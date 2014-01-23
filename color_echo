@@ -1,4 +1,11 @@
 #!/bin/bash
+# Some examples:
+#   color_echo RED Error: something bad happened
+#   color_echo --ERROR Error: something bad happened
+#   color_echo RED this is in red CYAN this is in cyan LRED this is the light red RESET rest is normal
+#   color_echo RED this wont print escape characters into files > file
+#   color_echo RED this also wont have colored output | more
+
 for word in "$@"; do
     # test if output is terminal, use colors only if its a terminal
     if test -t 1; then
