@@ -1,15 +1,17 @@
-cp /etc/apt/preferences apt.preferences
-cp /etc/apt/sources.list sources.list
+sudo apt-get install dselect debconf-utils
+mkdir system-selections
+cp -rv /etc/apt/preferences* /etc/apt/sources.list* system-selections/
+update-alternatives --get-selections > system-selections/alternatives-selections
+dpkg --get-selections '*' > system-selections/dpkg-selections
+sudo debconf-get-selections > system-selections/debconf-selections
 
-update-alternatives --get-selections > alternatives.selection
-dpkg --get-selections '*' > dpkg.selection
-sudo debconf-get-selections > debconf.selection
+# scp -r oldsystem:config ~
 
-# copy *.selecttion to new system
-
-dselect update
-sudo debconf-set-selections < debconf.selection
-sudo update-alternatives --set-selections < alternatives.selection
-sudo dpkg --set-selections  < dpkg.selection
-sudo apt-get -u dselect-upgrade    # or dselect install
+sudo apt-get install dselect debconf-utils
+sudo dselect update
+cp -rv system-selections/preferences* system-selections/sources.list* /etc/apt/
+sudo debconf-set-selections < system-selections/debconf-selections
+sudo dpkg --set-selections  < system-selections/dpkg-selections
+sudo apt-get -u dselect-upgrade
+sudo update-alternatives --set-selections < system-selections/alternatives-selections
 
