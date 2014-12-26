@@ -14,4 +14,3 @@ sudo debconf-set-selections < system-selections/debconf-selections
 sudo dpkg --set-selections  < system-selections/dpkg-selections
 sudo apt-get -u dselect-upgrade
 sudo update-alternatives --set-selections < system-selections/alternatives-selections
-
