@@ -24,3 +24,5 @@ xprop | grep CLASS
 xev
 xev | sed -ne '/^KeyPress/,/^$/p'
 
+# Prevent win-p to be used as switch-monitors shortcut whan used with gnome
+dconf write /org/gnome/settings-daemon/plugins/media-keys/active false
