@@ -1,0 +1,90 @@
+https://github.com/pydata
+https://pythondatalab.wordpress.com/
+
+numpy - multidimensional array object=ndarray, read/write array based datasets, random num generator, faurier, algebra operations on arrays
+pandas - rich data structures, primary object is DataFrame, two dimentional array (similar to data.frame from R)
+matplotlib - plots and 2d datavisualisations, well integration with ipython/jupyter notebook
+ - ggplot - a port of R's ggplot2
+ipython/jupyter - from web vrowser, Run, debug and test your code
+scipy - groups of packages for different standard problem domains:
+ - scipy.integrate - integration and differential equations
+ - scipy.linalg - lenear algebra and matrix exted beyond numpy.linalg
+ - scipy.signal
+ - scipy.sparce - sparce matrices and lenear systems
+ - scipy.special - wrapper around Fortrans SPECFUN library
+ - scipy.stats - statistics
+ - scipy.weave - for inline C++
+scikits - short for SciPy Toolkits, are add-on packages for SciPy, http://scikits.appspot.com/scikits
+scikit-learn - Machine Learning, Built on NumPy, SciPy, and matplotlib
+ - Classification
+ - Regression
+ - Clustering
+ - Dimensionality reduction
+ - Model selection
+ - Preprocessing 
+
+
+
+
+# Data visulatisation
+https://pythondatalab.wordpress.com/
+from ggplot import *
+p = ggplot(aes(x='date', y='beef'), data=meat)
+p
+p + geom_point()
+p + geom_point() + geom_line()
++stat_smooth(color='blue')
+
+
+# Deep learning
+https://github.com/rouseguy/intro2deeplearning
+https://speakerdeck.com/bargava/introduction-to-deep-learning
+# for anaconda users
+pip install keras
+
+perceptron - 0 or 1
+sigmoid/logistic unit - 0 or 1
+sorfmax - multi class classification
+rectified linear units - only increase
+max-out - generalization of rectified linear
+* stochastic gradient descent
+* mini-batches
+* online learning
+http://localhost:8889/notebooks/notebooks/1.%20Introduction%20to%20Artificial%20Neural%20Networks.ipynb
+keras -- neural network implementasyonu
+
+
+SciPy
+machinelearning cheatsheet - https://dl.dropboxusercontent.com/u/6044937/PyData/02-SKLtopics-NOTES.pdf
+
+from sklearn.metrics import confusion_matrix
+--> iki kumede tutmayan elemanlari veruiyor
+
+from sklearn.metrics import accuracy_score
+accuracy_score(y_Pred, y[:200])
+
+
+
+from sklearn.datasets import make_classification
+X, y = make_classification(n_samples=1000, n_features=4)
+from sklearn.linear_model import LogisticRegression
+lr = LogisticRegression()
+lr.fit(X[:-200], y[:-200])
+y_Pred = lr.predict(X[:200])
+# https://github.com/DragonflyStats/IntroSKLWorkshop/blob/master/MMLSKL3-PerformanceMetrcis.pdf
+from sklearn.metrics import confusion_matrix
+confusion_matrix(y[:200], y_Pred)
+from sklearn.metrics import accuracy_score
+accuracy_score(y_Pred, y[:200])
+# 0.83999999999999997
+from sklearn import cross_validation
+cross_validation.cross_val_score(lr, X[:200], y[:200])
+# array([ 0.82352941,  0.83333333,  0.87878788])
+
+
+aic --> bir cok degisken veriyorsun ve scor veriyor (ne kadar dusuk olursa o kadar iyi)
+hangi degiskeni cikarirsan aic'nin ne olacagini soyluyor
+100 tane degisken var, 4.sunu cikarirsan 70'den 65 e dusecek fdiyor
+oteleyerek devam ediyorsun
+sonunda cok ise yaramayan degiskenlerden kurtuluyorsun ve boyut sayini azaltiyorsun
+
