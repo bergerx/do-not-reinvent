@@ -1,0 +1,10 @@
+#!/bin/bash
+# http://www.tautvidas.com/blog/2012/01/free-airport-wifi/
+sudo ifconfig wlan0 down
+/usr/bin/nmcli nm wifi off
+sudo macchanger -r wlan0
+/usr/bin/nmcli nm wifi on
+while ! nmcli nm | grep ' connected'; do sleep 1; done
+#/home/local/ANT/bekir/bin/Firefox/firefox -P default --private-window hede.com
+chromium-browser --incognito hodo.com
+
