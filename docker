@@ -1,6 +1,5 @@
 # delete orphaned docker volumes
-# https://github.com/chadoe/docker-cleanup-volumes/blob/master/README.md
-docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes --dry-run
+docker run -v $(which docker):/bin/docker -v /var/run/docker.sock:/var/run/docker.sock -v $(readlink -f /var/lib/docker):/var/lib/docker --rm martin/docker-cleanup-volumes --dry-run
 
 docker run --rm -e DRY_RUN=1 -v /var/run/docker.sock:/var/run/docker.sock -v /etc:/etc spotify/docker-gc
 
