@@ -1,3 +1,7 @@
 # delete orphaned docker volumes
 # https://github.com/chadoe/docker-cleanup-volumes/blob/master/README.md
 docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker:/var/lib/docker --rm martin/docker-cleanup-volumes --dry-run
+
+
+http https://registry.bdgn.net/v2/_catalog
+http https://registry.bdgn.net/v2/<image_name>/tags/list
